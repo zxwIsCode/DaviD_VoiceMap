@@ -9,7 +9,7 @@
 
 /*************Test测试HTTP**************/
 
-NSString *const kTestQQGetNickNameURL = @"/GetQqNikeName";
-NSString *const kTestDonationGetListURL = @"/GetDonationList";
-NSString *const kTestDonationGetPersonURL = @"/DonationPerson";
+NSString *const kReUploadVoiceAndLocation = @"/admin.php/Publish/put_data";
+NSString *const kMainGetVoiceList = @"/index.php/Index/ajax_getData/msg/2";
+
 

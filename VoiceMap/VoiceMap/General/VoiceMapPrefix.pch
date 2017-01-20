@@ -33,12 +33,12 @@
 //#import "UILabel+Font.h"
 //#import "UITextField+Font.h"
 #import "CMCustomViewFactory.h"
-//#import "CMHTTPSessionManager.h"
-//#import "CMHttpRequestModel.h"
-//#import "CMHttpResponseModel.h"
+#import "CMHTTPSessionManager.h"
+#import "CMHttpRequestModel.h"
+#import "CMHttpResponseModel.h"
 //
-//#import "DisplayHelper.h"
-//#import "CMHttpStateTools.h"
+#import "DisplayHelper.h"
+#import "CMHttpStateTools.h"
 //#import "CMUserDefaults.h"
 
 // 科大语音头文件

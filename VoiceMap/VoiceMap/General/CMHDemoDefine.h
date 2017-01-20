@@ -9,11 +9,11 @@
 
 /*************Test测试HTTP**************/
 
-#define kTestHttpHost @"http://192.168.1.186/DoorWay/Home/DoorWay"
+#define kTestHttpHost @"http://guangbo.langhu.net"
 
-UIKIT_EXTERN NSString *const kTestQQGetNickNameURL;  //根据QQ号查询昵称
-UIKIT_EXTERN NSString *const kTestDonationGetListURL;  //查询爱心捐款列表
-UIKIT_EXTERN NSString *const kTestDonationGetPersonURL;  //查询爱心捐款人的列表
+UIKIT_EXTERN NSString *const kReUploadVoiceAndLocation;  //上传我当前说的话和位置
+UIKIT_EXTERN NSString *const kMainGetVoiceList; // 获得所有的会话列表
+
 
 
 #define kTabBarButtonBaseTag 100

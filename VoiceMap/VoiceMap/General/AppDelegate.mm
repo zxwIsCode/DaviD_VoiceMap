@@ -38,12 +38,24 @@
 
     return YES;
 }
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+    NSLog(@"deviceToken=====%@",deviceToken);
+    
+
+}
+
+
 -(void)initKeDaVoice {
     //设置sdk的log等级，log保存在下面设置的工作路径中
-    [IFlySetting setLogFile:LVL_ALL];
+    [IFlySetting setLogFile:LVL_NONE];
     
     //打开输出在console的log开关
     [IFlySetting showLogcat:YES];
+#warning 上线就把log开关关了
+//    [IFlySetting showLogcat:NO];
+
     
     //设置sdk的工作路径
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
