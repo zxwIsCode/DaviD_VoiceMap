@@ -80,6 +80,10 @@
 		0542F4F71E30986100580B18 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0542F4F41E30986100580B18 /* MBProgressHUD.m */; };
 		0542F4F81E30986100580B18 /* README.mdown in Sources */ = {isa = PBXBuildFile; fileRef = 0542F4F51E30986100580B18 /* README.mdown */; };
 		0542F4FB1E309DD500580B18 /* VMUploadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0542F4FA1E309DD500580B18 /* VMUploadModel.m */; };
+		055799DC1E32FDDD001DD4BB /* LGAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 055799DB1E32FDDD001DD4BB /* LGAudioPlayer.m */; };
+		055799EA1E32FF22001DD4BB /* amrFileCodec.m in Sources */ = {isa = PBXBuildFile; fileRef = 055799DF1E32FF22001DD4BB /* amrFileCodec.m */; };
+		055799EB1E32FF22001DD4BB /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 055799E81E32FF22001DD4BB /* libopencore-amrnb.a */; };
+		055799EC1E32FF22001DD4BB /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 055799E91E32FF22001DD4BB /* libopencore-amrwb.a */; };
 		05C22C831E319A2D005D6970 /* VMVoiceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C22C821E319A2D005D6970 /* VMVoiceItem.m */; };
 		05C22CB11E319ED6005D6970 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C22C871E319ED6005D6970 /* MJRefreshAutoFooter.m */; };
 		05C22CB21E319ED6005D6970 /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C22C891E319ED6005D6970 /* MJRefreshBackFooter.m */; };
@@ -251,6 +255,16 @@
 		0542F4F51E30986100580B18 /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.mdown; sourceTree = "<group>"; };
 		0542F4F91E309DD500580B18 /* VMUploadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMUploadModel.h; sourceTree = "<group>"; };
 		0542F4FA1E309DD500580B18 /* VMUploadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMUploadModel.m; sourceTree = "<group>"; };
+		055799DA1E32FDDD001DD4BB /* LGAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGAudioPlayer.h; sourceTree = "<group>"; };
+		055799DB1E32FDDD001DD4BB /* LGAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGAudioPlayer.m; sourceTree = "<group>"; };
+		055799DE1E32FF22001DD4BB /* amrFileCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
+		055799DF1E32FF22001DD4BB /* amrFileCodec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = amrFileCodec.m; sourceTree = "<group>"; };
+		055799E21E32FF22001DD4BB /* interf_dec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_dec.h; sourceTree = "<group>"; };
+		055799E31E32FF22001DD4BB /* interf_enc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_enc.h; sourceTree = "<group>"; };
+		055799E51E32FF22001DD4BB /* dec_if.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
+		055799E61E32FF22001DD4BB /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
+		055799E81E32FF22001DD4BB /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
+		055799E91E32FF22001DD4BB /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
 		05C22C811E319A2D005D6970 /* VMVoiceItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMVoiceItem.h; sourceTree = "<group>"; };
 		05C22C821E319A2D005D6970 /* VMVoiceItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMVoiceItem.m; sourceTree = "<group>"; };
 		05C22C861E319ED6005D6970 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
@@ -299,6 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				052180931E2CB4830072DE2F /* CoreTelephony.framework in Frameworks */,
+				055799EC1E32FF22001DD4BB /* libopencore-amrwb.a in Frameworks */,
 				052180911E2CB4670072DE2F /* Contacts.framework in Frameworks */,
 				05217FEF1E2C9FC70072DE2F /* CoreGraphics.framework in Frameworks */,
 				05217FED1E2C9FBD0072DE2F /* Foundation.framework in Frameworks */,
@@ -309,6 +324,7 @@
 				05217FE31E2C9F930072DE2F /* AddressBook.framework in Frameworks */,
 				05217FE11E2C9F840072DE2F /* AVFoundation.framework in Frameworks */,
 				05217FDF1E2C9F7D0072DE2F /* CoreLocation.framework in Frameworks */,
+				055799EB1E32FF22001DD4BB /* libopencore-amrnb.a in Frameworks */,
 				05217FDD1E2C9F740072DE2F /* libz.tbd in Frameworks */,
 				05217FDA1E2C9F040072DE2F /* iflyMSC.framework in Frameworks */,
 			);
@@ -401,6 +417,7 @@
 		05217FD81E2C9E840072DE2F /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				055799DD1E32FF22001DD4BB /* AMR */,
 				05C22C841E319ED6005D6970 /* MJRefresh */,
 				0542F4F11E30986100580B18 /* MBProgressHUD */,
 				0542F4AB1E30980000580B18 /* AFNetworking */,
@@ -569,6 +586,7 @@
 		052180641E2CA5A80072DE2F /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				055799D91E32FDDD001DD4BB /* LGSoundPlayer */,
 				0542F4781E30543B00580B18 /* pcmPlayerCode */,
 				052180941E2CB9240072DE2F /* ISRDataHelper.h */,
 				052180951E2CB9240072DE2F /* ISRDataHelper.m */,
@@ -741,6 +759,62 @@
 				0542F4F51E30986100580B18 /* README.mdown */,
 			);
 			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		055799D91E32FDDD001DD4BB /* LGSoundPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				055799DA1E32FDDD001DD4BB /* LGAudioPlayer.h */,
+				055799DB1E32FDDD001DD4BB /* LGAudioPlayer.m */,
+			);
+			path = LGSoundPlayer;
+			sourceTree = "<group>";
+		};
+		055799DD1E32FF22001DD4BB /* AMR */ = {
+			isa = PBXGroup;
+			children = (
+				055799DE1E32FF22001DD4BB /* amrFileCodec.h */,
+				055799DF1E32FF22001DD4BB /* amrFileCodec.m */,
+				055799E01E32FF22001DD4BB /* include */,
+				055799E71E32FF22001DD4BB /* lib */,
+			);
+			path = AMR;
+			sourceTree = "<group>";
+		};
+		055799E01E32FF22001DD4BB /* include */ = {
+			isa = PBXGroup;
+			children = (
+				055799E11E32FF22001DD4BB /* opencore-amrnb */,
+				055799E41E32FF22001DD4BB /* opencore-amrwb */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		055799E11E32FF22001DD4BB /* opencore-amrnb */ = {
+			isa = PBXGroup;
+			children = (
+				055799E21E32FF22001DD4BB /* interf_dec.h */,
+				055799E31E32FF22001DD4BB /* interf_enc.h */,
+			);
+			path = "opencore-amrnb";
+			sourceTree = "<group>";
+		};
+		055799E41E32FF22001DD4BB /* opencore-amrwb */ = {
+			isa = PBXGroup;
+			children = (
+				055799E51E32FF22001DD4BB /* dec_if.h */,
+				055799E61E32FF22001DD4BB /* if_rom.h */,
+			);
+			path = "opencore-amrwb";
+			sourceTree = "<group>";
+		};
+		055799E71E32FF22001DD4BB /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				055799E81E32FF22001DD4BB /* libopencore-amrnb.a */,
+				055799E91E32FF22001DD4BB /* libopencore-amrwb.a */,
+			);
+			path = lib;
 			sourceTree = "<group>";
 		};
 		05C22C841E319ED6005D6970 /* MJRefresh */ = {
@@ -993,11 +1067,13 @@
 				0542F4D91E30980100580B18 /* AFHTTPRequestOperation.m in Sources */,
 				05C22CBE1E319ED6005D6970 /* MJRefreshStateHeader.m in Sources */,
 				05C22CC11E319ED6005D6970 /* UIScrollView+MJExtension.m in Sources */,
+				055799DC1E32FDDD001DD4BB /* LGAudioPlayer.m in Sources */,
 				0542F4E01E30980100580B18 /* AFURLResponseSerialization.m in Sources */,
 				05C22CB91E319ED6005D6970 /* MJRefreshBackGifFooter.m in Sources */,
 				05C22CB81E319ED6005D6970 /* MJRefreshAutoStateFooter.m in Sources */,
 				0542F4E71E30980100580B18 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				052180581E2CA3D50072DE2F /* AppDelegate.mm in Sources */,
+				055799EA1E32FF22001DD4BB /* amrFileCodec.m in Sources */,
 				0542F4F81E30986100580B18 /* README.mdown in Sources */,
 				0542F47C1E30543B00580B18 /* PcmPlayer.m in Sources */,
 				052180961E2CB9240072DE2F /* ISRDataHelper.m in Sources */,
@@ -1212,6 +1288,10 @@
 				INFOPLIST_FILE = VoiceMap/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/VoiceMap/Vender/AMR/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.iflytek.MSCDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1234,6 +1314,10 @@
 				INFOPLIST_FILE = VoiceMap/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/VoiceMap/Vender/AMR/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.iflytek.MSCDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

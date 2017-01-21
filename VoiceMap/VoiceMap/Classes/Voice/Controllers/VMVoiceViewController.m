@@ -14,11 +14,18 @@
 #import "VMVoiceItem.h"
 #import "MJRefresh.h"
 
+#import "LGAudioPlayer.h"
+
 #import <CoreLocation/CoreLocation.h>
 
 #define kVMVoiceVCCellId @"kVMVoiceVCCellId"
 
-#define kTableViewHeight 360 *kAppScale
+
+
+#define kTableViewHeight 44 *kAppScale
+
+//#define kTableViewHeight 360 *kAppScale
+
 
 
 typedef NS_OPTIONS(NSInteger, Status) {
@@ -26,7 +33,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
     Playing             = 2, //高异常分析需要的级别
     Paused              = 4,
 };
-@interface VMVoiceViewController ()<IFlyRecognizerViewDelegate,IFlySpeechRecognizerDelegate,IFlySpeechSynthesizerDelegate,CLLocationManagerDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface VMVoiceViewController ()<IFlyRecognizerViewDelegate,IFlySpeechRecognizerDelegate,IFlySpeechSynthesizerDelegate,CLLocationManagerDelegate,UITableViewDelegate,UITableViewDataSource,LGAudioPlayerDelegate>
 
 @property(nonatomic,strong)UIImageView *backgroundView;
 
@@ -78,8 +85,6 @@ typedef NS_OPTIONS(NSInteger, Status) {
 @property (nonatomic,strong) CLLocationManager *manager;
 
 
-
-
 @end
 
 @implementation VMVoiceViewController
@@ -94,6 +99,8 @@ typedef NS_OPTIONS(NSInteger, Status) {
     self.requestTotolCount =0;
     self.nextCount =0;
     
+    [LGAudioPlayer sharePlayer].delegate = self;
+    
 //    self.allDataSource =[@[@"测试1你见过我么",@"测试2你吃的是什么",@"测试3我现在在北京",@"测试4你去过哪里",@"测试5你就是个二货"] mutableCopy];
     
     [self initAllDataSource];
@@ -107,7 +114,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
     [self.backgroundView addSubview:self.voiceBtn];
     
 //    [self.backgroundView addSubview:self.textFeild];
-    [self.backgroundView addSubview:self.textLable];
+//    [self.backgroundView addSubview:self.textLable];
     
 //    [self.backgroundView addSubview:self.placeLable];
     
@@ -201,7 +208,12 @@ typedef NS_OPTIONS(NSInteger, Status) {
     if (self.nowIndex +1 <self.allDataSource.count) {
         NSIndexPath *indexPath =[NSIndexPath indexPathForRow:self.nowIndex +1 inSection:0];
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
-        [self startPlayingText:self.allDataSource[self.nowIndex +1] and:self.nowIndex +2];
+        VMVoiceItem *voiceItem =self.allDataSource[self.nowIndex +1];
+        // index传的是下标
+//        [[DisplayHelper shareDisplayHelper]showLoading:self.view noteText:@"准备播放..."];
+        [[LGAudioPlayer sharePlayer] playAudioWithURLString:voiceItem.audio atIndex:self.nowIndex +1];
+
+//                [self startPlayingText:self.allDataSource[self.nowIndex +1] and:self.nowIndex +2];
     }
     
 }
@@ -232,6 +244,8 @@ typedef NS_OPTIONS(NSInteger, Status) {
     
     // 包装参数设置
     WS(ws);
+    [[DisplayHelper shareDisplayHelper]showLoading:self.view noteText:@"数据再次加载中..."];
+
     paramsModel.callback =^(CMHttpResponseModel *result, NSError *error) {
         
         if (result) {
@@ -247,7 +261,15 @@ typedef NS_OPTIONS(NSInteger, Status) {
                     ws.requestTotolCount = tempArr.count;
                     ws.nextCount =0;
                     ws.nowIndex =ws.allDataSource.count -1;
+//                    if (ws.allDataSource.count ==0) { // 第一次播放的话，就从0开始
+//                        ws.nowIndex =0;
+//                    }else {
+//                    // 重置最后一次播放的数组的下标为上一次最后一个元素
+//                    ws.nowIndex =ws.allDataSource.count -1;
+//                    }
+                    // 添加为新数组
                     [ws.allDataSource addObjectsFromArray:tempArr];
+
                     [ws.tableView reloadData];
                     // 播放对应的数据
                     [ws playNextDatas];
@@ -269,6 +291,8 @@ typedef NS_OPTIONS(NSInteger, Status) {
         }
         // 停止刷新
         [ws.tableView.mj_footer endRefreshing];
+        
+        [[DisplayHelper shareDisplayHelper]hideLoading:ws.view];
 
         
     };
@@ -343,9 +367,11 @@ typedef NS_OPTIONS(NSInteger, Status) {
 
     }
 }
-// 开始播放对应的文字信息
+// 开始播放对应的文字信息 ,暂时无用了
+
+// voiceItem的数据源
+// index 播放的第几个，即下标加1
 -(void)startPlayingText:(VMVoiceItem *)voiceItem and:(NSInteger )index {
-    
     
     if ([voiceItem.text isKindOfClass:[NSNull class]]) { // 请求第四条数据为空的情况测试
 #warning 请求第四条数据为空的情况测试
@@ -629,6 +655,32 @@ typedef NS_OPTIONS(NSInteger, Status) {
     
 }
 
+#pragma mark - LGAudioPlayerDelegate
+//LGAudioPlayerStateNormal = 0,/**< 未播放状态 */
+//LGAudioPlayerStatePlaying = 2,/**< 正在播放 */
+//LGAudioPlayerStateCancel = 3,/**< 播放被取消 */
+- (void)audioPlayerStateDidChanged:(LGAudioPlayerState)audioPlayerState forIndex:(NSUInteger)index {
+    
+    DDLog(@"audioPlayerState = %ld index =%lu",audioPlayerState,index);
+
+    if (audioPlayerState == LGAudioPlayerStateCancel) {
+        //        text = @"合成结束";
+        self.nowIndex ++;
+        self.nextCount ++;
+        if (self.nextCount ==self.requestTotolCount && self.requestTotolCount !=0) { // 本次请求的列表播放完毕
+            
+            //            self.nextCount =1;
+            // 执行下次请求
+            [self initAllDataSource];
+            return ;
+        }
+        
+        [self playNextDatas];
+        
+    }
+    
+}
+
 #pragma mark - 合成回调 IFlySpeechSynthesizerDelegate
 
 /**
@@ -775,13 +827,13 @@ typedef NS_OPTIONS(NSInteger, Status) {
         DDLog(@"textFeild = %@",self.textFeild.text);
         
         
-        // 包装成Model
-        VMVoiceItem *voiceItem = [[VMVoiceItem alloc]init];
-        voiceItem.audio =@"dfdsflk";
-        voiceItem.text =self.voiceModel.text;
-        // 添加到数据源，刷新表格
-        [self.allDataSource addObject:voiceItem];
-        [self.tableView reloadData];
+//        // 包装成Model
+//        VMVoiceItem *voiceItem = [[VMVoiceItem alloc]init];
+//        voiceItem.audio =@"dfdsflk";
+//        voiceItem.text =self.voiceModel.text;
+//        // 添加到数据源，刷新表格
+//        [self.allDataSource addObject:voiceItem];
+//        [self.tableView reloadData];
         
         //开始自己的业务：
         
@@ -844,8 +896,11 @@ typedef NS_OPTIONS(NSInteger, Status) {
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     
 //    if (indexPath.row <self.allDataSource.count) {
-// 
-//        [self startPlayingText:self.allDataSource[indexPath.row] and:self.allDataSource.count];
+//        VMVoiceItem *voiceItem =self.allDataSource[indexPath.row];
+//
+//        [[LGAudioPlayer sharePlayer] playAudioWithURLString:voiceItem.audio atIndex:self.nowIndex +1];
+//
+////        [self startPlayingText:self.allDataSource[indexPath.row] and:self.allDataSource.count];
 //    }
     
 }
@@ -909,7 +964,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
 {
     if (!_tableView)
     {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, kTableViewHeight)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, kTableViewHeight)];
         _tableView.backgroundColor =[UIColor clearColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
