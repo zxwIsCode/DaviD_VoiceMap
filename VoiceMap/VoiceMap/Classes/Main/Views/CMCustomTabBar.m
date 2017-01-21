@@ -40,9 +40,9 @@
     button.imagRatio =0.6;
     button.frame =CGRectMake(buttonX, buttonY, buttonW, buttonH);
     
-    button.backgroundColor =[UIColor redColor];
-    button.titleLabel.backgroundColor =[UIColor purpleColor];
-    button.imageView.backgroundColor =[UIColor brownColor];
+//    button.backgroundColor =[UIColor redColor];
+//    button.titleLabel.backgroundColor =[UIColor purpleColor];
+//    button.imageView.backgroundColor =[UIColor brownColor];
     button.tag = kTabBarButtonBaseTag +index;
     button.item = item;
     

@@ -10,4 +10,6 @@
 
 @interface VMVoiceViewController : CMBaseViewController
 
+@property (nonatomic,weak) UINavigationController *nav;
+
 @end

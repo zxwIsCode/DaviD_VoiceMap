@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "CMMainTabBarViewController.h"
 #import "CMNewFetureViewController.h"
+#import "VMContactViewController.h"
 
 
 #define IsFirstLaunch @"CFBundleVersion"
@@ -71,7 +72,12 @@
 #pragma mark - Private Methods
 - (void)initRootViewController
 {
+#warning 更改rootVC
     self.window.rootViewController =[[CMMainTabBarViewController alloc]init];
+    
+//        self.window.rootViewController =[[VMContactViewController alloc]init];
+
+    
 
 }
 

@@ -84,6 +84,9 @@
 		055799EA1E32FF22001DD4BB /* amrFileCodec.m in Sources */ = {isa = PBXBuildFile; fileRef = 055799DF1E32FF22001DD4BB /* amrFileCodec.m */; };
 		055799EB1E32FF22001DD4BB /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 055799E81E32FF22001DD4BB /* libopencore-amrnb.a */; };
 		055799EC1E32FF22001DD4BB /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 055799E91E32FF22001DD4BB /* libopencore-amrwb.a */; };
+		055799F01E331086001DD4BB /* NHPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055799EF1E331086001DD4BB /* NHPageViewController.m */; };
+		055799F31E3310C6001DD4BB /* VMContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055799F21E3310C6001DD4BB /* VMContactViewController.m */; };
+		055799F61E33111A001DD4BB /* NHSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 055799F51E33111A001DD4BB /* NHSegmentView.m */; };
 		05C22C831E319A2D005D6970 /* VMVoiceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C22C821E319A2D005D6970 /* VMVoiceItem.m */; };
 		05C22CB11E319ED6005D6970 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C22C871E319ED6005D6970 /* MJRefreshAutoFooter.m */; };
 		05C22CB21E319ED6005D6970 /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C22C891E319ED6005D6970 /* MJRefreshBackFooter.m */; };
@@ -265,6 +268,13 @@
 		055799E61E32FF22001DD4BB /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
 		055799E81E32FF22001DD4BB /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
 		055799E91E32FF22001DD4BB /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
+		055799ED1E331086001DD4BB /* NHPageContentViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHPageContentViewControllerDelegate.h; sourceTree = "<group>"; };
+		055799EE1E331086001DD4BB /* NHPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHPageViewController.h; sourceTree = "<group>"; };
+		055799EF1E331086001DD4BB /* NHPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHPageViewController.m; sourceTree = "<group>"; };
+		055799F11E3310C6001DD4BB /* VMContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMContactViewController.h; sourceTree = "<group>"; };
+		055799F21E3310C6001DD4BB /* VMContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMContactViewController.m; sourceTree = "<group>"; };
+		055799F41E33111A001DD4BB /* NHSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHSegmentView.h; sourceTree = "<group>"; };
+		055799F51E33111A001DD4BB /* NHSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHSegmentView.m; sourceTree = "<group>"; };
 		05C22C811E319A2D005D6970 /* VMVoiceItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMVoiceItem.h; sourceTree = "<group>"; };
 		05C22C821E319A2D005D6970 /* VMVoiceItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMVoiceItem.m; sourceTree = "<group>"; };
 		05C22C861E319ED6005D6970 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
@@ -477,6 +487,8 @@
 				052180241E2CA3D50072DE2F /* CMNavViewController.m */,
 				052180251E2CA3D50072DE2F /* CMNewFetureViewController.h */,
 				052180261E2CA3D50072DE2F /* CMNewFetureViewController.m */,
+				055799F11E3310C6001DD4BB /* VMContactViewController.h */,
+				055799F21E3310C6001DD4BB /* VMContactViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -484,6 +496,9 @@
 		052180271E2CA3D50072DE2F /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				055799ED1E331086001DD4BB /* NHPageContentViewControllerDelegate.h */,
+				055799EE1E331086001DD4BB /* NHPageViewController.h */,
+				055799EF1E331086001DD4BB /* NHPageViewController.m */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -617,6 +632,8 @@
 		0521806D1E2CA6CD0072DE2F /* Factory */ = {
 			isa = PBXGroup;
 			children = (
+				055799F41E33111A001DD4BB /* NHSegmentView.h */,
+				055799F51E33111A001DD4BB /* NHSegmentView.m */,
 				0521806E1E2CA6CD0072DE2F /* CMCustomViewFactory.h */,
 				0521806F1E2CA6CD0072DE2F /* CMCustomViewFactory.m */,
 			);
@@ -1079,6 +1096,7 @@
 				052180961E2CB9240072DE2F /* ISRDataHelper.m in Sources */,
 				05C22CB31E319ED6005D6970 /* MJRefreshComponent.m in Sources */,
 				0542F4E91E30980100580B18 /* UIButton+AFNetworking.m in Sources */,
+				055799F61E33111A001DD4BB /* NHSegmentView.m in Sources */,
 				0521805C1E2CA4E50072DE2F /* CMUDButton.m in Sources */,
 				0542F4A81E3097DE00580B18 /* CMHTTPSessionManager.m in Sources */,
 				052180691E2CA5D60072DE2F /* VMRedPacketsViewController.m in Sources */,
@@ -1108,6 +1126,7 @@
 				0542F4E81E30980100580B18 /* UIAlertView+AFNetworking.m in Sources */,
 				0542F4A71E3097DE00580B18 /* CMHttpResponseModel.m in Sources */,
 				052180501E2CA3D50072DE2F /* CMMainTabBarViewController.m in Sources */,
+				055799F01E331086001DD4BB /* NHPageViewController.m in Sources */,
 				05C22CB71E319ED6005D6970 /* MJRefreshAutoNormalFooter.m in Sources */,
 				05C22CB41E319ED6005D6970 /* MJRefreshFooter.m in Sources */,
 				0542F4A51E3097DE00580B18 /* CMUserDefaults.m in Sources */,
@@ -1124,6 +1143,7 @@
 				0521804F1E2CA3D50072DE2F /* CMBaseViewController.m in Sources */,
 				05C22CB11E319ED6005D6970 /* MJRefreshAutoFooter.m in Sources */,
 				0542F4EC1E30980100580B18 /* UIRefreshControl+AFNetworking.m in Sources */,
+				055799F31E3310C6001DD4BB /* VMContactViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

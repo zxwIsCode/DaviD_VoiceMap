@@ -10,6 +10,8 @@
 
 @interface VMRedPacketsViewController ()
 
+
+
 @end
 
 @implementation VMRedPacketsViewController
@@ -18,6 +20,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+//-(CMNavType)getNavType {
+//    return CMNavTypeAll;
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

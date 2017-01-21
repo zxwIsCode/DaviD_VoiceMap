@@ -210,7 +210,6 @@ typedef NS_OPTIONS(NSInteger, Status) {
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
         VMVoiceItem *voiceItem =self.allDataSource[self.nowIndex +1];
         // index传的是下标
-//        [[DisplayHelper shareDisplayHelper]showLoading:self.view noteText:@"准备播放..."];
         [[LGAudioPlayer sharePlayer] playAudioWithURLString:voiceItem.audio atIndex:self.nowIndex +1];
 
 //                [self startPlayingText:self.allDataSource[self.nowIndex +1] and:self.nowIndex +2];
