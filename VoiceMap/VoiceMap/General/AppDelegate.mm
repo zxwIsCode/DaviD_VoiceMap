@@ -10,6 +10,7 @@
 #import "CMMainTabBarViewController.h"
 #import "CMNewFetureViewController.h"
 #import "VMContactViewController.h"
+#import "CMNavViewController.h"
 
 
 #define IsFirstLaunch @"CFBundleVersion"
@@ -73,11 +74,11 @@
 - (void)initRootViewController
 {
 #warning 更改rootVC
-    self.window.rootViewController =[[CMMainTabBarViewController alloc]init];
+//    self.window.rootViewController =[[CMMainTabBarViewController alloc]init];
     
-//        self.window.rootViewController =[[VMContactViewController alloc]init];
-
-    
+    VMContactViewController *rootVC =[[VMContactViewController alloc]init];
+    CMNavViewController *nav =[[CMNavViewController alloc]initWithRootViewController:rootVC];
+    self.window.rootViewController =nav;
 
 }
 

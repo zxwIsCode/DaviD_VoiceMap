@@ -142,6 +142,9 @@ typedef NS_OPTIONS(NSInteger, Status) {
 
 }
 -(void)viewWillAppear:(BOOL)animated {
+    
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+
     [super viewWillAppear:animated];
     
     self.backgroundView.frame =self.view.bounds;
@@ -174,6 +177,9 @@ typedef NS_OPTIONS(NSInteger, Status) {
 
 }
 -(void)viewWillDisappear:(BOOL)animated {
+    
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+
     [super viewWillDisappear:animated];
     
     [_iflyRecognizerView cancel]; //取消识别
@@ -210,7 +216,8 @@ typedef NS_OPTIONS(NSInteger, Status) {
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
         VMVoiceItem *voiceItem =self.allDataSource[self.nowIndex +1];
         // index传的是下标
-        [[LGAudioPlayer sharePlayer] playAudioWithURLString:voiceItem.audio atIndex:self.nowIndex +1];
+#warning 播放下一条数据暂时屏蔽了
+//        [[LGAudioPlayer sharePlayer] playAudioWithURLString:voiceItem.audio atIndex:self.nowIndex +1];
 
 //                [self startPlayingText:self.allDataSource[self.nowIndex +1] and:self.nowIndex +2];
     }
@@ -320,7 +327,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
     _iFlySpeechSynthesizer.delegate = self;
     
     //设置语速1-100
-#warning 语速给设置正常化
+//#warning 语速给设置正常化
     [_iFlySpeechSynthesizer setParameter:instance.speed forKey:[IFlySpeechConstant SPEED]];
 //    [_iFlySpeechSynthesizer setParameter:@"100" forKey:[IFlySpeechConstant SPEED]];
 
@@ -373,7 +380,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
 -(void)startPlayingText:(VMVoiceItem *)voiceItem and:(NSInteger )index {
     
     if ([voiceItem.text isKindOfClass:[NSNull class]]) { // 请求第四条数据为空的情况测试
-#warning 请求第四条数据为空的情况测试
+//#warning 请求第四条数据为空的情况测试
         _iFlySpeechSynthesizer.delegate = self;
 //        NSString *speakStr =[NSString stringWithFormat:@"播放第%ld条数据为:无效的文本信息",index];
         [_iFlySpeechSynthesizer startSpeaking:@"播放数据为:无效的文本信息"];

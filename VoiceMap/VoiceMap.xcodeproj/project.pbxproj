@@ -34,7 +34,7 @@
 		052180581E2CA3D50072DE2F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 052180451E2CA3D50072DE2F /* AppDelegate.mm */; };
 		052180591E2CA3D50072DE2F /* CMHDemoDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 052180471E2CA3D50072DE2F /* CMHDemoDefine.m */; };
 		0521805C1E2CA4E50072DE2F /* CMUDButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0521805B1E2CA4E50072DE2F /* CMUDButton.m */; };
-		052180691E2CA5D60072DE2F /* VMRedPacketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 052180681E2CA5D60072DE2F /* VMRedPacketsViewController.m */; };
+		052180691E2CA5D60072DE2F /* VMRedPacketsMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 052180681E2CA5D60072DE2F /* VMRedPacketsMainViewController.m */; };
 		0521806C1E2CA5E40072DE2F /* VMVoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0521806B1E2CA5E40072DE2F /* VMVoiceViewController.m */; };
 		052180701E2CA6CD0072DE2F /* CMCustomViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0521806F1E2CA6CD0072DE2F /* CMCustomViewFactory.m */; };
 		052180891E2CAECE0072DE2F /* icon_beijing.png in Resources */ = {isa = PBXBuildFile; fileRef = 052180821E2CAECE0072DE2F /* icon_beijing.png */; };
@@ -173,8 +173,8 @@
 		052180491E2CA3D50072DE2F /* VoiceMapPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceMapPrefix.pch; sourceTree = "<group>"; };
 		0521805A1E2CA4E50072DE2F /* CMUDButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUDButton.h; sourceTree = "<group>"; };
 		0521805B1E2CA4E50072DE2F /* CMUDButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUDButton.m; sourceTree = "<group>"; };
-		052180671E2CA5D60072DE2F /* VMRedPacketsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMRedPacketsViewController.h; sourceTree = "<group>"; };
-		052180681E2CA5D60072DE2F /* VMRedPacketsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMRedPacketsViewController.m; sourceTree = "<group>"; };
+		052180671E2CA5D60072DE2F /* VMRedPacketsMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMRedPacketsMainViewController.h; sourceTree = "<group>"; };
+		052180681E2CA5D60072DE2F /* VMRedPacketsMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMRedPacketsMainViewController.m; sourceTree = "<group>"; };
 		0521806A1E2CA5E40072DE2F /* VMVoiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMVoiceViewController.h; sourceTree = "<group>"; };
 		0521806B1E2CA5E40072DE2F /* VMVoiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMVoiceViewController.m; sourceTree = "<group>"; };
 		0521806E1E2CA6CD0072DE2F /* CMCustomViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCustomViewFactory.h; sourceTree = "<group>"; };
@@ -551,8 +551,8 @@
 		0521805E1E2CA5A80072DE2F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				052180671E2CA5D60072DE2F /* VMRedPacketsViewController.h */,
-				052180681E2CA5D60072DE2F /* VMRedPacketsViewController.m */,
+				052180671E2CA5D60072DE2F /* VMRedPacketsMainViewController.h */,
+				052180681E2CA5D60072DE2F /* VMRedPacketsMainViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1099,7 +1099,7 @@
 				055799F61E33111A001DD4BB /* NHSegmentView.m in Sources */,
 				0521805C1E2CA4E50072DE2F /* CMUDButton.m in Sources */,
 				0542F4A81E3097DE00580B18 /* CMHTTPSessionManager.m in Sources */,
-				052180691E2CA5D60072DE2F /* VMRedPacketsViewController.m in Sources */,
+				052180691E2CA5D60072DE2F /* VMRedPacketsMainViewController.m in Sources */,
 				0542F4F71E30986100580B18 /* MBProgressHUD.m in Sources */,
 				052180511E2CA3D50072DE2F /* CMNavViewController.m in Sources */,
 				05C22CBA1E319ED6005D6970 /* MJRefreshBackNormalFooter.m in Sources */,

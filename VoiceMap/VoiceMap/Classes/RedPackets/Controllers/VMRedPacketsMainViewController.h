@@ -8,7 +8,7 @@
 
 #import "CMBaseViewController.h"
 
-@interface VMRedPacketsViewController : CMBaseViewController
+@interface VMRedPacketsMainViewController : CMBaseViewController
 @property (nonatomic,weak) UINavigationController *nav;
 
 @end

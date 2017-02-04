@@ -11,7 +11,7 @@
 #import "NHSegmentView.h"
 
 #import "VMVoiceViewController.h"
-#import "VMRedPacketsViewController.h"
+#import "VMRedPacketsMainViewController.h"
 
 
 @interface VMContactViewController : NHPageViewController

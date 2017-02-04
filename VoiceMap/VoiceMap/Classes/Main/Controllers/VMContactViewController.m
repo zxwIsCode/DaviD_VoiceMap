@@ -12,7 +12,7 @@
 @interface VMContactViewController ()
 
 @property (nonatomic, strong) VMVoiceViewController *voiceVC;
-@property (nonatomic, strong) VMRedPacketsViewController *redPacketsVC;
+@property (nonatomic, strong) VMRedPacketsMainViewController *redPacketsVC;
 @property (nonatomic, strong) NHSegmentView *segmentView;
 
 @end
@@ -39,13 +39,15 @@
     
 }
 - (void)viewDidLoad {
+    
+    self.title =@"红包列表";
     [super viewDidLoad];
-//    [self showBack];
     self.navigationItem.title = @"语音";
     self.segmentView.conditions = @[@"语音", @"红包"];
     self.contentControllers = (NSArray<NHPageContentViewControllerDelegate> *)[NSArray arrayWithObjects:self.voiceVC, self.redPacketsVC, nil];
     // Do any additional setup after loading the view.
 }
+
 
 #pragma mark Action Methods
 - (void)changeViewController:(NHSegmentView *)segment
@@ -56,6 +58,11 @@
 - (void)didShowControllerAtIndex:(NSInteger)idx
 {
     self.segmentView.currentIndex = idx;
+    
+}
+
+-(CMNavType)getNavType {
+    return CMNavTypeOnlyTitle;
 }
 
 #pragma mark - Setter & Getter
@@ -64,9 +71,10 @@
 {
     if (!_segmentView)
     {
-        _segmentView = [[NHSegmentView alloc] initWithFrame:CGRectMake(0, 0 , CGRectGetWidth(ScreenRect), 0)];
-        _segmentView.layer.borderWidth =1;
-        _segmentView.layer.borderColor =UIColorFromHexValue(0xdcdcdc).CGColor;
+        _segmentView = [[NHSegmentView alloc] initWithFrame:CGRectMake(0, 0 , SCREEN_WIDTH , 0)];
+//        _segmentView.hidden=YES;
+//        _segmentView.layer.borderWidth =1;
+//        _segmentView.layer.borderColor =UIColorFromHexValue(0xdcdcdc).CGColor;
         [_segmentView addTarget:self
                          action:@selector(changeViewController:)
                forControlEvents:UIControlEventValueChanged];
@@ -83,9 +91,9 @@
     return _voiceVC;
 }
 
--(VMRedPacketsViewController *)redPacketsVC {
+-(VMRedPacketsMainViewController *)redPacketsVC {
     if (!_redPacketsVC) {
-        _redPacketsVC =[[VMRedPacketsViewController alloc]init];
+        _redPacketsVC =[[VMRedPacketsMainViewController alloc]init];
         _redPacketsVC.nav =self.navigationController;
     }
     return _redPacketsVC;

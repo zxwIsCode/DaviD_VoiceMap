@@ -8,14 +8,14 @@
 
 #import "CMMainTabBarViewController.h"
 #import "CMNavViewController.h"
-#import "VMRedPacketsViewController.h"
+#import "VMRedPacketsMainViewController.h"
 #import "VMVoiceViewController.h"
 
 #import "CMCustomTabBar.h"
 
 @interface CMMainTabBarViewController ()<CMCustomTabBarDelegate>
 
-@property(nonatomic,strong)VMRedPacketsViewController *redPacketsVC;
+@property(nonatomic,strong)VMRedPacketsMainViewController *redPacketsVC;
 
 @property(nonatomic,strong)VMVoiceViewController *voiceVC;
 
@@ -100,9 +100,9 @@
 }
 
 #pragma mark - Setter & Getter
--(VMRedPacketsViewController *)redPacketsVC {
+-(VMRedPacketsMainViewController *)redPacketsVC {
     if (!_redPacketsVC) {
-        _redPacketsVC =[[VMRedPacketsViewController alloc]init];
+        _redPacketsVC =[[VMRedPacketsMainViewController alloc]init];
     }
     return _redPacketsVC;
 }
