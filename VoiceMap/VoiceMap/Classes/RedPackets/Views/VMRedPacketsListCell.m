@@ -53,7 +53,7 @@
         CGFloat cellSpacing =20 *kAppScale;
         CGFloat iconImageViewH = 52 *kAppScale;
         CGFloat iconImageViewY = (kVMRedPacketsListCellHeight -iconImageViewH) *0.5;
-        self.iconImageView.frame =CGRectMake(cellSpacing, iconImageViewY, 40 *kAppScale, iconImageViewH);
+        self.iconImageView.frame =CGRectMake(cellSpacing, iconImageViewY, iconImageViewH *64/82.0, iconImageViewH);
         
         CGFloat descLableX =CGRectGetMaxX(self.iconImageView.frame) +10 *kAppScale;
         CGFloat descLableW =SCREEN_WIDTH - descLableX -cellSpacing;
@@ -63,7 +63,7 @@
         self.lineView.frame =CGRectMake(10 *kAppScale, kVMRedPacketsListCellHeight -1, SCREEN_WIDTH -2 *10 *kAppScale, 1);
         // 添加测试颜色
         
-        self.iconImageView.backgroundColor =[UIColor redColor];
+//        self.iconImageView.backgroundColor =[UIColor redColor];
         
 //        self.descLable.backgroundColor =[UIColor blueColor];
 //        self.remarksLable.backgroundColor =[UIColor yellowColor];
@@ -87,6 +87,7 @@
     
     _itemModel =itemModel;
     
+    self.iconImageView.image =[UIImage imageNamed:itemModel.iconUrl];
     self.descLable.text =itemModel.descStr;
     self.remarksLable.text =itemModel.remarksStr;
     self.startTimeLable.text =itemModel.startTimeStr;

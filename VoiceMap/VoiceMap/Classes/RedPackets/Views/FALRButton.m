@@ -16,12 +16,12 @@
 }
 -(instancetype)initWithFrame:(CGRect)frame {
     if (self =[super initWithFrame:frame]) {
-        self.titleLabel.font = [UIFont systemFontOfSize:12 *kAppScale];
+        self.titleLabel.font = [UIFont systemFontOfSize:15 *kAppScale];
         self.imageView.contentMode = UIViewContentModeCenter;
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         
-        self.titleLabel.backgroundColor =[UIColor darkGrayColor];
-        self.imageView.backgroundColor =[UIColor brownColor];
+//        self.titleLabel.backgroundColor =[UIColor darkGrayColor];
+//        self.imageView.backgroundColor =[UIColor brownColor];
         
     }
     return self;

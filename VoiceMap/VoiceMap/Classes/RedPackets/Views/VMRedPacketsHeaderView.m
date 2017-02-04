@@ -33,16 +33,16 @@
         
         self.allRedPacketsLable =[[UILabel alloc]init];
         self.leftRightBtn =[FALRButton leftRightButton];
-        self.leftRightBtn.imagRatio =0.4;
+        self.leftRightBtn.imagRatio =0.3;
         self.lineView =[[UIView alloc]init];
         
         self.allRedPacketsLable.frame =CGRectMake(10 *kAppScale, 0, SCREEN_WIDTH -120 *kAppScale, kVMRedPacketsHeaderViewHeight);
-        CGFloat leftRightBtnW =48 *kAppScale;
+        CGFloat leftRightBtnW =40 *kAppScale;
         self.leftRightBtn.frame =CGRectMake(SCREEN_WIDTH -leftRightBtnW -10*kAppScale, 0, leftRightBtnW, kVMRedPacketsHeaderViewHeight);
         self.lineView.frame =CGRectMake(0, kVMRedPacketsHeaderViewHeight -1, SCREEN_WIDTH, 1);
         
-        self.allRedPacketsLable.backgroundColor =[UIColor darkGrayColor];
-        self.leftRightBtn.backgroundColor =[UIColor blueColor];
+//        self.allRedPacketsLable.backgroundColor =[UIColor darkGrayColor];
+//        self.leftRightBtn.backgroundColor =[UIColor blueColor];
         self.lineView.backgroundColor =[UIColor redColor];
         
         [self.contentView addSubview:self.allRedPacketsLable];
@@ -56,6 +56,7 @@
 -(void)setRedPacketsCount:(NSInteger)redPacketsCount {
     _redPacketsCount =redPacketsCount;
     self.allRedPacketsLable.text =[NSString stringWithFormat:@"您所在的城市共有%ld个红包",redPacketsCount];
+    [self.leftRightBtn setImage:[UIImage imageNamed:@"icon_xingxing"] forState:UIControlStateNormal];
     [self.leftRightBtn setTitle:[NSString stringWithFormat:@"%ld",redPacketsCount] forState:UIControlStateNormal];
 }
 

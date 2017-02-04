@@ -15,6 +15,7 @@
 
 -(instancetype)initWithRedPacketsItemDic:(NSDictionary *)dic {
     if (self =[super init]) {
+        self.iconUrl =@"icon_hb";
         self.descStr =@"欢迎来到这里抢些红包带走哦！";
         self.remarksStr =@"2017年02点24分开抢哦!";
         self.startTimeStr =@"开抢时间：2017年02点24分";
