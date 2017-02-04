@@ -87,6 +87,10 @@
 		055799F01E331086001DD4BB /* NHPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055799EF1E331086001DD4BB /* NHPageViewController.m */; };
 		055799F31E3310C6001DD4BB /* VMContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055799F21E3310C6001DD4BB /* VMContactViewController.m */; };
 		055799F61E33111A001DD4BB /* NHSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 055799F51E33111A001DD4BB /* NHSegmentView.m */; };
+		0592151F1E457D4F00BA2659 /* VMRedPacketsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0592151E1E457D4F00BA2659 /* VMRedPacketsListCell.m */; };
+		059215221E4584DD00BA2659 /* VMRedPacketsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 059215211E4584DD00BA2659 /* VMRedPacketsItemModel.m */; };
+		059215251E45A3B600BA2659 /* VMRedPacketsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059215241E45A3B600BA2659 /* VMRedPacketsHeaderView.m */; };
+		059215281E45A5D800BA2659 /* FALRButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 059215271E45A5D800BA2659 /* FALRButton.m */; };
 		05C22C831E319A2D005D6970 /* VMVoiceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C22C821E319A2D005D6970 /* VMVoiceItem.m */; };
 		05C22CB11E319ED6005D6970 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C22C871E319ED6005D6970 /* MJRefreshAutoFooter.m */; };
 		05C22CB21E319ED6005D6970 /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C22C891E319ED6005D6970 /* MJRefreshBackFooter.m */; };
@@ -275,6 +279,14 @@
 		055799F21E3310C6001DD4BB /* VMContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMContactViewController.m; sourceTree = "<group>"; };
 		055799F41E33111A001DD4BB /* NHSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHSegmentView.h; sourceTree = "<group>"; };
 		055799F51E33111A001DD4BB /* NHSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHSegmentView.m; sourceTree = "<group>"; };
+		0592151D1E457D4F00BA2659 /* VMRedPacketsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMRedPacketsListCell.h; sourceTree = "<group>"; };
+		0592151E1E457D4F00BA2659 /* VMRedPacketsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMRedPacketsListCell.m; sourceTree = "<group>"; };
+		059215201E4584DD00BA2659 /* VMRedPacketsItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMRedPacketsItemModel.h; sourceTree = "<group>"; };
+		059215211E4584DD00BA2659 /* VMRedPacketsItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMRedPacketsItemModel.m; sourceTree = "<group>"; };
+		059215231E45A3B600BA2659 /* VMRedPacketsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMRedPacketsHeaderView.h; sourceTree = "<group>"; };
+		059215241E45A3B600BA2659 /* VMRedPacketsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMRedPacketsHeaderView.m; sourceTree = "<group>"; };
+		059215261E45A5D800BA2659 /* FALRButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FALRButton.h; sourceTree = "<group>"; };
+		059215271E45A5D800BA2659 /* FALRButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FALRButton.m; sourceTree = "<group>"; };
 		05C22C811E319A2D005D6970 /* VMVoiceItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMVoiceItem.h; sourceTree = "<group>"; };
 		05C22C821E319A2D005D6970 /* VMVoiceItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMVoiceItem.m; sourceTree = "<group>"; };
 		05C22C861E319ED6005D6970 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
@@ -567,6 +579,8 @@
 		052180601E2CA5A80072DE2F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				059215201E4584DD00BA2659 /* VMRedPacketsItemModel.h */,
+				059215211E4584DD00BA2659 /* VMRedPacketsItemModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -574,6 +588,12 @@
 		052180611E2CA5A80072DE2F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				059215261E45A5D800BA2659 /* FALRButton.h */,
+				059215271E45A5D800BA2659 /* FALRButton.m */,
+				0592151D1E457D4F00BA2659 /* VMRedPacketsListCell.h */,
+				0592151E1E457D4F00BA2659 /* VMRedPacketsListCell.m */,
+				059215231E45A3B600BA2659 /* VMRedPacketsHeaderView.h */,
+				059215241E45A3B600BA2659 /* VMRedPacketsHeaderView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1102,12 +1122,14 @@
 				052180691E2CA5D60072DE2F /* VMRedPacketsMainViewController.m in Sources */,
 				0542F4F71E30986100580B18 /* MBProgressHUD.m in Sources */,
 				052180511E2CA3D50072DE2F /* CMNavViewController.m in Sources */,
+				059215281E45A5D800BA2659 /* FALRButton.m in Sources */,
 				05C22CBA1E319ED6005D6970 /* MJRefreshBackNormalFooter.m in Sources */,
 				0542F4DD1E30980100580B18 /* AFSecurityPolicy.m in Sources */,
 				0542F4E11E30980100580B18 /* AFURLSessionManager.m in Sources */,
 				0542F4F01E30984600580B18 /* DisplayHelper.m in Sources */,
 				05C22CB21E319ED6005D6970 /* MJRefreshBackFooter.m in Sources */,
 				052180531E2CA3D50072DE2F /* CMCustomTabBar.m in Sources */,
+				059215251E45A3B600BA2659 /* VMRedPacketsHeaderView.m in Sources */,
 				052180541E2CA3D50072DE2F /* CMTabBarButton.m in Sources */,
 				0542F4DB1E30980100580B18 /* AFHTTPSessionManager.m in Sources */,
 				0542F4A61E3097DE00580B18 /* CMHttpRequestModel.m in Sources */,
@@ -1135,11 +1157,13 @@
 				052180521E2CA3D50072DE2F /* CMNewFetureViewController.m in Sources */,
 				05C22CBC1E319ED6005D6970 /* MJRefreshGifHeader.m in Sources */,
 				0542F4ED1E30980100580B18 /* UIWebView+AFNetworking.m in Sources */,
+				0592151F1E457D4F00BA2659 /* VMRedPacketsListCell.m in Sources */,
 				05C22C831E319A2D005D6970 /* VMVoiceItem.m in Sources */,
 				05C22CB51E319ED6005D6970 /* MJRefreshHeader.m in Sources */,
 				0521806C1E2CA5E40072DE2F /* VMVoiceViewController.m in Sources */,
 				05C22CB61E319ED6005D6970 /* MJRefreshAutoGifFooter.m in Sources */,
 				05C22CC31E319ED6005D6970 /* UIView+MJExtension.m in Sources */,
+				059215221E4584DD00BA2659 /* VMRedPacketsItemModel.m in Sources */,
 				0521804F1E2CA3D50072DE2F /* CMBaseViewController.m in Sources */,
 				05C22CB11E319ED6005D6970 /* MJRefreshAutoFooter.m in Sources */,
 				0542F4EC1E30980100580B18 /* UIRefreshControl+AFNetworking.m in Sources */,
