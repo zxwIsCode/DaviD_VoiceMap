@@ -7,7 +7,6 @@
 //
 
 #import "VMRedPacketsMainViewController.h"
-#import "VMRedPacketsListViewController.h"
 
 @interface VMRedPacketsMainViewController ()
 
