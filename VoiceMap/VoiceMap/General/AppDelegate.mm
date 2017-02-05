@@ -28,7 +28,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    [[UINavigationBar appearance]setBarTintColor:RGBCOLOR(129, 188, 53)];
+    [[UINavigationBar appearance]setBarTintColor:UIColorFromHexValue(0xff8400)];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
     self.window =[[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];

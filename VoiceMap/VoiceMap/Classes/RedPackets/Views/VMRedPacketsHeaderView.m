@@ -36,6 +36,9 @@
         self.leftRightBtn.imagRatio =0.3;
         self.lineView =[[UIView alloc]init];
         
+        [self.leftRightBtn setTitleColor:UIColorFromHexValue(0x333333) forState:UIControlStateNormal];
+        self.allRedPacketsLable.font=[UIFont systemFontOfSize:15 *kAppScale];
+        
         self.allRedPacketsLable.frame =CGRectMake(10 *kAppScale, 0, SCREEN_WIDTH -120 *kAppScale, kVMRedPacketsHeaderViewHeight);
         CGFloat leftRightBtnW =40 *kAppScale;
         self.leftRightBtn.frame =CGRectMake(SCREEN_WIDTH -leftRightBtnW -10*kAppScale, 0, leftRightBtnW, kVMRedPacketsHeaderViewHeight);
@@ -43,7 +46,9 @@
         
 //        self.allRedPacketsLable.backgroundColor =[UIColor darkGrayColor];
 //        self.leftRightBtn.backgroundColor =[UIColor blueColor];
-        self.lineView.backgroundColor =[UIColor redColor];
+        self.backgroundColor =UIColorFromHexValue(0xfffce5);
+        self.lineView.backgroundColor =UIColorFromHexValue(0xffc07d);
+
         
         [self.contentView addSubview:self.allRedPacketsLable];
         [self.contentView addSubview:self.leftRightBtn];

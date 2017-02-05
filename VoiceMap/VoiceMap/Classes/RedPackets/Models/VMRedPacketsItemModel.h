@@ -18,6 +18,15 @@
 
 @property(nonatomic,copy)NSString *startTimeStr;
 
+// 红包的详情介绍
+@property(nonatomic,copy)NSString *redPacketsDetailStr;
+
+// 是否已经领取
+@property(nonatomic,strong)NSNumber *isDrawNum;
+
+// 是否已经消费
+@property(nonatomic,strong)NSNumber *isSpendNum;
+
 +(instancetype)updateWithRedPacketsItemDic:(NSDictionary *)dic;
 
 -(instancetype)initWithRedPacketsItemDic:(NSDictionary *)dic;

@@ -10,6 +10,7 @@
 #import "VMRedPacketsListCell.h"
 #import "VMRedPacketsItemModel.h"
 #import "VMRedPacketsHeaderView.h"
+#import "VMRedPacketsDetailViewController.h"
 
 
 @interface VMRedPacketsMainViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -40,7 +41,7 @@
     
     self.tableView.frame =CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT -64);
     
-    self.tableView.backgroundColor =[UIColor purpleColor];
+//    self.tableView.backgroundColor =UIColorFromHexValue(0xfffce5);
 }
 
 //#pragma mark - 继承父类
@@ -84,12 +85,20 @@
     VMRedPacketsHeaderView *headerView =[VMRedPacketsHeaderView updateWithHeaderTableView:tableView];
     if (headerView) {
         headerView.redPacketsCount =self.allRedPacketsArr.count;
+//        headerView.backgroundColor =[UIColor redColor];
     }
     return headerView;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    VMRedPacketsDetailViewController *detailVC =[[VMRedPacketsDetailViewController alloc]init];
+    
+    VMRedPacketsItemModel *item =self.allRedPacketsArr[indexPath.row];
+    detailVC.itemModel =item;
+    [self.navigationController pushViewController:detailVC animated:YES];
+    
 }
 
 
@@ -103,10 +112,9 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.bounces =NO;
-//        _tableView.tableFooterView = [UIView new];
         _tableView.rowHeight = kVMRedPacketsListCellHeight;
-        _tableView.showsVerticalScrollIndicator = NO;
-        _tableView.separatorColor = [UIColor clearColor];
+//        _tableView.showsVerticalScrollIndicator = NO;
+//        _tableView.separatorColor = [UIColor clearColor];
     }
     return _tableView;
 }

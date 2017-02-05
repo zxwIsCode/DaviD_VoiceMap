@@ -48,6 +48,10 @@
         self.descLable.font =[UIFont systemFontOfSize:15 *kAppScale];
         self.remarksLable.font =[UIFont systemFontOfSize:13 *kAppScale];
         self.startTimeLable.font =[UIFont systemFontOfSize:13 *kAppScale];
+        
+        self.descLable.textColor =UIColorFromHexValue(0x333333);
+        self.remarksLable.textColor =UIColorFromHexValue(0x666666);
+        self.startTimeLable.textColor =UIColorFromHexValue(0x666666);
 
         // 设置frame
         CGFloat cellSpacing =20 *kAppScale;
@@ -68,7 +72,9 @@
 //        self.descLable.backgroundColor =[UIColor blueColor];
 //        self.remarksLable.backgroundColor =[UIColor yellowColor];
 //        self.startTimeLable.backgroundColor =[UIColor brownColor];
-        self.lineView.backgroundColor =[UIColor redColor];
+        self.lineView.backgroundColor =UIColorFromHexValue(0xffc07d);
+        self.backgroundColor =UIColorFromHexValue(0xfffce5);
+
 
         
         // 添加到父View
