@@ -164,7 +164,19 @@
         _detailHeaderView =[VMRedPacketsDetailHeaderView HeaderView];
         _detailHeaderView.userInteractionEnabled =YES;
         _detailHeaderView.itemModel =self.itemModel;
-        _detailHeaderView.frame =CGRectMake(0, 0, SCREEN_WIDTH , kVMRedPacketsDetailHeaderViewHeight);
+        
+        CGFloat superViewX =10 *kAppScale;
+        CGFloat textViewLableW = SCREEN_WIDTH  -2 *superViewX;
+        CGSize textViewLableSize = CGSizeMake(textViewLableW, MAXFLOAT);
+        NSDictionary *dic = @{NSFontAttributeName : [UIFont systemFontOfSize:13 *kAppScale ]};
+        CGRect textViewLableFrame =[self.itemModel.redPacketsDetailStr boundingRectWithSize:textViewLableSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
+        CGFloat textViewLableH =textViewLableFrame.size.height;
+        CGFloat detailHeaderViewH = kVMRedPacketsDetailHeaderViewHeight +textViewLableH -160 *kAppScale;
+        if (textViewLableH <160 *kAppScale) { //如果详情高度不够160的话，就按160处理
+            detailHeaderViewH = kVMRedPacketsDetailHeaderViewHeight;
+        }
+        
+        _detailHeaderView.frame =CGRectMake(0, 0, SCREEN_WIDTH , detailHeaderViewH);
     }
     return _detailHeaderView;
 }

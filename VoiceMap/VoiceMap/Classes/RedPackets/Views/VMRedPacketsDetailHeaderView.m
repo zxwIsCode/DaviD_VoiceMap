@@ -18,7 +18,7 @@
 
 @property(nonatomic,strong)UIView *smallLineView;
 
-@property(nonatomic,strong)TYAttributedLabel *textViewLable;
+@property(nonatomic,strong)UILabel *textViewLable;
 
 @property(nonatomic,strong)VMRedPacketsDetailCommonBtnSuperView *btnSuperView;
 
@@ -54,20 +54,20 @@
         
         
         // 中间的TextView
-        self.textViewLable =[[TYAttributedLabel alloc]initWithFrame:CGRectMake(superViewX, CGRectGetMaxY(self.smallLineView.frame) +10 *kAppScale, SCREEN_WIDTH -2 *superViewX, 160 *kAppScale)];
+//        self.textViewLable =[[TYAttributedLabel alloc]initWithFrame:CGRectMake(superViewX, CGRectGetMaxY(self.smallLineView.frame) +10 *kAppScale, SCREEN_WIDTH -2 *superViewX, 160 *kAppScale)];
+        self.textViewLable =[[UILabel alloc]init];
         self.textViewLable.numberOfLines =0;
         self.textViewLable.font =[UIFont systemFontOfSize:13 *kAppScale];
         self.textViewLable.textColor =UIColorFromHexValue(0x666666);
         // 垂直对齐方式
-        self.textViewLable.verticalAlignment = TYVerticalAlignmentCenter;
-        //文本行间隙
-        self.textViewLable.linesSpacing = 6;
+//        self.textViewLable.verticalAlignment = TYVerticalAlignmentCenter;
+//        // 文本行间隙
+//        self.textViewLable.linesSpacing = 6;
 
         
         
 //        self.textView.frame =CGRectMake(superViewX, CGRectGetMaxY(self.smallLineView.frame) +10 *kAppScale, SCREEN_WIDTH -2 *superViewX, 160 *kAppScale);
-        self.btnSuperView.frame =CGRectMake(0, CGRectGetMaxY(self.textViewLable.frame) +5 *kAppScale, SCREEN_WIDTH,kVMRedPacketsDetailCommonBtnSuperViewHeight);
-        self.bigLineView.frame =CGRectMake(0, kVMRedPacketsDetailHeaderViewHeight -1, SCREEN_WIDTH, 1);
+        
         
         
         // 测试颜色
@@ -98,6 +98,25 @@
     self.titleLable.text =itemModel.descStr;
     self.startTimeLable.text =itemModel.startTimeStr;
     self.textViewLable.text =itemModel.redPacketsDetailStr;
+    
+//    self.textViewLable =[[TYAttributedLabel alloc]initWithFrame:CGRectMake(superViewX, CGRectGetMaxY(self.smallLineView.frame) +10 *kAppScale, SCREEN_WIDTH -2 *superViewX, 160 *kAppScale)];
+    CGFloat superViewX =10 *kAppScale;
+    CGFloat textViewLableW = SCREEN_WIDTH  -2 *superViewX;
+    CGSize textViewLableSize = CGSizeMake(textViewLableW, MAXFLOAT);
+    NSDictionary *dic = @{NSFontAttributeName : [UIFont systemFontOfSize:13 *kAppScale ]};
+    CGRect textViewLableFrame =[itemModel.redPacketsDetailStr boundingRectWithSize:textViewLableSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
+    CGFloat textViewLableH =textViewLableFrame.size.height;
+    CGFloat detailHeaderViewH = kVMRedPacketsDetailHeaderViewHeight +textViewLableH -160 *kAppScale;
+    if (textViewLableH <160 *kAppScale) { // 如果详情高度不够160的话，就按160处理
+        textViewLableH =160 *kAppScale;
+        detailHeaderViewH = kVMRedPacketsDetailHeaderViewHeight;
+    }
+
+
+    self.textViewLable.frame = CGRectMake(superViewX, CGRectGetMaxY(self.smallLineView.frame) +10 *kAppScale, SCREEN_WIDTH -2 *superViewX, textViewLableH);
+    
+    self.btnSuperView.frame =CGRectMake(0, CGRectGetMaxY(self.textViewLable.frame) +5 *kAppScale, SCREEN_WIDTH,kVMRedPacketsDetailCommonBtnSuperViewHeight);
+    self.bigLineView.frame =CGRectMake(0, detailHeaderViewH -1, SCREEN_WIDTH, 1);
     
     self.btnSuperView.itemModel =itemModel;
     
