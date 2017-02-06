@@ -11,6 +11,7 @@
 #import "VMRedPacketsItemModel.h"
 #import "VMRedPacketsHeaderView.h"
 #import "VMRedPacketsDetailViewController.h"
+#import "MJRefresh.h"
 
 
 @interface VMRedPacketsMainViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -18,6 +19,8 @@
 @property(nonatomic,strong)UITableView *tableView;
 
 @property(nonatomic,strong)NSMutableArray *allRedPacketsArr;
+
+@property(nonatomic,assign)NSInteger page;
 
 @end
 
@@ -27,21 +30,92 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    self.page =1;
     
-    for (int index =0; index <12; index ++) {
-        VMRedPacketsItemModel *item =[VMRedPacketsItemModel updateWithRedPacketsItemDic:nil];
-        [self.allRedPacketsArr addObject:item];
-    }
+    [self initWithDatas];
+    
+    
     
     [self.view addSubview:self.tableView];
+    [self creatMJRefreshFooter];
+
     // Do any additional setup after loading the view.
+}
+
+-(void)creatMJRefreshFooter {
+    
+    WS(ws);
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [ws initWithDatas];
+    }];
+    
+//    self.tableView.mj_footer.backgroundColor =[UIColor redColor];
+}
+-(void)initWithDatas {
+    
+    
+    CMHttpRequestModel *paramsModel =[[CMHttpRequestModel alloc]init];
+    self.page ++;
+    paramsModel.appendUrl =kMainGetRedPacketsList;
+    [paramsModel.paramDic setObject:@(self.page) forKey:@"page"];
+    [paramsModel .paramDic setObject:@(2) forKey:@"regionid"];
+    
+    // 包装参数设置
+    WS(ws);
+    [[DisplayHelper shareDisplayHelper]showLoading:self.view noteText:@"数据加载中..."];
+    
+    paramsModel.callback =^(CMHttpResponseModel *result, NSError *error) {
+        
+        if (result) {
+            if (result.state ==CMReponseCodeState_Success) {// 成功,做自己的逻辑
+                DDLog(@"%@",result.data);
+//                [DisplayHelper displaySuccessAlert:@"获得列表成功!"];
+                NSArray *dataArr =(NSArray *)result.data;
+                if (dataArr.count) {
+                    NSMutableArray *tempArr =[NSMutableArray array];
+                    for (int index =0; index <dataArr.count; index ++) {
+                        NSDictionary *infoDic =dataArr[index];
+                        VMRedPacketsItemModel *item =[VMRedPacketsItemModel updateWithRedPacketsItemDic:infoDic];
+                        [tempArr addObject:item];
+                    }
+                    [ws.allRedPacketsArr addObjectsFromArray:tempArr];
+                    [ws.tableView reloadData];
+
+                }else {
+                    ws.page --;
+                    [DisplayHelper displayWarningAlert:@"请求成功,但是没有最新数据哦！"];
+
+                }
+                
+            }else {// 失败,弹框提示
+                ws.page --;
+
+                DDLog(@"%@",result.error);
+                [DisplayHelper displayWarningAlert:@"请求成功,但没有数据哦!"];
+                
+            }
+        }else {
+            ws.page --;
+
+            [DisplayHelper displayWarningAlert:@"网络异常，请稍后再试!"];
+            
+        }
+        // 停止刷新
+        [ws.tableView.mj_footer endRefreshing];
+        
+        [[DisplayHelper shareDisplayHelper]hideLoading:ws.view];
+        
+        
+    };
+    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel];
+
 }
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     self.tableView.frame =CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT -64);
     
-//    self.tableView.backgroundColor =UIColorFromHexValue(0xfffce5);
+    self.tableView.backgroundColor =UIColorFromHexValue(0xfffce5);
 }
 
 //#pragma mark - 继承父类
@@ -67,7 +141,6 @@
             VMRedPacketsItemModel *item =self.allRedPacketsArr[indexPath.row];
             
             cell.itemModel =item;
-            
             
         }
     }
@@ -114,7 +187,7 @@
         _tableView.bounces =NO;
         _tableView.rowHeight = kVMRedPacketsListCellHeight;
 //        _tableView.showsVerticalScrollIndicator = NO;
-//        _tableView.separatorColor = [UIColor clearColor];
+        _tableView.separatorColor = [UIColor clearColor];
     }
     return _tableView;
 }

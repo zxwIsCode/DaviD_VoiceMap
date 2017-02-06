@@ -9,12 +9,17 @@
 #import <UIKit/UIKit.h>
 
 #import "VMRedPacketsItemModel.h"
+#import "VMRedPacketsDetailCommonBtnSuperView.h"
 
-#define kVMRedPacketsDetailHeaderViewHeight 290 *kAppScale
+
+#define kVMRedPacketsDetailHeaderViewHeight 225 *kAppScale
 
 @interface VMRedPacketsDetailHeaderView : UIView
 
 +(instancetype)HeaderView;
+
+@property(nonatomic,strong)VMRedPacketsDetailCommonBtnSuperView *btnSuperView;
+
 
 @property(nonatomic,strong)VMRedPacketsItemModel *itemModel;
 

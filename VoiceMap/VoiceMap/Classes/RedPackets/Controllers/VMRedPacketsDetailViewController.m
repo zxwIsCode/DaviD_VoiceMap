@@ -13,19 +13,24 @@
 #import "VMRedPacketsItemModel.h"
 //#import "VMRedPacketsHeaderView.h"
 #import "VMRedPacketsDetailHeaderView.h"
+#import "VMRedPacketsPhotoItem.h"
 
 #define kRedPacketsScrollViewScale 0.5
 
 
 @interface VMRedPacketsDetailViewController ()<YLInfiniteScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
+{
+    // 定时器
+    NSTimer *timer;
+}
 
 @property(nonatomic,strong)YLInfiniteScrollView *autoScrollView;
 
-@property(nonatomic,strong)UIView *titleSuperView;
+@property(nonatomic,strong)UILabel *titleLable;
 
-@property(nonatomic,strong)UITextView *textView;
+@property(nonatomic,strong)UILabel *startTimeLable;
 
-@property(nonatomic,strong)UIView *btnSuperView;
+@property(nonatomic,strong)UIView *smallLineView;
 
 @property(nonatomic,strong)VMRedPacketsDetailHeaderView *detailHeaderView;
 
@@ -35,6 +40,8 @@
 @property(nonatomic,strong)NSMutableArray *autoScrollArr;
 // 列表的数据源
 @property(nonatomic,strong)NSMutableArray *dataArray;
+
+@property(nonatomic,assign)NSInteger subTimeStamp;
 
 
 @end
@@ -51,21 +58,201 @@
     
     [self creaScrollView];
     [self.view addSubview:self.autoScrollView];
+    
+    [self.view addSubview:self.titleLable];
+    [self.view addSubview:self.startTimeLable];
+    [self.view addSubview:self.smallLineView];
+    
+    self.titleLable.text =self.itemModel.descStr;
+    self.startTimeLable.text =[self.itemModel getTimeStr:self.itemModel.startTimeStr];
+    
     [self.view addSubview:self.tableView];
+    
+    [self initTimer];
     
 }
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.tableView.frame =CGRectMake(0, SCREEN_WIDTH *kRedPacketsScrollViewScale, SCREEN_WIDTH, SCREEN_HEIGHT -SCREEN_WIDTH *kRedPacketsScrollViewScale -64);
+    CGFloat superViewX =10 *kAppScale;
+    CGFloat scrollViewH = SCREEN_WIDTH *kRedPacketsScrollViewScale;
+    self.titleLable.frame =CGRectMake(superViewX,scrollViewH + 15 *kAppScale, SCREEN_WIDTH -2 *superViewX, 20 *kAppScale);
+    self.startTimeLable.frame =CGRectMake(superViewX, CGRectGetMaxY(self.titleLable.frame) +4 *kAppScale, SCREEN_WIDTH -2 *superViewX, 16 *kAppScale);
+    self.smallLineView.frame =CGRectMake(superViewX, CGRectGetMaxY(self.startTimeLable.frame) +10 *kAppScale, SCREEN_WIDTH -2 *superViewX, 1);
+    
+    CGFloat tableViewY =CGRectGetMaxY(self.smallLineView.frame);
+    self.tableView.frame =CGRectMake(0, tableViewY, SCREEN_WIDTH, SCREEN_HEIGHT -tableViewY -64);
+    self.view.backgroundColor =UIColorFromHexValue(0xfffce5);
     self.tableView.backgroundColor =UIColorFromHexValue(0xfffce5);
     
+//    self.titleLable.backgroundColor =[UIColor darkGrayColor];
+//    self.startTimeLable.backgroundColor =[UIColor brownColor];
+    
+    
+}
+-(void)dealloc {
+    
+    [timer invalidate];
+    timer = nil;
 }
 
 #pragma mark - Private Methods
+-(void)initTimer {
+//    self.subTimeStamp = self.itemModel.startTimeStr;
+    if (self.itemModel.startTimeStr != 0) {
+        timer =[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timer:) userInfo:nil repeats:YES];
+    }
+    WS(ws);
+    self.detailHeaderView.btnSuperView.redPacketsBtnBlock =^(NSInteger btnTag) {
+        if (btnTag ==1) {// 立即领取
+            [DisplayHelper displaySuccessAlert:@"您正在领取奖励哦!"];
+            
+            // 立即领取 红包
+            [ws requestDrawRedPackets];
+
+        }else { //去消费
+            [DisplayHelper displaySuccessAlert:@"您正在消费奖励哦!"];
+            
+            // 去消费红包
+            [ws requestSpendRedPackets];
+
+        }
+    };
+
+    
+}
+
+-(void)timer:(NSTimer*)timerr{
+    self.itemModel.startTimeStr =self.itemModel.startTimeStr -1;
+    self.startTimeLable.text =[self.itemModel getTimeStr:self.itemModel.startTimeStr];
+    
+    if (self.itemModel.startTimeStr == 0) {
+        [timer invalidate];
+        timer = nil;
+
+        self.detailHeaderView.btnSuperView.bigButton.backgroundColor =UIColorFromHexValue(0xff8400);
+        self.detailHeaderView.btnSuperView.bigButton.userInteractionEnabled =YES;
+        
+    }
+}
+// 立即领取 红包
+-(void)requestDrawRedPackets {
+    CMHttpRequestModel *paramsModel =[[CMHttpRequestModel alloc]init];
+    paramsModel.appendUrl =kReceiveImmediatelyRedPackets;
+    NSString *uuidStr = [[[UIDevice currentDevice] identifierForVendor]UUIDString];
+
+    [paramsModel.paramDic setObject:uuidStr forKey:@"userid"];
+    [paramsModel .paramDic setObject:@(self.itemModel.mId) forKey:@"id"];
+    [paramsModel .paramDic setObject:@(2) forKey:@"regionid"];
+    
+    // 包装参数设置
+    WS(ws);
+    
+    paramsModel.callback =^(CMHttpResponseModel *result, NSError *error) {
+        
+        if (result) {
+            if (result.state ==CMReponseCodeState_Success) {// 成功,做自己的逻辑
+                DDLog(@"%@",result.data);
+                [DisplayHelper displaySuccessAlert:@"获取红包成功哦！"];
+                self.detailHeaderView.btnSuperView.bigButton.backgroundColor =UIColorFromHexValue(0xff8400);
+                [self.detailHeaderView.btnSuperView.bigButton setTitle:@"去消费" forState:UIControlStateNormal];
+                
+            }else {// 失败,弹框提示
+                
+                DDLog(@"%@",result.error);
+                if (result.alertMsg) {
+                    [DisplayHelper displayWarningAlert:result.alertMsg];
+#warning 这里是为了测试的假数据
+//                    self.detailHeaderView.btnSuperView.bigButton.backgroundColor =UIColorFromHexValue(0xff8400);
+//                    [self.detailHeaderView.btnSuperView.bigButton setTitle:@"去消费" forState:UIControlStateNormal];
+
+                }else {
+                    [DisplayHelper displayWarningAlert:@"请求成功,但没有数据哦!"];
+                }
+            }
+        }else {
+            
+            [DisplayHelper displayWarningAlert:@"网络异常，请稍后再试!"];
+            
+        }
+        [[DisplayHelper shareDisplayHelper]hideLoading:ws.view];
+        
+    };
+    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel];
+}
+
+// 去消费红包
+-(void)requestSpendRedPackets {
+    CMHttpRequestModel *paramsModel =[[CMHttpRequestModel alloc]init];
+    paramsModel.appendUrl =kGoSpendRedPackets;
+    NSString *uuidStr = [[[UIDevice currentDevice] identifierForVendor]UUIDString];
+    
+    [paramsModel.paramDic setObject:uuidStr forKey:@"userid"];
+    [paramsModel .paramDic setObject:@(self.itemModel.mId) forKey:@"advid"];
+    [paramsModel .paramDic setObject:@(2) forKey:@"regionid"];
+    
+    // 包装参数设置
+    WS(ws);
+    
+    paramsModel.callback =^(CMHttpResponseModel *result, NSError *error) {
+        
+        if (result) {
+            if (result.state ==CMReponseCodeState_Success) {// 成功,做自己的逻辑
+                DDLog(@"%@",result.data);
+                [DisplayHelper displaySuccessAlert:@"消费红包成功！"];
+                [self.detailHeaderView.btnSuperView.bigButton removeFromSuperview];
+                self.detailHeaderView.btnSuperView.isleftBtn.hidden =NO;
+                self.detailHeaderView.btnSuperView.isRightBtn.hidden =NO;
+                [self.detailHeaderView.btnSuperView.isleftBtn setTitle:@"已领取" forState:UIControlStateNormal];
+                [self.detailHeaderView.btnSuperView.isRightBtn setTitle:@"已消费" forState:UIControlStateNormal];
+                self.detailHeaderView.btnSuperView.isleftBtn.userInteractionEnabled =NO;
+                self.detailHeaderView.btnSuperView.isRightBtn.userInteractionEnabled =NO;
+                
+                self.detailHeaderView.btnSuperView.isleftBtn.backgroundColor =UIColorFromHexValue(0x5a5a5a);
+                self.detailHeaderView.btnSuperView.isRightBtn.backgroundColor =UIColorFromHexValue(0x5a5a5a);
+
+                
+            }else {// 失败,弹框提示
+                
+                DDLog(@"%@",result.error);
+                if (result.alertMsg) {
+                    [DisplayHelper displayWarningAlert:result.alertMsg];
+#warning 这里是为了测试的假数据
+//                    [self.detailHeaderView.btnSuperView.bigButton removeFromSuperview];
+//                    self.detailHeaderView.btnSuperView.isleftBtn.hidden =NO;
+//                    self.detailHeaderView.btnSuperView.isRightBtn.hidden =NO;
+//                    [self.detailHeaderView.btnSuperView.isleftBtn setTitle:@"已领取" forState:UIControlStateNormal];
+//                    [self.detailHeaderView.btnSuperView.isRightBtn setTitle:@"已消费" forState:UIControlStateNormal];
+//                    self.detailHeaderView.btnSuperView.isleftBtn.userInteractionEnabled =NO;
+//                    self.detailHeaderView.btnSuperView.isRightBtn.userInteractionEnabled =NO;
+//                    
+//                    self.detailHeaderView.btnSuperView.isleftBtn.backgroundColor =UIColorFromHexValue(0x5a5a5a);
+//                    self.detailHeaderView.btnSuperView.isRightBtn.backgroundColor =UIColorFromHexValue(0x5a5a5a);
+                    
+                    
+                }else {
+                    [DisplayHelper displayWarningAlert:@"请求成功,但是消费红包失败！"];
+                }
+            }
+        }else {
+            
+            [DisplayHelper displayWarningAlert:@"网络异常，请稍后再试!"];
+            
+        }
+        [[DisplayHelper shareDisplayHelper]hideLoading:ws.view];
+        
+    };
+    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel];
+}
+
+
 
 -(void)initAllDatas {
-    self.autoScrollArr =[@[@"http://jiamenkou.123jmk.com/Uploads/HomeCarousel/2017-01-10/58743eac9a9ed.png"] mutableCopy];
+    
+    for (VMRedPacketsPhotoItem *photoItem in self.itemModel.picArray) {
+        [self.autoScrollArr addObject:photoItem.i];
+    }
+//    self.autoScrollArr =[@[@"http://jiamenkou.123jmk.com/Uploads/HomeCarousel/2017-01-10/58743eac9a9ed.png"] mutableCopy];
     
     for (int index =0; index <8; index ++) {
         VMRedPacketsItemModel *item =[VMRedPacketsItemModel updateWithRedPacketsItemDic:nil];
@@ -179,6 +366,32 @@
         _detailHeaderView.frame =CGRectMake(0, 0, SCREEN_WIDTH , detailHeaderViewH);
     }
     return _detailHeaderView;
+}
+
+-(UILabel *)titleLable {
+    if (!_titleLable) {
+        _titleLable =[[UILabel alloc]init];
+        _titleLable.font=[UIFont systemFontOfSize:14 *kAppScale];
+
+    }
+    return _titleLable;
+}
+
+-(UILabel *)startTimeLable {
+    if (!_startTimeLable) {
+        _startTimeLable =[[UILabel alloc]init];
+        _startTimeLable.font =[UIFont systemFontOfSize:12 *kAppScale];
+        _startTimeLable.textColor =UIColorFromHexValue(0xf40000);
+    }
+    return _startTimeLable;
+}
+-(UIView *)smallLineView {
+    if (!_smallLineView) {
+        _smallLineView =[[UIView alloc]init];
+        _smallLineView.backgroundColor =UIColorFromHexValue(0xffc07d);
+
+    }
+    return _smallLineView;
 }
 
 

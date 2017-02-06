@@ -12,7 +12,7 @@
 
 typedef NS_ENUM(NSUInteger, CMReponseCodeState) {
     CMReponseCodeState_Success =1,  // 成功
-    CMReponseCodeState_NoData, // 成功没数据
+    CMReponseCodeState_NoData, // 成功没数据(这里表示其他非成功的情况)
     CMReponseCodeState_NoParams,  // 成功，但是参数不完整
     CMReponseCodeState_Faild,  // 失败
 

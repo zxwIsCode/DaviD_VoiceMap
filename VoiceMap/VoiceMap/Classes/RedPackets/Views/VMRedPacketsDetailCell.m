@@ -111,7 +111,7 @@
     
     self.iconImageView.image =[UIImage imageNamed:itemModel.iconUrl];
     self.descLable.text =itemModel.descStr;
-    self.startTimeLable.text =itemModel.remarksStr;
+    self.startTimeLable.text =[itemModel getTimeStr:itemModel.startTimeStr];
     
     if ([itemModel.isDrawNum intValue]) {
         [self.isDrawBtn setTitle:@"已领取" forState:UIControlStateNormal];

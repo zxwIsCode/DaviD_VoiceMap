@@ -37,7 +37,7 @@
                     _state =CMReponseCodeState_Success;
                     _data =data;
 
-                }else if ([codeNum intValue] ==101) {
+                }else  {
                     _state =CMReponseCodeState_NoData;
                     _data =data;
                 }
@@ -46,8 +46,8 @@
 //                    _data =data;
 //                }
                 
-//                NSString *alertMsg =[responseData objectForKey:@"message"];
-//                _alertMsg =alertMsg;
+                NSString *alertMsg =[responseData objectForKey:@"message"];
+                _alertMsg =alertMsg;
 
             }else {// 服务器返回数据问题
                 

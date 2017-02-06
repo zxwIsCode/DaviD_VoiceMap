@@ -8,19 +8,13 @@
 
 #import "VMRedPacketsDetailHeaderView.h"
 #import "FALRButton.h"
-#import "VMRedPacketsDetailCommonBtnSuperView.h"
 #import "TYAttributedLabel.h"
 @interface VMRedPacketsDetailHeaderView ()
 
-@property(nonatomic,strong)UILabel *titleLable;
 
-@property(nonatomic,strong)UILabel *startTimeLable;
-
-@property(nonatomic,strong)UIView *smallLineView;
 
 @property(nonatomic,strong)UILabel *textViewLable;
 
-@property(nonatomic,strong)VMRedPacketsDetailCommonBtnSuperView *btnSuperView;
 
 @property(nonatomic,strong)UIView *bigLineView;
 
@@ -34,23 +28,21 @@
 -(instancetype)initWithFrame:(CGRect)frame {
     if (self =[super initWithFrame:frame]) {
         // 初始化
-        self.titleLable =[[UILabel alloc]init];
-        self.startTimeLable =[[UILabel alloc]init];
-        self.smallLineView =[[UIView alloc]init];
+//        self.titleLable =[[UILabel alloc]init];
+//        self.startTimeLable =[[UILabel alloc]init];
+//        self.smallLineView =[[UIView alloc]init];
 //        self.textView =[[UITextView alloc]init];
         self.btnSuperView =[VMRedPacketsDetailCommonBtnSuperView redPacketsFouctionBtn];
         self.bigLineView =[[UIView alloc]init];
         
-        self.titleLable.font=[UIFont systemFontOfSize:14 *kAppScale];
-        self.startTimeLable.font =[UIFont systemFontOfSize:12 *kAppScale];
-        self.startTimeLable.textColor =UIColorFromHexValue(0xf40000);
+        
         
         
         // 设置frame
         CGFloat superViewX =10 *kAppScale;
-        self.titleLable.frame =CGRectMake(superViewX, 20 *kAppScale, SCREEN_WIDTH -2 *superViewX, 20 *kAppScale);
-        self.startTimeLable.frame =CGRectMake(superViewX, CGRectGetMaxY(self.titleLable.frame) +4 *kAppScale, SCREEN_WIDTH -2 *superViewX, 16 *kAppScale);
-        self.smallLineView.frame =CGRectMake(superViewX, CGRectGetMaxY(self.startTimeLable.frame) +5 *kAppScale, SCREEN_WIDTH -2 *superViewX, 1);
+//        self.titleLable.frame =CGRectMake(superViewX, 20 *kAppScale, SCREEN_WIDTH -2 *superViewX, 20 *kAppScale);
+//        self.startTimeLable.frame =CGRectMake(superViewX, CGRectGetMaxY(self.titleLable.frame) +4 *kAppScale, SCREEN_WIDTH -2 *superViewX, 16 *kAppScale);
+//        self.smallLineView.frame =CGRectMake(superViewX, CGRectGetMaxY(self.startTimeLable.frame) +5 *kAppScale, SCREEN_WIDTH -2 *superViewX, 1);
         
         
         // 中间的TextView
@@ -72,19 +64,17 @@
         
         // 测试颜色
 
-//        self.titleLable.backgroundColor =[UIColor darkGrayColor];
-//        self.startTimeLable.backgroundColor =[UIColor redColor];
+
 //        self.textView.backgroundColor =[UIColor yellowColor];
 //        self.btnSuperView.backgroundColor =[UIColor brownColor];
         
-        self.smallLineView.backgroundColor =UIColorFromHexValue(0xffc07d);
         self.backgroundColor =UIColorFromHexValue(0xfffce5);
         self.bigLineView.backgroundColor =UIColorFromHexValue(0xffc07d);
         
         // 添加到父View上
-        [self addSubview:self.titleLable];
-        [self addSubview:self.startTimeLable];
-        [self addSubview:self.smallLineView];
+//        [self addSubview:self.titleLable];
+//        [self addSubview:self.startTimeLable];
+//        [self addSubview:self.smallLineView];
         [self addSubview:self.textViewLable];
         [self addSubview:self.btnSuperView];
         [self addSubview:self.bigLineView];
@@ -95,8 +85,7 @@
 -(void)setItemModel:(VMRedPacketsItemModel *)itemModel {
     _itemModel =itemModel;
     
-    self.titleLable.text =itemModel.descStr;
-    self.startTimeLable.text =itemModel.startTimeStr;
+
     self.textViewLable.text =itemModel.redPacketsDetailStr;
     
 //    self.textViewLable =[[TYAttributedLabel alloc]initWithFrame:CGRectMake(superViewX, CGRectGetMaxY(self.smallLineView.frame) +10 *kAppScale, SCREEN_WIDTH -2 *superViewX, 160 *kAppScale)];
@@ -113,9 +102,9 @@
     }
 
 
-    self.textViewLable.frame = CGRectMake(superViewX, CGRectGetMaxY(self.smallLineView.frame) +10 *kAppScale, SCREEN_WIDTH -2 *superViewX, textViewLableH);
+    self.textViewLable.frame = CGRectMake(superViewX, 5 *kAppScale, SCREEN_WIDTH -2 *superViewX, textViewLableH);
     
-    self.btnSuperView.frame =CGRectMake(0, CGRectGetMaxY(self.textViewLable.frame) +5 *kAppScale, SCREEN_WIDTH,kVMRedPacketsDetailCommonBtnSuperViewHeight);
+    self.btnSuperView.frame =CGRectMake(0, CGRectGetMaxY(self.textViewLable.frame) +10 *kAppScale, SCREEN_WIDTH,kVMRedPacketsDetailCommonBtnSuperViewHeight);
     self.bigLineView.frame =CGRectMake(0, detailHeaderViewH -1, SCREEN_WIDTH, 1);
     
     self.btnSuperView.itemModel =itemModel;

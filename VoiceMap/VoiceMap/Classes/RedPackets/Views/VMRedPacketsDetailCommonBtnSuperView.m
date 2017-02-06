@@ -10,11 +10,7 @@
 
 @interface VMRedPacketsDetailCommonBtnSuperView ()
 
-@property(nonatomic,strong)UIButton *bigButton;
 
-@property(nonatomic,strong)UIButton *isleftBtn;
-
-@property(nonatomic,strong)UIButton *isRightBtn;
 
 @end
 
@@ -57,6 +53,9 @@
         self.bigButton.hidden =YES;
         [self.isleftBtn setTitle:@"已领取" forState:UIControlStateNormal];
         [self.isRightBtn setTitle:@"已消费" forState:UIControlStateNormal];
+        self.isleftBtn.userInteractionEnabled =NO;
+        self.isRightBtn.userInteractionEnabled =NO;
+
         self.isleftBtn.backgroundColor =UIColorFromHexValue(0x5a5a5a);
         self.isRightBtn.backgroundColor =UIColorFromHexValue(0x5a5a5a);
 
@@ -67,12 +66,25 @@
         
         if ([itemModel.isDrawNum intValue] ==NO) {// 未领取
             [self.bigButton setTitle:@"立即领取" forState:UIControlStateNormal];
-            self.bigButton.backgroundColor =UIColorFromHexValue(0xff8400);
+            
+            if (itemModel.startTimeStr >0) {
+                self.bigButton.backgroundColor =UIColorFromHexValue(0x5a5a5a);
+                self.bigButton.userInteractionEnabled =NO;
+
+
+            }else {
+                self.bigButton.backgroundColor =UIColorFromHexValue(0xff8400);
+                self.bigButton.userInteractionEnabled =YES;
+
+
+            }
 
         }else { // 已经领取
             if ([itemModel.isSpendNum intValue] ==NO) {
                 [self.bigButton setTitle:@"去消费" forState:UIControlStateNormal];
                 self.bigButton.backgroundColor =UIColorFromHexValue(0xff8400);
+                self.bigButton.userInteractionEnabled =YES;
+
 
             }
         }
@@ -81,16 +93,25 @@
 }
 -(void)buttonClick:(UIButton *)button {
     
-    if ([button.titleLabel.text isEqualToString:@"已领取"]) {
-        [DisplayHelper displayWarningAlert:@"您已经领取了奖励哦!"];
-//        DDLog(@"您已经领取了奖励哦!");
-    }else if ([button.titleLabel.text isEqualToString:@"已消费"]) {
-        [DisplayHelper displayWarningAlert:@"您已经消费了奖励哦!"];
-    }else if ([button.titleLabel.text isEqualToString:@"立即领取"]) {
-        [DisplayHelper displaySuccessAlert:@"您正在领取奖励哦!"];
-    }else if ([button.titleLabel.text isEqualToString:@"去消费"]) {
-        [DisplayHelper displaySuccessAlert:@"您正在消费奖励哦!"];
+    if (self.redPacketsBtnBlock) {
+        if ([button.titleLabel.text isEqualToString:@"已领取"]) {
+            [DisplayHelper displayWarningAlert:@"您已经领取了奖励哦!"];
+            //        DDLog(@"您已经领取了奖励哦!");
+        }else if ([button.titleLabel.text isEqualToString:@"已消费"]) {
+            [DisplayHelper displayWarningAlert:@"您已经消费了奖励哦!"];
+        }else if ([button.titleLabel.text isEqualToString:@"立即领取"]) {
+            
+            self.redPacketsBtnBlock(1);
+
+//            [DisplayHelper displaySuccessAlert:@"您正在领取奖励哦!"];
+        }else if ([button.titleLabel.text isEqualToString:@"去消费"]) {
+            self.redPacketsBtnBlock(2);
+//            [DisplayHelper displaySuccessAlert:@"您正在消费奖励哦!"];
+        }
     }
+    
+    
+    
 }
 
 @end

@@ -14,12 +14,24 @@
 
 @property(nonatomic,copy)NSString *descStr;
 
-@property(nonatomic,copy)NSString *remarksStr;
+//@property(nonatomic,copy)NSString *remarksStr;
 
-@property(nonatomic,copy)NSString *startTimeStr;
+@property(nonatomic,assign)NSInteger startTimeStr;
 
 // 红包的详情介绍
 @property(nonatomic,copy)NSString *redPacketsDetailStr;
+
+@property(nonatomic,assign)NSInteger hongbaonum;
+
+@property(nonatomic,assign)NSInteger mId;
+
+@property(nonatomic,assign)NSInteger ish5;
+
+@property(nonatomic,copy)NSString *url;
+
+@property(nonatomic,strong)NSMutableArray *picArray;
+
+
 
 // 是否已经领取
 @property(nonatomic,strong)NSNumber *isDrawNum;
@@ -30,5 +42,8 @@
 +(instancetype)updateWithRedPacketsItemDic:(NSDictionary *)dic;
 
 -(instancetype)initWithRedPacketsItemDic:(NSDictionary *)dic;
+
+// 根据差值返回倒计时的  天时分秒等
+-(NSString *)getTimeStr:(NSInteger)subTimeInteger;
 
 @end

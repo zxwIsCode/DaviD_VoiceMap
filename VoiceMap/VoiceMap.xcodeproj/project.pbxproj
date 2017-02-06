@@ -119,6 +119,8 @@
 		05774F261E45DCEF00E4FC78 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 05774F141E45DCEF00E4FC78 /* UIImageView+HighlightedWebCache.m */; };
 		05774F271E45DCEF00E4FC78 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 05774F161E45DCEF00E4FC78 /* UIImageView+WebCache.m */; };
 		05774F281E45DCEF00E4FC78 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 05774F181E45DCEF00E4FC78 /* UIView+WebCacheOperation.m */; };
+		058A7D941E48290100B67A16 /* VMRedPacketsPhotoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 058A7D931E48290100B67A16 /* VMRedPacketsPhotoItem.m */; };
+		058A7D971E484B2500B67A16 /* NSDate+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 058A7D961E484B2500B67A16 /* NSDate+Addition.m */; };
 		0592151F1E457D4F00BA2659 /* VMRedPacketsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0592151E1E457D4F00BA2659 /* VMRedPacketsListCell.m */; };
 		059215221E4584DD00BA2659 /* VMRedPacketsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 059215211E4584DD00BA2659 /* VMRedPacketsItemModel.m */; };
 		059215251E45A3B600BA2659 /* VMRedPacketsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059215241E45A3B600BA2659 /* VMRedPacketsHeaderView.m */; };
@@ -375,6 +377,10 @@
 		05774F161E45DCEF00E4FC78 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		05774F171E45DCEF00E4FC78 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		05774F181E45DCEF00E4FC78 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		058A7D921E48290100B67A16 /* VMRedPacketsPhotoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMRedPacketsPhotoItem.h; sourceTree = "<group>"; };
+		058A7D931E48290100B67A16 /* VMRedPacketsPhotoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMRedPacketsPhotoItem.m; sourceTree = "<group>"; };
+		058A7D951E484B2500B67A16 /* NSDate+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Addition.h"; sourceTree = "<group>"; };
+		058A7D961E484B2500B67A16 /* NSDate+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Addition.m"; sourceTree = "<group>"; };
 		0592151D1E457D4F00BA2659 /* VMRedPacketsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMRedPacketsListCell.h; sourceTree = "<group>"; };
 		0592151E1E457D4F00BA2659 /* VMRedPacketsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMRedPacketsListCell.m; sourceTree = "<group>"; };
 		059215201E4584DD00BA2659 /* VMRedPacketsItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMRedPacketsItemModel.h; sourceTree = "<group>"; };
@@ -681,6 +687,8 @@
 			children = (
 				059215201E4584DD00BA2659 /* VMRedPacketsItemModel.h */,
 				059215211E4584DD00BA2659 /* VMRedPacketsItemModel.m */,
+				058A7D921E48290100B67A16 /* VMRedPacketsPhotoItem.h */,
+				058A7D931E48290100B67A16 /* VMRedPacketsPhotoItem.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -804,6 +812,8 @@
 		0542F4801E3097DE00580B18 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				058A7D951E484B2500B67A16 /* NSDate+Addition.h */,
+				058A7D961E484B2500B67A16 /* NSDate+Addition.m */,
 				0542F4EE1E30984600580B18 /* DisplayHelper.h */,
 				0542F4EF1E30984600580B18 /* DisplayHelper.m */,
 				0542F48E1E3097DE00580B18 /* CMUserDefaults.h */,
@@ -1191,8 +1201,7 @@
 				TargetAttributes = {
 					05217FA11E2C98700072DE2F = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = TJ83QZ77Y8;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					05217FBA1E2C98700072DE2F = {
 						CreatedOnToolsVersion = 8.1;
@@ -1273,6 +1282,7 @@
 			files = (
 				0542F4DE1E30980100580B18 /* AFURLConnectionOperation.m in Sources */,
 				0542F4EA1E30980100580B18 /* UIImageView+AFNetworking.m in Sources */,
+				058A7D941E48290100B67A16 /* VMRedPacketsPhotoItem.m in Sources */,
 				052180701E2CA6CD0072DE2F /* CMCustomViewFactory.m in Sources */,
 				05217FAD1E2C98700072DE2F /* ViewController.m in Sources */,
 				05C22CBB1E319ED6005D6970 /* MJRefreshBackStateFooter.m in Sources */,
@@ -1285,6 +1295,7 @@
 				05C22CC11E319ED6005D6970 /* UIScrollView+MJExtension.m in Sources */,
 				055799DC1E32FDDD001DD4BB /* LGAudioPlayer.m in Sources */,
 				0542F4E01E30980100580B18 /* AFURLResponseSerialization.m in Sources */,
+				058A7D971E484B2500B67A16 /* NSDate+Addition.m in Sources */,
 				05C22CB91E319ED6005D6970 /* MJRefreshBackGifFooter.m in Sources */,
 				05C22CB81E319ED6005D6970 /* MJRefreshAutoStateFooter.m in Sources */,
 				0542F4E71E30980100580B18 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
@@ -1530,7 +1541,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = TJ83QZ77Y8;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1556,7 +1567,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = TJ83QZ77Y8;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
