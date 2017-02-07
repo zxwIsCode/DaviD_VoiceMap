@@ -47,6 +47,8 @@
 		052180911E2CB4670072DE2F /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052180901E2CB4670072DE2F /* Contacts.framework */; };
 		052180931E2CB4830072DE2F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052180921E2CB4830072DE2F /* CoreTelephony.framework */; };
 		052180961E2CB9240072DE2F /* ISRDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 052180951E2CB9240072DE2F /* ISRDataHelper.m */; };
+		053EF4731E4998B10010F2C4 /* VMAllDrawRedPacketsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EF4721E4998B10010F2C4 /* VMAllDrawRedPacketsItemModel.m */; };
+		053EF4761E49992B0010F2C4 /* VMDrawAllRedPacketsADVModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 053EF4751E49992B0010F2C4 /* VMDrawAllRedPacketsADVModel.m */; };
 		0542F47C1E30543B00580B18 /* PcmPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0542F47A1E30543B00580B18 /* PcmPlayer.m */; };
 		0542F47F1E30584F00580B18 /* TTSConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 0542F47E1E30584F00580B18 /* TTSConfig.m */; };
 		0542F4A51E3097DE00580B18 /* CMUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 0542F48F1E3097DE00580B18 /* CMUserDefaults.m */; };
@@ -228,6 +230,10 @@
 		052180921E2CB4830072DE2F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		052180941E2CB9240072DE2F /* ISRDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISRDataHelper.h; sourceTree = "<group>"; };
 		052180951E2CB9240072DE2F /* ISRDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISRDataHelper.m; sourceTree = "<group>"; };
+		053EF4711E4998B10010F2C4 /* VMAllDrawRedPacketsItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAllDrawRedPacketsItemModel.h; sourceTree = "<group>"; };
+		053EF4721E4998B10010F2C4 /* VMAllDrawRedPacketsItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAllDrawRedPacketsItemModel.m; sourceTree = "<group>"; };
+		053EF4741E49992B0010F2C4 /* VMDrawAllRedPacketsADVModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMDrawAllRedPacketsADVModel.h; sourceTree = "<group>"; };
+		053EF4751E49992B0010F2C4 /* VMDrawAllRedPacketsADVModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMDrawAllRedPacketsADVModel.m; sourceTree = "<group>"; };
 		0542F4791E30543B00580B18 /* PcmPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PcmPlayer.h; sourceTree = "<group>"; };
 		0542F47A1E30543B00580B18 /* PcmPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PcmPlayer.m; sourceTree = "<group>"; };
 		0542F47B1E30543B00580B18 /* PcmPlayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PcmPlayerDelegate.h; sourceTree = "<group>"; };
@@ -689,6 +695,10 @@
 				059215211E4584DD00BA2659 /* VMRedPacketsItemModel.m */,
 				058A7D921E48290100B67A16 /* VMRedPacketsPhotoItem.h */,
 				058A7D931E48290100B67A16 /* VMRedPacketsPhotoItem.m */,
+				053EF4711E4998B10010F2C4 /* VMAllDrawRedPacketsItemModel.h */,
+				053EF4721E4998B10010F2C4 /* VMAllDrawRedPacketsItemModel.m */,
+				053EF4741E49992B0010F2C4 /* VMDrawAllRedPacketsADVModel.h */,
+				053EF4751E49992B0010F2C4 /* VMDrawAllRedPacketsADVModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1333,6 +1343,7 @@
 				054E5A6C1E46C7BA00B54844 /* VMRedPacketsDetailHeaderView.m in Sources */,
 				0542F4DB1E30980100580B18 /* AFHTTPSessionManager.m in Sources */,
 				05774F211E45DCEF00E4FC78 /* SDWebImagePrefetcher.m in Sources */,
+				053EF4731E4998B10010F2C4 /* VMAllDrawRedPacketsItemModel.m in Sources */,
 				05774F231E45DCEF00E4FC78 /* UIImage+GIF.m in Sources */,
 				0542F4A61E3097DE00580B18 /* CMHttpRequestModel.m in Sources */,
 				0542F4E61E30980100580B18 /* AFNetworkActivityIndicatorManager.m in Sources */,
@@ -1356,6 +1367,7 @@
 				05774F201E45DCEF00E4FC78 /* SDWebImageManager.m in Sources */,
 				054E5A8C1E47160400B54844 /* TYTextContainer.m in Sources */,
 				052180501E2CA3D50072DE2F /* CMMainTabBarViewController.m in Sources */,
+				053EF4761E49992B0010F2C4 /* VMDrawAllRedPacketsADVModel.m in Sources */,
 				05774F1C1E45DCEF00E4FC78 /* SDWebImageCompat.m in Sources */,
 				055799F01E331086001DD4BB /* NHPageViewController.m in Sources */,
 				05C22CB71E319ED6005D6970 /* MJRefreshAutoNormalFooter.m in Sources */,

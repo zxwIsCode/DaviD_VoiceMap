@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.page =1;
+    self.page =0;
     
     [self initWithDatas];
     
@@ -55,10 +55,16 @@
     
     
     CMHttpRequestModel *paramsModel =[[CMHttpRequestModel alloc]init];
+    
     self.page ++;
-    paramsModel.appendUrl =kMainGetRedPacketsList;
-    [paramsModel.paramDic setObject:@(self.page) forKey:@"page"];
-    [paramsModel .paramDic setObject:@(2) forKey:@"regionid"];
+    // 不足一页的情况就重新刷新数据
+    if (self.allRedPacketsArr.count <10) {// 不足一页
+        self.page =1;
+    }
+    paramsModel.appendUrl =[NSString stringWithFormat:@"%@%ld",kMainGetRedPacketsList,self.page];
+    paramsModel.type = CMHttpType_GET;
+//    [paramsModel.paramDic setObject:@(self.page) forKey:@"page"];
+//    [paramsModel .paramDic setObject:@(2) forKey:@"regionid"];
     
     // 包装参数设置
     WS(ws);
@@ -71,7 +77,12 @@
                 DDLog(@"%@",result.data);
 //                [DisplayHelper displaySuccessAlert:@"获得列表成功!"];
                 NSArray *dataArr =(NSArray *)result.data;
+                
                 if (dataArr.count) {
+                    // 每次请求第一页的时候，都要清除所有的红包
+                    if (self.page ==1) {
+                        [self.allRedPacketsArr removeAllObjects];
+                    }
                     NSMutableArray *tempArr =[NSMutableArray array];
                     for (int index =0; index <dataArr.count; index ++) {
                         NSDictionary *infoDic =dataArr[index];
@@ -118,11 +129,6 @@
     self.tableView.backgroundColor =UIColorFromHexValue(0xfffce5);
 }
 
-//#pragma mark - 继承父类
-//
-//-(CMNavType)getNavType {
-//    return CMNavTypeAll;
-//}
 
 #pragma mark -  UITableViewDelegate
 

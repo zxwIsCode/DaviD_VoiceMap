@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "VMRedPacketsItemModel.h"
+#import "VMAllDrawRedPacketsItemModel.h"
 
 
 #define kVMRedPacketsDetailCellHeight 68 *kAppScale
@@ -15,7 +16,11 @@
 @interface VMRedPacketsDetailCell : UITableViewCell
 +(instancetype)updateWithTableView:(UITableView *)tableView;
 
-@property(nonatomic,strong)VMRedPacketsItemModel *itemModel;
+//@property(nonatomic,strong)VMRedPacketsItemModel *itemModel;
+
+@property(nonatomic,strong)VMAllDrawRedPacketsItemModel *allDrawModel;
+
+
 
 
 @end

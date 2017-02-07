@@ -14,6 +14,7 @@
 //#import "VMRedPacketsHeaderView.h"
 #import "VMRedPacketsDetailHeaderView.h"
 #import "VMRedPacketsPhotoItem.h"
+#import "VMAllDrawRedPacketsItemModel.h"
 
 #define kRedPacketsScrollViewScale 0.5
 
@@ -249,15 +250,70 @@
 
 -(void)initAllDatas {
     
+    // 轮播图数据源
     for (VMRedPacketsPhotoItem *photoItem in self.itemModel.picArray) {
         [self.autoScrollArr addObject:photoItem.i];
     }
 //    self.autoScrollArr =[@[@"http://jiamenkou.123jmk.com/Uploads/HomeCarousel/2017-01-10/58743eac9a9ed.png"] mutableCopy];
+#warning 这里是为了测试的假数据
+//    for (int index =0; index <8; index ++) {
+//        VMRedPacketsItemModel *item =[VMRedPacketsItemModel updateWithRedPacketsItemDic:nil];
+//        [self.dataArray addObject:item];
+//    }
     
-    for (int index =0; index <8; index ++) {
-        VMRedPacketsItemModel *item =[VMRedPacketsItemModel updateWithRedPacketsItemDic:nil];
-        [self.dataArray addObject:item];
-    }
+    CMHttpRequestModel *paramsModel =[[CMHttpRequestModel alloc]init];
+    paramsModel.appendUrl =kGetAllRedPackets;
+    NSString *uuidStr = [[[UIDevice currentDevice] identifierForVendor]UUIDString];
+    
+    [paramsModel.paramDic setObject:uuidStr forKey:@"userid"];
+
+    // 包装参数设置
+    WS(ws);
+    
+    paramsModel.callback =^(CMHttpResponseModel *result, NSError *error) {
+        
+        if (result) {
+            if (result.state ==CMReponseCodeState_Success) {// 成功,做自己的逻辑
+                DDLog(@"%@",result.data);
+                [DisplayHelper displaySuccessAlert:@"获取红包成功哦！"];
+#warning 这里的数据没有经过实际检验哦
+                NSArray *dataArr =(NSArray *)result.data;
+                if (dataArr.count) {
+                    NSMutableArray *tempArr =[NSMutableArray array];
+                    for (int index =0; index <dataArr.count; index ++) {
+                        NSDictionary *infoDic =dataArr[index];
+                        VMAllDrawRedPacketsItemModel *item =[VMAllDrawRedPacketsItemModel updateWithAllDrawRedPacketsItemModelDic:infoDic];
+                        [tempArr addObject:item];
+                    }
+                    [ws.dataArray addObjectsFromArray:tempArr];
+                    [ws.tableView reloadData];
+                    
+                }
+                
+                
+                
+            }else {// 失败,弹框提示
+                
+                DDLog(@"%@",result.error);
+                if (result.alertMsg) {
+                    [DisplayHelper displayWarningAlert:result.alertMsg];
+
+                    
+                }else {
+                    [DisplayHelper displayWarningAlert:@"请求成功,但没有数据哦!"];
+                }
+            }
+        }else {
+            
+            [DisplayHelper displayWarningAlert:@"网络异常，请稍后再试!"];
+            
+        }
+        [[DisplayHelper shareDisplayHelper]hideLoading:ws.view];
+        
+    };
+    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel];
+    
+    
 }
 -(void)creaScrollView {
     self.autoScrollView = [[YLInfiniteScrollView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_WIDTH *kRedPacketsScrollViewScale)];
@@ -279,9 +335,9 @@
     VMRedPacketsDetailCell *cell =[VMRedPacketsDetailCell updateWithTableView:tableView];
     if (cell) {
         if (indexPath.row <self.dataArray.count) {
-            VMRedPacketsItemModel *item =self.dataArray[indexPath.row];
+            VMAllDrawRedPacketsItemModel *allDrawModel =self.dataArray[indexPath.row];
             
-            cell.itemModel =item;
+            cell.allDrawModel =allDrawModel;
             
         }
     }

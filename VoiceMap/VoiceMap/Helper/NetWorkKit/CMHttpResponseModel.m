@@ -31,7 +31,18 @@
         }else {
             if ([responseData isKindOfClass:[NSDictionary class]]) {// 正常返回数据处理
                 NSNumber *codeNum =responseData[@"ret"];
+                
                 id data = [responseData valueForKey:@"info"];
+#warning app红包部分返回参数不同的情况单独处理开始
+                if (![codeNum intValue]) {
+                    codeNum =responseData[@"tag"];
+                }
+                if (!data) {
+                     data = [responseData valueForKey:@"advs"];
+                }
+                
+#warning app红包部分返回参数不同的情况单独处理结束
+
                 if ([codeNum longValue] ==100) {
 //                    _isSucc =YES;
                     _state =CMReponseCodeState_Success;

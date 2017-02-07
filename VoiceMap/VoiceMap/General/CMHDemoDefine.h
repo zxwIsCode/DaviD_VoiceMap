@@ -19,6 +19,8 @@ UIKIT_EXTERN NSString *const kMainGetVoiceList; // 获得所有的会话列表
 UIKIT_EXTERN NSString *const kMainGetRedPacketsList; // 获得红包列表的接口
 UIKIT_EXTERN NSString *const kReceiveImmediatelyRedPackets; // 点击立即领取红包的接口
 UIKIT_EXTERN NSString *const kGoSpendRedPackets; // 点击去消费红包的接口
+UIKIT_EXTERN NSString *const kGetAllRedPackets; // 红包详情页获得已领所有红包的接口
+
 
 
 
