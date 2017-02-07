@@ -82,6 +82,7 @@
                     // 每次请求第一页的时候，都要清除所有的红包
                     if (self.page ==1) {
                         [self.allRedPacketsArr removeAllObjects];
+                        [DisplayHelper displayWarningAlert:@"请求成功,但是没有最新数据哦！"];
                     }
                     NSMutableArray *tempArr =[NSMutableArray array];
                     for (int index =0; index <dataArr.count; index ++) {
@@ -164,7 +165,7 @@
     VMRedPacketsHeaderView *headerView =[VMRedPacketsHeaderView updateWithHeaderTableView:tableView];
     if (headerView) {
         headerView.redPacketsCount =self.allRedPacketsArr.count;
-//        headerView.backgroundColor =[UIColor redColor];
+//        headerView.contentView.backgroundColor =[UIColor redColor];
     }
     return headerView;
 }

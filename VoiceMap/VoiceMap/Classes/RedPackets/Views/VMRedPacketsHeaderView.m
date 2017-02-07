@@ -47,6 +47,8 @@
 //        self.allRedPacketsLable.backgroundColor =[UIColor darkGrayColor];
 //        self.leftRightBtn.backgroundColor =[UIColor blueColor];
         self.backgroundColor =UIColorFromHexValue(0xfffce5);
+        self.contentView.backgroundColor =UIColorFromHexValue(0xfffce5);
+
         self.lineView.backgroundColor =UIColorFromHexValue(0xffc07d);
 
         

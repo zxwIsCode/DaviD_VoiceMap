@@ -91,6 +91,12 @@
     
     
 }
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [timer invalidate];
+    timer = nil;
+
+}
 -(void)dealloc {
     
     [timer invalidate];
@@ -99,7 +105,7 @@
 
 #pragma mark - Private Methods
 -(void)initTimer {
-//    self.subTimeStamp = self.itemModel.startTimeStr;
+
     if (self.itemModel.startTimeStr != 0) {
         timer =[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timer:) userInfo:nil repeats:YES];
     }
