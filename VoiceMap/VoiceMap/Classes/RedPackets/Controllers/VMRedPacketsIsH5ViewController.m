@@ -28,7 +28,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.webView.backgroundColor =[UIColor redColor];
+//    self.webView.backgroundColor =[UIColor redColor];
     
 }
 
