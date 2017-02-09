@@ -11,6 +11,8 @@
 #import "VMRedPacketsItemModel.h"
 #import "VMRedPacketsHeaderView.h"
 #import "VMRedPacketsDetailViewController.h"
+#import "VMRedPacketsIsH5ViewController.h"
+
 #import "MJRefresh.h"
 
 
@@ -110,7 +112,12 @@
                 
             }
         }else {
-            [DisplayHelper displayWarningAlert:@"网络异常，请稍后再试!"];
+            if (result.error) {
+                [DisplayHelper displayWarningAlert:@"网络异常，请稍后再试!"];
+
+            }else {
+                [DisplayHelper displayWarningAlert:@"请求成功,但没有数据哦!"];
+            }
             
         }
         // 停止刷新
@@ -174,11 +181,18 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    VMRedPacketsDetailViewController *detailVC =[[VMRedPacketsDetailViewController alloc]init];
     
     VMRedPacketsItemModel *item =self.allRedPacketsArr[indexPath.row];
-    detailVC.itemModel =item;
-    [self.navigationController pushViewController:detailVC animated:YES];
+    if (item.ish5 ==2) {// 非H5
+        VMRedPacketsDetailViewController *detailVC =[[VMRedPacketsDetailViewController alloc]init];
+        detailVC.itemModel =item;
+        [self.navigationController pushViewController:detailVC animated:YES];
+    }else if (item.ish5 ==1) {// 是H5
+        VMRedPacketsIsH5ViewController *isH5VC =[[VMRedPacketsIsH5ViewController alloc]init];
+        isH5VC.itemModel =item;
+        [self.navigationController pushViewController:isH5VC animated:YES];
+    }
+
     
 }
 

@@ -19,6 +19,7 @@
         self.advname =dic[@"advname"];
         self.advtitle =dic[@"advtitle"];
         self.content =dic[@"content"];
+        self.mId =dic[@"id"];
 
     }
     return self;

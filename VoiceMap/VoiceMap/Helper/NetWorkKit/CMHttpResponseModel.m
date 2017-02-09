@@ -39,6 +39,7 @@
 #warning app红包部分返回参数不同的情况单独处理开始
                 if (![codeNum intValue]) {
                     codeNum =responseData[@"tag"];
+                    _code = [codeNum integerValue];
                 }
                 if (!data) {
                      data = [responseData valueForKey:@"advs"];

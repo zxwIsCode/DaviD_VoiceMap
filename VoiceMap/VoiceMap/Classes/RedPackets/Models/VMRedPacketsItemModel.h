@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#define StartTimerStopText @"开抢红包时间到！"
+
+
 @interface VMRedPacketsItemModel : NSObject
 
 @property(nonatomic,copy)NSString *iconUrl;
@@ -42,8 +45,9 @@
 +(instancetype)updateWithRedPacketsItemDic:(NSDictionary *)dic;
 
 -(instancetype)initWithRedPacketsItemDic:(NSDictionary *)dic;
-
-// 根据差值返回倒计时的  天时分秒等
--(NSString *)getTimeStr:(NSInteger)subTimeInteger;
+// 获得传递的时间与当前时间的差值时间戳
+-(NSInteger)getSubTimer:(NSInteger)newTimer;
+// 根据传递的时间返回倒计时的  天时分秒等
+-(NSString *)getTimeStr:(NSInteger)startTimerStr;
 
 @end

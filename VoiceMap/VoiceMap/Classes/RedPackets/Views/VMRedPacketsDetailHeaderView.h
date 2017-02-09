@@ -12,7 +12,13 @@
 #import "VMRedPacketsDetailCommonBtnSuperView.h"
 
 
-#define kVMRedPacketsDetailHeaderViewHeight 225 *kAppScale
+//#define kVMRedPacketsDetailHeaderViewHeight 225 *kAppScale
+//
+//#define kVMRedPacketsDetailHeaderView_TextViewLableH 160 *kAppScale
+
+#define kVMRedPacketsDetailHeaderViewHeight 85 *kAppScale
+
+#define kVMRedPacketsDetailHeaderView_TextViewLableH 20 *kAppScale
 
 @interface VMRedPacketsDetailHeaderView : UIView
 

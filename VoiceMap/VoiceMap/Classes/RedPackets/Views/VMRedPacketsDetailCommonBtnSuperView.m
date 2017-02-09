@@ -66,8 +66,7 @@
         
         if ([itemModel.isDrawNum intValue] ==NO) {// 未领取
             [self.bigButton setTitle:@"立即领取" forState:UIControlStateNormal];
-            
-            if (itemModel.startTimeStr >0) {
+            if ([itemModel getSubTimer:itemModel.startTimeStr] >0) {
                 self.bigButton.backgroundColor =UIColorFromHexValue(0x5a5a5a);
                 self.bigButton.userInteractionEnabled =NO;
 

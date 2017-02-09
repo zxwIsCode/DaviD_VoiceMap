@@ -67,6 +67,8 @@
     self.titleLable.text =self.itemModel.descStr;
     self.startTimeLable.text =[self.itemModel getTimeStr:self.itemModel.startTimeStr];
     
+    
+    
     [self.view addSubview:self.tableView];
     
     [self initTimer];
@@ -79,7 +81,7 @@
     CGFloat scrollViewH = SCREEN_WIDTH *kRedPacketsScrollViewScale;
     self.titleLable.frame =CGRectMake(superViewX,scrollViewH + 15 *kAppScale, SCREEN_WIDTH -2 *superViewX, 20 *kAppScale);
     self.startTimeLable.frame =CGRectMake(superViewX, CGRectGetMaxY(self.titleLable.frame) +4 *kAppScale, SCREEN_WIDTH -2 *superViewX, 16 *kAppScale);
-    self.smallLineView.frame =CGRectMake(superViewX, CGRectGetMaxY(self.startTimeLable.frame) +10 *kAppScale, SCREEN_WIDTH -2 *superViewX, 1);
+    self.smallLineView.frame =CGRectMake(0, CGRectGetMaxY(self.startTimeLable.frame) +10 *kAppScale, SCREEN_WIDTH , 1);
     
     CGFloat tableViewY =CGRectGetMaxY(self.smallLineView.frame);
     self.tableView.frame =CGRectMake(0, tableViewY, SCREEN_WIDTH, SCREEN_HEIGHT -tableViewY -64);
@@ -93,6 +95,7 @@
 }
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    //不能重新获得时间发布时间，故而定时器不要停止
     [timer invalidate];
     timer = nil;
 
@@ -112,13 +115,11 @@
     WS(ws);
     self.detailHeaderView.btnSuperView.redPacketsBtnBlock =^(NSInteger btnTag) {
         if (btnTag ==1) {// 立即领取
-            [DisplayHelper displaySuccessAlert:@"您正在领取奖励哦!"];
             
             // 立即领取 红包
             [ws requestDrawRedPackets];
 
         }else { //去消费
-            [DisplayHelper displaySuccessAlert:@"您正在消费奖励哦!"];
             
             // 去消费红包
             [ws requestSpendRedPackets];
@@ -130,10 +131,11 @@
 }
 
 -(void)timer:(NSTimer*)timerr{
-    self.itemModel.startTimeStr =self.itemModel.startTimeStr -1;
+//    self.itemModel.startTimeStr =self.itemModel.startTimeStr -1;
+    
     self.startTimeLable.text =[self.itemModel getTimeStr:self.itemModel.startTimeStr];
     
-    if (self.itemModel.startTimeStr == 0) {
+    if ([self.startTimeLable.text isEqualToString:StartTimerStopText]) { //开抢时间到，就停止定时器
         [timer invalidate];
         timer = nil;
 
@@ -141,6 +143,24 @@
         self.detailHeaderView.btnSuperView.bigButton.userInteractionEnabled =YES;
         
     }
+}
+// 更改界面立即领取到去消费
+-(void)changeDraw2SpendMoney {
+    self.detailHeaderView.btnSuperView.bigButton.backgroundColor =UIColorFromHexValue(0xff8400);
+    [self.detailHeaderView.btnSuperView.bigButton setTitle:@"去消费" forState:UIControlStateNormal];
+}
+// 更改界面消费到消费成功
+-(void)changeSpendFinishMoney {
+    [self.detailHeaderView.btnSuperView.bigButton removeFromSuperview];
+    self.detailHeaderView.btnSuperView.isleftBtn.hidden =NO;
+    self.detailHeaderView.btnSuperView.isRightBtn.hidden =NO;
+    [self.detailHeaderView.btnSuperView.isleftBtn setTitle:@"已领取" forState:UIControlStateNormal];
+    [self.detailHeaderView.btnSuperView.isRightBtn setTitle:@"已消费" forState:UIControlStateNormal];
+    self.detailHeaderView.btnSuperView.isleftBtn.userInteractionEnabled =NO;
+    self.detailHeaderView.btnSuperView.isRightBtn.userInteractionEnabled =NO;
+    
+    self.detailHeaderView.btnSuperView.isleftBtn.backgroundColor =UIColorFromHexValue(0x5a5a5a);
+    self.detailHeaderView.btnSuperView.isRightBtn.backgroundColor =UIColorFromHexValue(0x5a5a5a);
 }
 // 立即领取 红包
 -(void)requestDrawRedPackets {
@@ -158,20 +178,22 @@
     paramsModel.callback =^(CMHttpResponseModel *result, NSError *error) {
         
         if (result) {
-            if (result.state ==CMReponseCodeState_Success) {// 成功,做自己的逻辑
+            if (result.code == 101) {// 成功,做自己的逻辑
                 DDLog(@"%@",result.data);
-                [DisplayHelper displaySuccessAlert:@"获取红包成功哦！"];
-                self.detailHeaderView.btnSuperView.bigButton.backgroundColor =UIColorFromHexValue(0xff8400);
-                [self.detailHeaderView.btnSuperView.bigButton setTitle:@"去消费" forState:UIControlStateNormal];
+                if (result.alertMsg) {
+                    [DisplayHelper displaySuccessAlert:result.alertMsg];
+                }else {
+                    [DisplayHelper displaySuccessAlert:@"获取红包成功哦！"];
+                }
+                // 更改界面立即领取到去消费
+                [ws changeDraw2SpendMoney];
+               
                 
             }else {// 失败,弹框提示
                 
                 DDLog(@"%@",result.error);
                 if (result.alertMsg) {
                     [DisplayHelper displayWarningAlert:result.alertMsg];
-#warning 这里是为了测试的假数据
-//                    self.detailHeaderView.btnSuperView.bigButton.backgroundColor =UIColorFromHexValue(0xff8400);
-//                    [self.detailHeaderView.btnSuperView.bigButton setTitle:@"去消费" forState:UIControlStateNormal];
 
                 }else {
                     [DisplayHelper displayWarningAlert:@"请求成功,但没有数据哦!"];
@@ -182,7 +204,7 @@
             [DisplayHelper displayWarningAlert:@"网络异常，请稍后再试!"];
             
         }
-        [[DisplayHelper shareDisplayHelper]hideLoading:ws.view];
+//        [[DisplayHelper shareDisplayHelper]hideLoading:ws.view];
         
     };
     [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel];
@@ -206,17 +228,15 @@
         if (result) {
             if (result.state ==CMReponseCodeState_Success) {// 成功,做自己的逻辑
                 DDLog(@"%@",result.data);
-                [DisplayHelper displaySuccessAlert:@"消费红包成功！"];
-                [self.detailHeaderView.btnSuperView.bigButton removeFromSuperview];
-                self.detailHeaderView.btnSuperView.isleftBtn.hidden =NO;
-                self.detailHeaderView.btnSuperView.isRightBtn.hidden =NO;
-                [self.detailHeaderView.btnSuperView.isleftBtn setTitle:@"已领取" forState:UIControlStateNormal];
-                [self.detailHeaderView.btnSuperView.isRightBtn setTitle:@"已消费" forState:UIControlStateNormal];
-                self.detailHeaderView.btnSuperView.isleftBtn.userInteractionEnabled =NO;
-                self.detailHeaderView.btnSuperView.isRightBtn.userInteractionEnabled =NO;
+                if (result.alertMsg) {
+                    [DisplayHelper displaySuccessAlert:result.alertMsg];
+                }else {
+                    [DisplayHelper displaySuccessAlert:@"消费红包成功！"];
+                }
                 
-                self.detailHeaderView.btnSuperView.isleftBtn.backgroundColor =UIColorFromHexValue(0x5a5a5a);
-                self.detailHeaderView.btnSuperView.isRightBtn.backgroundColor =UIColorFromHexValue(0x5a5a5a);
+                // // 更改界面消费到消费成功
+                [ws changeSpendFinishMoney];
+               
 
                 
             }else {// 失败,弹框提示
@@ -224,18 +244,6 @@
                 DDLog(@"%@",result.error);
                 if (result.alertMsg) {
                     [DisplayHelper displayWarningAlert:result.alertMsg];
-#warning 这里是为了测试的假数据
-//                    [self.detailHeaderView.btnSuperView.bigButton removeFromSuperview];
-//                    self.detailHeaderView.btnSuperView.isleftBtn.hidden =NO;
-//                    self.detailHeaderView.btnSuperView.isRightBtn.hidden =NO;
-//                    [self.detailHeaderView.btnSuperView.isleftBtn setTitle:@"已领取" forState:UIControlStateNormal];
-//                    [self.detailHeaderView.btnSuperView.isRightBtn setTitle:@"已消费" forState:UIControlStateNormal];
-//                    self.detailHeaderView.btnSuperView.isleftBtn.userInteractionEnabled =NO;
-//                    self.detailHeaderView.btnSuperView.isRightBtn.userInteractionEnabled =NO;
-//                    
-//                    self.detailHeaderView.btnSuperView.isleftBtn.backgroundColor =UIColorFromHexValue(0x5a5a5a);
-//                    self.detailHeaderView.btnSuperView.isRightBtn.backgroundColor =UIColorFromHexValue(0x5a5a5a);
-                    
                     
                 }else {
                     [DisplayHelper displayWarningAlert:@"请求成功,但是消费红包失败！"];
@@ -246,7 +254,7 @@
             [DisplayHelper displayWarningAlert:@"网络异常，请稍后再试!"];
             
         }
-        [[DisplayHelper shareDisplayHelper]hideLoading:ws.view];
+//        [[DisplayHelper shareDisplayHelper]hideLoading:ws.view];
         
     };
     [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel];
@@ -281,8 +289,7 @@
         if (result) {
             if (result.state ==CMReponseCodeState_Success) {// 成功,做自己的逻辑
                 DDLog(@"%@",result.data);
-                [DisplayHelper displaySuccessAlert:@"获取红包成功哦！"];
-#warning 这里的数据没有经过实际检验哦
+//                [DisplayHelper displaySuccessAlert:@"获取已领取红包列表成功哦！"];
                 NSArray *dataArr =(NSArray *)result.data;
                 if (dataArr.count) {
                     NSMutableArray *tempArr =[NSMutableArray array];
@@ -292,11 +299,26 @@
                         [tempArr addObject:item];
                     }
                     [ws.dataArray addObjectsFromArray:tempArr];
+                    
+                    // 判断当前的红包是否已经领过
+//                    BOOL isFond =NO;
+                    for (VMAllDrawRedPacketsItemModel *allRedItemModel in ws.dataArray) {
+                        if ([allRedItemModel.advModel.mId integerValue] == ws.itemModel.mId) {
+                            if ([allRedItemModel.status integerValue] ==1) {
+                                // 更改界面立即领取到去消费
+                                [ws changeDraw2SpendMoney];
+                            }else if ([allRedItemModel.status integerValue] ==2) {
+                                // 更改界面消费到消费成功
+                                [ws changeSpendFinishMoney];
+                            }
+                           
+//                            isFond =YES;
+                        }
+                    }
+                    
                     [ws.tableView reloadData];
                     
-                }
-                
-                
+                }                
                 
             }else {// 失败,弹框提示
                 
@@ -387,7 +409,7 @@
         _tableView = [[UITableView alloc] init];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.bounces =NO;
+        _tableView.bounces =YES;
         _tableView.tableHeaderView =self.detailHeaderView;
         _tableView.rowHeight = kVMRedPacketsDetailCellHeight;
 //        _tableView.showsVerticalScrollIndicator = NO;
@@ -420,8 +442,8 @@
         NSDictionary *dic = @{NSFontAttributeName : [UIFont systemFontOfSize:13 *kAppScale ]};
         CGRect textViewLableFrame =[self.itemModel.redPacketsDetailStr boundingRectWithSize:textViewLableSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
         CGFloat textViewLableH =textViewLableFrame.size.height;
-        CGFloat detailHeaderViewH = kVMRedPacketsDetailHeaderViewHeight +textViewLableH -160 *kAppScale;
-        if (textViewLableH <160 *kAppScale) { //如果详情高度不够160的话，就按160处理
+        CGFloat detailHeaderViewH = kVMRedPacketsDetailHeaderViewHeight +textViewLableH -kVMRedPacketsDetailHeaderView_TextViewLableH;
+        if (textViewLableH <kVMRedPacketsDetailHeaderView_TextViewLableH) { //如果详情高度不够最小间距的话，就按最小间距处理
             detailHeaderViewH = kVMRedPacketsDetailHeaderViewHeight;
         }
         

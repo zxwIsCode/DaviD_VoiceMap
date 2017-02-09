@@ -16,6 +16,8 @@
 
 @property(nonatomic,copy)NSString *content;
 
+@property(nonatomic,copy)NSString *mId;
+
 +(instancetype)updateWithVMDrawAllRedPacketsADVModelDic:(NSDictionary *)dic;
 
 -(instancetype)initWithVMDrawAllRedPacketsADVModelDic:(NSDictionary *)dic;

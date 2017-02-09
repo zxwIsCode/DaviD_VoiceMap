@@ -106,32 +106,6 @@
     return self;
 }
 
-//-(void)setItemModel:(VMRedPacketsItemModel *)itemModel {
-//    _itemModel =itemModel;
-//    
-//    self.iconImageView.image =[UIImage imageNamed:itemModel.iconUrl];
-//    self.descLable.text =itemModel.descStr;
-//    self.startTimeLable.text =[itemModel getTimeStr:itemModel.startTimeStr];
-//    
-//    if ([itemModel.isDrawNum intValue]) {
-//        [self.isDrawBtn setTitle:@"已领取" forState:UIControlStateNormal];
-//    }else {
-//        [self.isDrawBtn setTitle:@"未领取" forState:UIControlStateNormal];
-//
-//    }
-//    
-//    
-//    if ([itemModel.isSpendNum intValue]) {
-//        [self.isSpendBtn setTitle:@"已消费" forState:UIControlStateNormal];
-//        self.isSpendBtn.backgroundColor =UIColorFromHexValue(0x5a5a5a);
-//
-//    }else {
-//        [self.isSpendBtn setTitle:@"未消费" forState:UIControlStateNormal];
-//        self.isSpendBtn.backgroundColor =UIColorFromHexValue(0x7fbe26);
-//
-//    }
-//    
-//}
 
 -(void)setAllDrawModel:(VMAllDrawRedPacketsItemModel *)allDrawModel {
     _allDrawModel =allDrawModel;
