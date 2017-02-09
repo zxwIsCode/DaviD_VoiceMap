@@ -90,19 +90,29 @@
     
 //    self.textViewLable =[[TYAttributedLabel alloc]initWithFrame:CGRectMake(superViewX, CGRectGetMaxY(self.smallLineView.frame) +10 *kAppScale, SCREEN_WIDTH -2 *superViewX, 160 *kAppScale)];
     CGFloat superViewX =10 *kAppScale;
-    CGFloat textViewLableW = SCREEN_WIDTH  -2 *superViewX;
-    CGSize textViewLableSize = CGSizeMake(textViewLableW, MAXFLOAT);
-    NSDictionary *dic = @{NSFontAttributeName : [UIFont systemFontOfSize:13 *kAppScale ]};
-    CGRect textViewLableFrame =[itemModel.redPacketsDetailStr boundingRectWithSize:textViewLableSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
-    CGFloat textViewLableH =textViewLableFrame.size.height;
-    CGFloat detailHeaderViewH = kVMRedPacketsDetailHeaderViewHeight +textViewLableH -160 *kAppScale;
-    if (textViewLableH <160 *kAppScale) { // 如果详情高度不够160的话，就按160处理
+    CGFloat detailHeaderViewH ;
+    CGFloat textViewLableH;
+    if (itemModel.redPacketsDetailStr) { // 有值
+        CGFloat textViewLableW = SCREEN_WIDTH  -2 *superViewX;
+        CGSize textViewLableSize = CGSizeMake(textViewLableW, MAXFLOAT);
+        NSDictionary *dic = @{NSFontAttributeName : [UIFont systemFontOfSize:13 *kAppScale ]};
+        CGRect textViewLableFrame =[itemModel.redPacketsDetailStr boundingRectWithSize:textViewLableSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
+        textViewLableH =textViewLableFrame.size.height;
+        detailHeaderViewH = kVMRedPacketsDetailHeaderViewHeight +textViewLableH -160 *kAppScale;
+        if (textViewLableH <160 *kAppScale) { // 如果详情高度不够160的话，就按160处理
+            textViewLableH =160 *kAppScale;
+            detailHeaderViewH = kVMRedPacketsDetailHeaderViewHeight;
+        }
+        self.textViewLable.frame = CGRectMake(superViewX, 5 *kAppScale, SCREEN_WIDTH -2 *superViewX, textViewLableH);
+    }else { // 无值
         textViewLableH =160 *kAppScale;
         detailHeaderViewH = kVMRedPacketsDetailHeaderViewHeight;
+       self.textViewLable.frame = CGRectMake(superViewX, 5 *kAppScale, SCREEN_WIDTH -2 *superViewX, textViewLableH);
     }
+    
 
 
-    self.textViewLable.frame = CGRectMake(superViewX, 5 *kAppScale, SCREEN_WIDTH -2 *superViewX, textViewLableH);
+    
     
     self.btnSuperView.frame =CGRectMake(0, CGRectGetMaxY(self.textViewLable.frame) +10 *kAppScale, SCREEN_WIDTH,kVMRedPacketsDetailCommonBtnSuperViewHeight);
     self.bigLineView.frame =CGRectMake(0, detailHeaderViewH -1, SCREEN_WIDTH, 1);

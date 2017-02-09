@@ -27,4 +27,7 @@ typedef NS_ENUM(NSUInteger, CMReponseCodeState) {
 @property (nonatomic, assign, readonly) id data;   //数据
 @property (nonatomic, strong, readonly) NSError *error;  //业务错误
 
+// 红包列表专用id
+//@property(nonatomic,assign,readonly)NSInteger maxid;
+
 @end

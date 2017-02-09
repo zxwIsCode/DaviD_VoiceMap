@@ -13,6 +13,8 @@
 @synthesize error = _error;
 @synthesize code = _code;
 @synthesize data = _data;
+//@synthesize maxid = _maxid;
+
 
 -(id)initWithData:(id)responseData err:(NSError *)err {
     if (self =[super init]) {
@@ -33,6 +35,7 @@
                 NSNumber *codeNum =responseData[@"ret"];
                 
                 id data = [responseData valueForKey:@"info"];
+//                NSNumber *maxIds =responseData[@"maxid"];
 #warning app红包部分返回参数不同的情况单独处理开始
                 if (![codeNum intValue]) {
                     codeNum =responseData[@"tag"];
@@ -47,6 +50,7 @@
 //                    _isSucc =YES;
                     _state =CMReponseCodeState_Success;
                     _data =data;
+//                    _maxid=[maxIds integerValue];
 
                 }else  {
                     _state =CMReponseCodeState_NoData;

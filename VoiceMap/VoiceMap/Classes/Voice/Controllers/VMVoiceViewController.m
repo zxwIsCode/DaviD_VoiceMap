@@ -216,8 +216,8 @@ typedef NS_OPTIONS(NSInteger, Status) {
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
         VMVoiceItem *voiceItem =self.allDataSource[self.nowIndex +1];
         // index传的是下标
-#warning 播放下一条数据暂时屏蔽了
-//        [[LGAudioPlayer sharePlayer] playAudioWithURLString:voiceItem.audio atIndex:self.nowIndex +1];
+//#warning 播放下一条数据暂时屏蔽了
+        [[LGAudioPlayer sharePlayer] playAudioWithURLString:voiceItem.audio atIndex:self.nowIndex +1];
 
 //                [self startPlayingText:self.allDataSource[self.nowIndex +1] and:self.nowIndex +2];
     }

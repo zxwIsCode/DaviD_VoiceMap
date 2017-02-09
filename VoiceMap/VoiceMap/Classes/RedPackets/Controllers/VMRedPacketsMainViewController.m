@@ -20,7 +20,7 @@
 
 @property(nonatomic,strong)NSMutableArray *allRedPacketsArr;
 
-@property(nonatomic,assign)NSInteger page;
+@property(nonatomic,assign)NSInteger maxId;
 
 @end
 
@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.page =0;
+    self.maxId =0;
     
     [self initWithDatas];
     
@@ -56,12 +56,14 @@
     
     CMHttpRequestModel *paramsModel =[[CMHttpRequestModel alloc]init];
     
-    self.page ++;
     // 不足一页的情况就重新刷新数据
-    if (self.allRedPacketsArr.count <10) {// 不足一页
-        self.page =1;
-    }
-    paramsModel.appendUrl =[NSString stringWithFormat:@"%@%ld",kMainGetRedPacketsList,self.page];
+//    if (self.allRedPacketsArr.count <10) {// 不足一页
+//        self.page =1;
+//    }
+    NSString *uuidStr = [[[UIDevice currentDevice] identifierForVendor]UUIDString];
+    
+    [paramsModel.paramDic setObject:uuidStr forKey:@"userid"];
+    paramsModel.appendUrl =[NSString stringWithFormat:@"%@%ld/userid/%@",kMainGetRedPacketsList,self.maxId,uuidStr];
     paramsModel.type = CMHttpType_GET;
 //    [paramsModel.paramDic setObject:@(self.page) forKey:@"page"];
 //    [paramsModel .paramDic setObject:@(2) forKey:@"regionid"];
@@ -77,38 +79,37 @@
                 DDLog(@"%@",result.data);
 //                [DisplayHelper displaySuccessAlert:@"获得列表成功!"];
                 NSArray *dataArr =(NSArray *)result.data;
-                
                 if (dataArr.count) {
-                    // 每次请求第一页的时候，都要清除所有的红包
-                    if (self.page ==1) {
-                        [self.allRedPacketsArr removeAllObjects];
-                        [DisplayHelper displayWarningAlert:@"请求成功,但是没有最新数据哦！"];
-                    }
+//                    // 每次请求第一页的时候，都要清除所有的红包
+//                    if (self.page ==1) {
+//                        [self.allRedPacketsArr removeAllObjects];
+//                        [DisplayHelper displayWarningAlert:@"请求成功,但是没有最新数据哦！"];
+//                    }
                     NSMutableArray *tempArr =[NSMutableArray array];
                     for (int index =0; index <dataArr.count; index ++) {
                         NSDictionary *infoDic =dataArr[index];
                         VMRedPacketsItemModel *item =[VMRedPacketsItemModel updateWithRedPacketsItemDic:infoDic];
                         [tempArr addObject:item];
                     }
+                    // 获得最大红包id
+                    VMRedPacketsItemModel *maxIdModel =tempArr[tempArr.count -1];
+                    self.maxId =maxIdModel.mId;
+                    
                     [ws.allRedPacketsArr addObjectsFromArray:tempArr];
                     [ws.tableView reloadData];
 
                 }else {
-                    ws.page --;
                     [DisplayHelper displayWarningAlert:@"请求成功,但是没有最新数据哦！"];
 
                 }
                 
             }else {// 失败,弹框提示
-                ws.page --;
 
                 DDLog(@"%@",result.error);
                 [DisplayHelper displayWarningAlert:@"请求成功,但没有数据哦!"];
                 
             }
         }else {
-            ws.page --;
-
             [DisplayHelper displayWarningAlert:@"网络异常，请稍后再试!"];
             
         }
