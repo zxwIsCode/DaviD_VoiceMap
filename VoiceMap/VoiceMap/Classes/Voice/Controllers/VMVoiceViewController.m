@@ -143,9 +143,56 @@ typedef NS_OPTIONS(NSInteger, Status) {
 }
 -(void)viewWillAppear:(BOOL)animated {
     
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+//    [self.navigationController setNavigationBarHidden:YES animated:NO];
 
     [super viewWillAppear:animated];
+    
+//    self.backgroundView.frame =self.view.bounds;
+//    
+//    self.startBtn.bounds =CGRectMake(0, 0, 100, 100);
+//    self.startBtn.center =CGPointMake(SCREEN_WIDTH *0.5, 120 *kAppScale);
+//    
+//    CGFloat voiceBtnWidth =300 *kAppScale ;
+//    self.voiceBtn.bounds =CGRectMake(0, 0, voiceBtnWidth, voiceBtnWidth *412/578.0);
+//    self.voiceBtn.center =CGPointMake(SCREEN_WIDTH *0.5, SCREEN_HEIGHT -180);
+//    
+//    self.textFeild.bounds =CGRectMake(0, 0, SCREEN_WIDTH -60 *kAppScale, 24 *kAppScale);
+//    self.textFeild.center =CGPointMake(SCREEN_WIDTH *0.5, CGRectGetMaxY(self.startBtn.frame) +20 *kAppScale);
+//    
+//    self.textFeild.backgroundColor =[UIColor whiteColor];
+//    
+//    self.textLable.bounds =CGRectMake(0, 0, SCREEN_WIDTH -60 *kAppScale, 24 *kAppScale);
+//    self.textLable.center =CGPointMake(SCREEN_WIDTH *0.5, CGRectGetMaxY(self.textFeild.frame) +20 *kAppScale);
+//    
+//    self.placeLable.frame =CGRectMake(0, 0, 200, 40);
+//    
+//    // 测试颜色
+//    self.textLable.backgroundColor =[UIColor whiteColor];
+////    self.tableView.backgroundColor =[UIColor brownColor];
+//    
+//    [self initRecognizer];//初始化识别对象
+//    
+//    [self initSynthesizer];
+
+
+}
+-(void)viewWillDisappear:(BOOL)animated {
+    
+//    [self.navigationController setNavigationBarHidden:NO animated:NO];
+
+    [super viewWillDisappear:animated];
+    
+    [_iflyRecognizerView cancel]; //取消识别
+    [_iflyRecognizerView setDelegate:nil];
+    [_iflyRecognizerView setParameter:@"" forKey:[IFlySpeechConstant PARAMS]];
+    
+    // 停止语音合成的播放
+    [self stopPlayVoice];
+}
+-(void)viewDidAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+
+    [super viewDidAppear:animated];
     
     self.backgroundView.frame =self.view.bounds;
     
@@ -168,28 +215,19 @@ typedef NS_OPTIONS(NSInteger, Status) {
     
     // 测试颜色
     self.textLable.backgroundColor =[UIColor whiteColor];
-//    self.tableView.backgroundColor =[UIColor brownColor];
+    //    self.tableView.backgroundColor =[UIColor brownColor];
     
     [self initRecognizer];//初始化识别对象
     
     [self initSynthesizer];
 
-
 }
--(void)viewWillDisappear:(BOOL)animated {
+-(void)viewDidDisappear:(BOOL)animated {
     
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 
-    [super viewWillDisappear:animated];
-    
-    [_iflyRecognizerView cancel]; //取消识别
-    [_iflyRecognizerView setDelegate:nil];
-    [_iflyRecognizerView setParameter:@"" forKey:[IFlySpeechConstant PARAMS]];
-    
-    // 停止语音合成的播放
-    [self stopPlayVoice];
+    [super viewDidDisappear:animated];
 }
-
 #pragma mark - Private Methods
 
 -(void)creatMJRefreshFooter {

@@ -133,9 +133,17 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+//    self.tableView.frame =CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT -64);
+//    
+//    self.tableView.backgroundColor =UIColorFromHexValue(0xfffce5);
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     self.tableView.frame =CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT -64);
     
     self.tableView.backgroundColor =UIColorFromHexValue(0xfffce5);
+
 }
 
 
