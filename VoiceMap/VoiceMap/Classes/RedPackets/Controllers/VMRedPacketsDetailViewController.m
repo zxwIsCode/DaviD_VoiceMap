@@ -15,6 +15,7 @@
 #import "VMRedPacketsDetailHeaderView.h"
 #import "VMRedPacketsPhotoItem.h"
 #import "VMAllDrawRedPacketsItemModel.h"
+#import "VMRedPacketsDetailSubViewController.h"
 
 #define kRedPacketsScrollViewScale 0.5
 
@@ -71,7 +72,6 @@
     
     [self.view addSubview:self.tableView];
     
-    [self initTimer];
     
 }
 -(void)viewWillAppear:(BOOL)animated {
@@ -91,11 +91,15 @@
 //    self.titleLable.backgroundColor =[UIColor darkGrayColor];
 //    self.startTimeLable.backgroundColor =[UIColor brownColor];
     
+    // 每次页面展示时开启定时器
+    [self initTimer];
+
+    
     
 }
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    //不能重新获得时间发布时间，故而定时器不要停止
+    //页面消失时关闭定时器
     [timer invalidate];
     timer = nil;
 
@@ -265,16 +269,13 @@
 -(void)initAllDatas {
     
     // 轮播图数据源
-    for (VMRedPacketsPhotoItem *photoItem in self.itemModel.picArray) {
-        [self.autoScrollArr addObject:photoItem.i];
+    if (self.itemModel.picArray.count) {
+        for (VMRedPacketsPhotoItem *photoItem in self.itemModel.picArray) {
+            [self.autoScrollArr addObject:photoItem.i];
+        }
     }
-//    self.autoScrollArr =[@[@"http://jiamenkou.123jmk.com/Uploads/HomeCarousel/2017-01-10/58743eac9a9ed.png"] mutableCopy];
-#warning 这里是为了测试的假数据
-//    for (int index =0; index <8; index ++) {
-//        VMRedPacketsItemModel *item =[VMRedPacketsItemModel updateWithRedPacketsItemDic:nil];
-//        [self.dataArray addObject:item];
-//    }
-    
+   
+
     CMHttpRequestModel *paramsModel =[[CMHttpRequestModel alloc]init];
     paramsModel.appendUrl =kGetAllRedPackets;
     NSString *uuidStr = [[[UIDevice currentDevice] identifierForVendor]UUIDString];
@@ -303,7 +304,7 @@
                     // 判断当前的红包是否已经领过
 //                    BOOL isFond =NO;
                     for (VMAllDrawRedPacketsItemModel *allRedItemModel in ws.dataArray) {
-                        if ([allRedItemModel.advModel.mId integerValue] == ws.itemModel.mId) {
+                        if (allRedItemModel.itemModel.mId  == ws.itemModel.mId) {
                             if ([allRedItemModel.status integerValue] ==1) {
                                 // 更改界面立即领取到去消费
                                 [ws changeDraw2SpendMoney];
@@ -346,7 +347,9 @@
 -(void)creaScrollView {
     self.autoScrollView = [[YLInfiniteScrollView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_WIDTH *kRedPacketsScrollViewScale)];
     _autoScrollView.delegate = self;
-    _autoScrollView.images = self.autoScrollArr;
+    if (self.autoScrollArr.count) {
+        _autoScrollView.images = self.autoScrollArr;
+    }
 }
 
 #pragma mark -  UITableViewDelegate
@@ -390,8 +393,15 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-//    VMRedPacketsDetailViewController *detailVC =[[VMRedPacketsDetailViewController alloc]init];
-//    [self.navigationController pushViewController:detailVC animated:YES];
+    VMAllDrawRedPacketsItemModel *allDrawModel =self.dataArray[indexPath.row];
+
+    if ([allDrawModel.status intValue] ==1) { // 已领取未消费 的情况
+        VMRedPacketsDetailSubViewController *detailSubVC =[[VMRedPacketsDetailSubViewController alloc]init];
+        
+        detailSubVC.itemModel =allDrawModel.itemModel;
+        [self.navigationController pushViewController:detailSubVC animated:YES];
+ 
+    }
     
 }
 #pragma mark - YLInfiniteScrollViewDelegate

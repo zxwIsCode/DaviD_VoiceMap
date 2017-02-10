@@ -10,11 +10,18 @@
 
 @implementation VMAllDrawRedPacketsItemModel
 
--(VMDrawAllRedPacketsADVModel *)advModel {
-    if (!_advModel) {
-        _advModel =[[VMDrawAllRedPacketsADVModel alloc]init];
+//-(VMDrawAllRedPacketsADVModel *)advModel {
+//    if (!_advModel) {
+//        _advModel =[[VMDrawAllRedPacketsADVModel alloc]init];
+//    }
+//    return _advModel;
+//}
+
+-(VMRedPacketsItemModel *)itemModel {
+    if (!_itemModel) {
+        _itemModel =[[VMRedPacketsItemModel alloc]init];
     }
-    return _advModel;
+    return _itemModel;
 }
 
 +(instancetype)updateWithAllDrawRedPacketsItemModelDic:(NSDictionary *)dic {
@@ -28,7 +35,8 @@
         self.mId =dic[@"id"];
         self.status =dic[@"status"];
         self.userid =dic[@"userid"];
-        self.advModel =[VMDrawAllRedPacketsADVModel updateWithVMDrawAllRedPacketsADVModelDic:dic[@"adv"]];
+//        self.advModel =[VMDrawAllRedPacketsADVModel updateWithVMDrawAllRedPacketsADVModelDic:dic[@"adv"]];
+        self.itemModel =[VMRedPacketsItemModel updateWithRedPacketsItemDic:dic[@"adv"]];
 
     }
     return self;

@@ -111,8 +111,8 @@
     _allDrawModel =allDrawModel;
     
     self.iconImageView.image =[UIImage imageNamed:allDrawModel.iconUrl];
-    self.descLable.text =allDrawModel.advModel.advname;
-    self.startTimeLable.text =allDrawModel.advModel.advtitle;
+    self.descLable.text =allDrawModel.itemModel.descStr;
+    self.startTimeLable.text =allDrawModel.itemModel.remarksStr;
     [self.isDrawBtn setTitle:@"已领取" forState:UIControlStateNormal];
     if ([allDrawModel.status intValue] ==1) {
         [self.isSpendBtn setTitle:@"未消费" forState:UIControlStateNormal];

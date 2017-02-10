@@ -17,7 +17,7 @@
 
 @property(nonatomic,copy)NSString *descStr;
 
-//@property(nonatomic,copy)NSString *remarksStr;
+@property(nonatomic,copy)NSString *remarksStr;
 
 @property(nonatomic,assign)NSInteger startTimeStr;
 

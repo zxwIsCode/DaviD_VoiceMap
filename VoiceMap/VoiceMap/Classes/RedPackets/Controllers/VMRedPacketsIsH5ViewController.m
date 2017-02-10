@@ -4,7 +4,7 @@
 //
 //  Created by 李保东 on 17/2/9.
 //  Copyright © 2017年 DaviD. All rights reserved.
-//
+//  红包详情界面（H5的界面）
 
 #import "VMRedPacketsIsH5ViewController.h"
 

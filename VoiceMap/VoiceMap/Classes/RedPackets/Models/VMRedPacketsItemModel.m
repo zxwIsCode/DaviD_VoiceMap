@@ -19,6 +19,7 @@
     if (self =[super init]) {
         self.iconUrl =@"icon_hb";
         self.descStr =dic[@"advname"];
+        self.remarksStr =dic[@"advtitle"];
         self.startTimeStr =[dic[@"time"] integerValue];
         self.redPacketsDetailStr =dic[@"content"];
 
@@ -35,13 +36,22 @@
         self.url =dic[@"url"];
         
         // 图片路径为：
-        NSArray *tempArr =dic[@"pic"];
-        for (NSDictionary *iDic in tempArr) {
-            VMRedPacketsPhotoItem *photoItem =[VMRedPacketsPhotoItem updateWithRedPacketsPhotoItemDic:iDic];
-            [self.picArray addObject:photoItem];
-        }        
+        id tempArr =dic[@"pic"];
+        if ([tempArr isKindOfClass:[NSArray class]]) {
+            for (id iDic in tempArr) {
+                VMRedPacketsPhotoItem *photoItem =[VMRedPacketsPhotoItem updateWithRedPacketsPhotoItemDic:iDic];
+                [self.picArray addObject:photoItem];
+            }
+        }else if([tempArr isKindOfClass:[NSString class]]) { //
+            NSString *tempStr =(NSString *)tempArr;
+            NSArray *allArr =[tempStr componentsSeparatedByString:@","];
+            for (NSString *iStr in allArr) {
+                VMRedPacketsPhotoItem *photo =[[VMRedPacketsPhotoItem alloc]init];
+                photo.i =iStr;
+                [self.picArray addObject:photo];
+            }
+        }
         
-
     }
     return self;
 }

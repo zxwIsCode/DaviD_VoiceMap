@@ -148,6 +148,7 @@
 		05C22CC11E319ED6005D6970 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C22CAC1E319ED6005D6970 /* UIScrollView+MJExtension.m */; };
 		05C22CC21E319ED6005D6970 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C22CAE1E319ED6005D6970 /* UIScrollView+MJRefresh.m */; };
 		05C22CC31E319ED6005D6970 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C22CB01E319ED6005D6970 /* UIView+MJExtension.m */; };
+		05D2C35E1E4DA431003F3CEC /* VMRedPacketsDetailSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D2C35D1E4DA431003F3CEC /* VMRedPacketsDetailSubViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -438,6 +439,8 @@
 		05C22CAE1E319ED6005D6970 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		05C22CAF1E319ED6005D6970 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		05C22CB01E319ED6005D6970 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		05D2C35C1E4DA431003F3CEC /* VMRedPacketsDetailSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMRedPacketsDetailSubViewController.h; sourceTree = "<group>"; };
+		05D2C35D1E4DA431003F3CEC /* VMRedPacketsDetailSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMRedPacketsDetailSubViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -680,6 +683,8 @@
 				052180681E2CA5D60072DE2F /* VMRedPacketsMainViewController.m */,
 				05774EF11E45D75D00E4FC78 /* VMRedPacketsDetailViewController.h */,
 				05774EF21E45D75D00E4FC78 /* VMRedPacketsDetailViewController.m */,
+				05D2C35C1E4DA431003F3CEC /* VMRedPacketsDetailSubViewController.h */,
+				05D2C35D1E4DA431003F3CEC /* VMRedPacketsDetailSubViewController.m */,
 				05AE30AE1E4C437C00647D3C /* VMRedPacketsIsH5ViewController.h */,
 				05AE30AF1E4C437C00647D3C /* VMRedPacketsIsH5ViewController.m */,
 			);
@@ -1297,6 +1302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0542F4DE1E30980100580B18 /* AFURLConnectionOperation.m in Sources */,
+				05D2C35E1E4DA431003F3CEC /* VMRedPacketsDetailSubViewController.m in Sources */,
 				0542F4EA1E30980100580B18 /* UIImageView+AFNetworking.m in Sources */,
 				058A7D941E48290100B67A16 /* VMRedPacketsPhotoItem.m in Sources */,
 				052180701E2CA6CD0072DE2F /* CMCustomViewFactory.m in Sources */,

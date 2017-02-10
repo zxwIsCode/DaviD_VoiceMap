@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "VMDrawAllRedPacketsADVModel.h"
+#import "VMRedPacketsItemModel.h"
 
 @interface VMAllDrawRedPacketsItemModel : NSObject
 
@@ -22,7 +23,8 @@
 
 @property(nonatomic,copy)NSString *userid;
 
-@property(nonatomic,strong)VMDrawAllRedPacketsADVModel *advModel;
+//@property(nonatomic,strong)VMDrawAllRedPacketsADVModel *advModel;
+@property(nonatomic,strong)VMRedPacketsItemModel *itemModel;
 
 +(instancetype)updateWithAllDrawRedPacketsItemModelDic:(NSDictionary *)dic;
 
