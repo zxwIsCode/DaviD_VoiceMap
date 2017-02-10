@@ -24,6 +24,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)navigationLeftButtonClick:(id)sender {
+    DDLog(@"count =%ld",self.navigationController.viewControllers.count);
+    if (self.navigationController.viewControllers.count ==3 ) {
+        UIViewController *vc =self.navigationController.viewControllers[0];
+        [self.navigationController popToViewController:vc animated:YES];
+        
+    }
+}
+
 /*
 #pragma mark - Navigation
 
