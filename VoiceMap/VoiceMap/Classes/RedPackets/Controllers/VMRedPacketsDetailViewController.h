@@ -10,9 +10,12 @@
 
 #import "VMRedPacketsItemModel.h"
 
+typedef void(^VMDeleteRedPacketsBlock)(VMRedPacketsItemModel *itemModel);
 
 @interface VMRedPacketsDetailViewController : CMBaseViewController
 
 @property(nonatomic,strong)VMRedPacketsItemModel *itemModel;
+
+@property(nonatomic,copy)VMDeleteRedPacketsBlock deleteBlock;
 
 @end

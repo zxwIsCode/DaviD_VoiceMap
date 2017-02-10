@@ -40,6 +40,8 @@
     
     [self.view addSubview:self.tableView];
     [self creatMJRefreshFooter];
+    
+    
 
     // Do any additional setup after loading the view.
 }
@@ -195,6 +197,14 @@
         VMRedPacketsDetailViewController *detailVC =[[VMRedPacketsDetailViewController alloc]init];
         detailVC.itemModel =item;
         [self.navigationController pushViewController:detailVC animated:YES];
+        
+        WS(ws);
+        detailVC.deleteBlock = ^(VMRedPacketsItemModel *model) {
+            if ([ws.allRedPacketsArr containsObject:model]) {
+                [ws.allRedPacketsArr removeObject:model];
+                [ws.tableView reloadData];
+            }
+        };
     }else if (item.ish5 ==1) {// 是H5
         VMRedPacketsIsH5ViewController *isH5VC =[[VMRedPacketsIsH5ViewController alloc]init];
         isH5VC.itemModel =item;

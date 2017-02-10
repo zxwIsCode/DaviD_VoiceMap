@@ -191,6 +191,12 @@
                 }
                 // 更改界面立即领取到去消费
                 [ws changeDraw2SpendMoney];
+                
+                // 删除列表界面中的数据
+                if (ws.deleteBlock) {
+                    ws.deleteBlock(ws.itemModel);
+                }
+                
                
                 
             }else {// 失败,弹框提示
@@ -397,7 +403,6 @@
 
     if ([allDrawModel.status intValue] ==1) { // 已领取未消费 的情况
         VMRedPacketsDetailSubViewController *detailSubVC =[[VMRedPacketsDetailSubViewController alloc]init];
-        
         detailSubVC.itemModel =allDrawModel.itemModel;
         [self.navigationController pushViewController:detailSubVC animated:YES];
  
