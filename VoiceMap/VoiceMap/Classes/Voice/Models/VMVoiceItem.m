@@ -27,4 +27,29 @@
 
 }
 
+/**
+ *  获得存储对象调用
+ */
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    if (self = [super init]) {
+        self.audio = [decoder decodeObjectForKey:@"audio"];
+        self.text = [decoder decodeObjectForKey:@"text"];
+
+        
+    }
+    return self;
+}
+
+/**
+ *  存储对象到文件调用
+ */
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:self.audio forKey:@"audio"];
+    [encoder encodeObject:self.text forKey:@"text"];
+
+}
+
+
 @end

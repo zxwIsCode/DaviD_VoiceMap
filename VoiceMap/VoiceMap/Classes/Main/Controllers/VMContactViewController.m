@@ -58,6 +58,7 @@
 - (void)didShowControllerAtIndex:(NSInteger)idx
 {
     self.segmentView.currentIndex = idx;
+    self.voiceVC.pageCount =idx;
     
 }
 

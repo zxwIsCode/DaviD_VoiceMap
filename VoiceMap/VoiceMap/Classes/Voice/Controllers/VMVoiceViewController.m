@@ -15,6 +15,7 @@
 #import "MJRefresh.h"
 
 #import "LGAudioPlayer.h"
+#import "VMVoiceMapHelper.h"
 
 #import <CoreLocation/CoreLocation.h>
 
@@ -94,6 +95,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+//    DDLog(@"%@",[VMVoiceMapHelper Wechat]);
     
     self.nowIndex =0;
     self.requestTotolCount =0;
@@ -188,6 +190,8 @@ typedef NS_OPTIONS(NSInteger, Status) {
     
     // 停止语音合成的播放
     [self stopPlayVoice];
+    // 停止播放
+    [[LGAudioPlayer sharePlayer]stopAudioPlayer];
 }
 -(void)viewDidAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:NO];
@@ -301,6 +305,18 @@ typedef NS_OPTIONS(NSInteger, Status) {
                     for (NSDictionary *voiceDic in listArr) {
                         VMVoiceItem *voiceItem =[VMVoiceItem updateWithDic:voiceDic];
                         [tempArr addObject:voiceItem];
+                        
+#warning 加数据到本地开始
+                        VMVoiceItem *mapItem =  [VMVoiceMapHelper Wechat];
+                        if ([mapItem.audio isEqualToString:voiceItem.audio] && mapItem.audio.length !=0) {
+                            [[DisplayHelper shareDisplayHelper]hideLoading:ws.view];
+
+                            [DisplayHelper displayWarningAlert:@"请求成功,但没有最新数据哦!"];
+                            return ;
+                        }
+                        [VMVoiceMapHelper saveWechatAccount:voiceItem];
+#warning 加数据到本地结束
+
                     }
                     ws.requestTotolCount = tempArr.count;
                     ws.nextCount =0;
@@ -317,6 +333,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
                     [ws.tableView reloadData];
                     // 播放对应的数据
                     [ws playNextDatas];
+                    
                     
                 }
                 else { // 请求没有数据
@@ -920,15 +937,15 @@ typedef NS_OPTIONS(NSInteger, Status) {
     static NSString *ID =kVMVoiceVCCellId;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         
     }
     if (indexPath.row <self.allDataSource.count) {
         cell.backgroundColor =[UIColor clearColor];
-        cell.textLabel.text =[NSString stringWithFormat:@"开发中第%ld条",indexPath.row +1];
+//        cell.textLabel.text =[NSString stringWithFormat:@"开发中第%ld条",indexPath.row +1];
         VMVoiceItem *voiceItem =self.allDataSource[indexPath.row];
         if (![voiceItem.text isKindOfClass:[NSNull class]]) {
-            cell.detailTextLabel.text =voiceItem.text;
+            cell.textLabel.text =voiceItem.text;
         }
     }
     
@@ -1045,6 +1062,13 @@ typedef NS_OPTIONS(NSInteger, Status) {
         _allDataSource =[NSMutableArray array];
     }
     return _allDataSource;
+}
+
+-(void)setPageCount:(NSInteger)pageCount {
+    _pageCount =pageCount;
+    if (pageCount) {
+        [[LGAudioPlayer sharePlayer]stopAudioPlayer];
+    }
 }
 
 @end

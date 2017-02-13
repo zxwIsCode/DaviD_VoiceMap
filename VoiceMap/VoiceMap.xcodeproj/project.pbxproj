@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05193C461E51A9FA0057F45E /* VMVoiceMapHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 05193C451E51A9FA0057F45E /* VMVoiceMapHelper.m */; };
 		05217FA71E2C98700072DE2F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05217FA61E2C98700072DE2F /* main.m */; };
 		05217FAD1E2C98700072DE2F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05217FAC1E2C98700072DE2F /* ViewController.m */; };
 		05217FB01E2C98700072DE2F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05217FAE1E2C98700072DE2F /* Main.storyboard */; };
@@ -169,6 +170,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05193C441E51A9FA0057F45E /* VMVoiceMapHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMVoiceMapHelper.h; sourceTree = "<group>"; };
+		05193C451E51A9FA0057F45E /* VMVoiceMapHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMVoiceMapHelper.m; sourceTree = "<group>"; };
 		05217FA21E2C98700072DE2F /* VoiceMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05217FA61E2C98700072DE2F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		05217FAB1E2C98700072DE2F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -772,6 +775,8 @@
 				0542F47E1E30584F00580B18 /* TTSConfig.m */,
 				0542F4F91E309DD500580B18 /* VMUploadModel.h */,
 				0542F4FA1E309DD500580B18 /* VMUploadModel.m */,
+				05193C441E51A9FA0057F45E /* VMVoiceMapHelper.h */,
+				05193C451E51A9FA0057F45E /* VMVoiceMapHelper.m */,
 				05C22C811E319A2D005D6970 /* VMVoiceItem.h */,
 				05C22C821E319A2D005D6970 /* VMVoiceItem.m */,
 			);
@@ -1337,6 +1342,7 @@
 				055799F61E33111A001DD4BB /* NHSegmentView.m in Sources */,
 				0521805C1E2CA4E50072DE2F /* CMUDButton.m in Sources */,
 				05AE30B01E4C437C00647D3C /* VMRedPacketsIsH5ViewController.m in Sources */,
+				05193C461E51A9FA0057F45E /* VMVoiceMapHelper.m in Sources */,
 				0542F4A81E3097DE00580B18 /* CMHTTPSessionManager.m in Sources */,
 				052180691E2CA5D60072DE2F /* VMRedPacketsMainViewController.m in Sources */,
 				0542F4F71E30986100580B18 /* MBProgressHUD.m in Sources */,

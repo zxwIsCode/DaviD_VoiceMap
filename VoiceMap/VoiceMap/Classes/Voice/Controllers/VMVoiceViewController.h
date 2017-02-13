@@ -12,4 +12,7 @@
 
 @property (nonatomic,weak) UINavigationController *nav;
 
+// 记录2个界面在容器中调换的情况
+@property(nonatomic,assign)NSInteger pageCount;
+
 @end
