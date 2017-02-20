@@ -89,7 +89,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
 // 定位类
 @property (nonatomic,strong) CLLocationManager *manager;
 
-@property (nonatomic,strong)UIButton *testBtn;
+//@property (nonatomic,strong)UIButton *testBtn;
 
 
 @end
@@ -114,7 +114,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
     [self initAllDataSource];
     [self.view addSubview:self.backgroundView];
     
-    [self.backgroundView addSubview:self.testBtn];
+//    [self.backgroundView addSubview:self.testBtn];
 
     
 //    [self.backgroundView addSubview:self.startBtn];
@@ -165,8 +165,8 @@ typedef NS_OPTIONS(NSInteger, Status) {
     
 //    self.backgroundView.frame =self.view.bounds;
 //    
-    self.testBtn.bounds =CGRectMake(0, 0, 100, 100);
-    self.testBtn.center =CGPointMake(SCREEN_WIDTH *0.5, 120 *kAppScale);
+//    self.testBtn.bounds =CGRectMake(0, 0, 100, 100);
+//    self.testBtn.center =CGPointMake(SCREEN_WIDTH *0.5, 120 *kAppScale);
 //
 //    CGFloat voiceBtnWidth =300 *kAppScale ;
 //    self.voiceBtn.bounds =CGRectMake(0, 0, voiceBtnWidth, voiceBtnWidth *412/578.0);
@@ -190,7 +190,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
 //    
 //    [self initSynthesizer];
     
-    self.testBtn.backgroundColor =[UIColor blueColor];
+//    self.testBtn.backgroundColor =[UIColor blueColor];
 
 
 }
@@ -715,31 +715,30 @@ typedef NS_OPTIONS(NSInteger, Status) {
 }
 
 -(void)playPathClick:(UIButton *)button {
-    //    [[LGAudioPlayer sharePlayer]playTestWithPath:_uriPath];
     
-    //    [[LGAudioPlayer sharePlayer] playAudioWithURLString:_uriPath atIndex:0];
+        [[LGAudioPlayer sharePlayer] playAudioWithURLString:_uriPath atIndex:0];
     
-#warning 测试
-    CMHttpRequestModel *requestModel =[[CMHttpRequestModel alloc]init];
-    requestModel.localHost =@"http://192.168.3.186:80/";
-    requestModel.appendUrl =@"nmt/Info/Sound";
-    //    requestModel.type =CMHttpType_GET;
-    
-    
-    NSString *dataStr =  [self voiceToBase64:_uriPath];
-    [requestModel.paramDic setValue:dataStr forKey:@"audio"];
-    WS(ws);
-    requestModel.callback =^(CMHttpResponseModel * result, NSError *error){
-        if (result.state ==CMReponseCodeState_Success) {
-            
-            DDLog(@"成功了");
-            
-        }else {
-            
-        }
-    };
-    
-    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:requestModel];
+//#warning 测试
+//    CMHttpRequestModel *requestModel =[[CMHttpRequestModel alloc]init];
+//    requestModel.localHost =@"http://192.168.3.186:80/";
+//    requestModel.appendUrl =@"nmt/Info/Sound";
+//    //    requestModel.type =CMHttpType_GET;
+//    
+//    
+//    NSString *dataStr =  [self voiceToBase64:_uriPath];
+//    [requestModel.paramDic setValue:dataStr forKey:@"audio"];
+//    WS(ws);
+//    requestModel.callback =^(CMHttpResponseModel * result, NSError *error){
+//        if (result.state ==CMReponseCodeState_Success) {
+//            
+//            DDLog(@"成功了");
+//            
+//        }else {
+//            
+//        }
+//    };
+//    
+//    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:requestModel];
     
     
     
@@ -1130,16 +1129,16 @@ typedef NS_OPTIONS(NSInteger, Status) {
     return [audioData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
 }
 
--(UIButton *)testBtn {
-    if (!_testBtn) {
-        _testBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-        _testBtn.backgroundColor =[UIColor redColor];
-        [_testBtn setTitle:@"播放试试" forState:UIControlStateNormal];
-      
-        [_testBtn addTarget:self action:@selector(playPathClick:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _testBtn;
-}
+//-(UIButton *)testBtn {
+//    if (!_testBtn) {
+//        _testBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+//        _testBtn.backgroundColor =[UIColor redColor];
+//        [_testBtn setTitle:@"播放试试" forState:UIControlStateNormal];
+//      
+//        [_testBtn addTarget:self action:@selector(playPathClick:) forControlEvents:UIControlEventTouchUpInside];
+//    }
+//    return _testBtn;
+//}
 
 -(UIImageView *)backgroundView {
     if (!_backgroundView) {

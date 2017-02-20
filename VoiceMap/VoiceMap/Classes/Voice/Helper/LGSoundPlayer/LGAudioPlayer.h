@@ -32,6 +32,5 @@ typedef NS_ENUM(NSUInteger, LGAudioPlayerState){
 
 - (void)stopAudioPlayer;
 
--(void)playTestWithPath:(NSString *)path;
 
 @end

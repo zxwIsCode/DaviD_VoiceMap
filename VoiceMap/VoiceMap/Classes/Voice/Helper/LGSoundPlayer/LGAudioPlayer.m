@@ -50,21 +50,6 @@ NSString *const kXMNAudioDataKey;
 
 #pragma mark - Public Methods
 
--(void)playTestWithPath:(NSString *)path {
-    NSBlockOperation *blockOperation = [NSBlockOperation blockOperationWithBlock:^{
-        NSData	*audioData = [NSData dataWithContentsOfFile:path]; //播放本机录制的文件
-        
-        if (!audioData) {
-            [self setAudioPlayerState:LGAudioPlayerStateCancel];
-            return;
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self playAudioWithData:audioData];
-        });
-    }];
-    [_audioDataOperationQueue addOperation:blockOperation];
-}
-
 
 - (void)playAudioWithURLString:(NSString *)URLString atIndex:(NSUInteger)index{
 	if (!URLString) {
@@ -113,8 +98,8 @@ NSString *const kXMNAudioDataKey;
 	NSData *audioData;
 
 	if ([URLString hasSuffix:@".caf"] || [URLString hasSuffix:@".wav"]) {
-		audioData = [NSData dataWithContentsOfFile:URLString]; //播放本机录制的文件
-//        audioData =[NSData dataWithContentsOfURL:[NSURL URLWithString:URLString]]; //播放网络wav文件
+//		audioData = [NSData dataWithContentsOfFile:URLString]; //播放本机录制的文件
+        audioData =[NSData dataWithContentsOfURL:[NSURL URLWithString:URLString]]; //播放网络wav文件
 	} else if ([URLString hasSuffix:@".amr"]) {//播放安卓发来的AMR文件
 		audioData = DecodeAMRToWAVE([NSData dataWithContentsOfFile:URLString]);
 	} else {
