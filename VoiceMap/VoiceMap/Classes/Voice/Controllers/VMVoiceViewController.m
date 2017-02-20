@@ -15,6 +15,7 @@
 #import "MJRefresh.h"
 
 #import "LGAudioPlayer.h"
+#import "LGSoundRecorder.h"
 #import "VMVoiceMapHelper.h"
 
 #import <CoreLocation/CoreLocation.h>
@@ -24,6 +25,9 @@
 
 
 #define kTableViewHeight 44 *kAppScale
+
+#define DocumentPath  [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
+
 
 //#define kTableViewHeight 360 *kAppScale
 
@@ -76,7 +80,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
 @property (nonatomic, assign) Status state;
 
 // uri 合成地址（作为临时的，其他语音会覆盖这个地址）
-@property (nonatomic, strong) NSString *uriPath;
+@property (nonatomic, copy) NSString *uriPath;
 
 
 
@@ -84,6 +88,8 @@ typedef NS_OPTIONS(NSInteger, Status) {
 @property(nonatomic,strong)UILabel *placeLable;
 // 定位类
 @property (nonatomic,strong) CLLocationManager *manager;
+
+@property (nonatomic,strong)UIButton *testBtn;
 
 
 @end
@@ -108,6 +114,9 @@ typedef NS_OPTIONS(NSInteger, Status) {
     [self initAllDataSource];
     [self.view addSubview:self.backgroundView];
     
+    [self.backgroundView addSubview:self.testBtn];
+
+    
 //    [self.backgroundView addSubview:self.startBtn];
     
     [self.view addSubview:self.tableView];
@@ -131,9 +140,13 @@ typedef NS_OPTIONS(NSInteger, Status) {
     
     //     使用-(void)synthesize:(NSString *)text toUri:(NSString*)uri接口时， uri 需设置为保存音频的完整路径
     //     若uri设为nil,则默认的音频保存在library/cache下
-    NSString *prePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    //uri合成路径设置
-    _uriPath = [NSString stringWithFormat:@"%@/%@",prePath,@"uri.pcm"];
+//    NSString *prePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+//    //uri合成路径设置
+////    _uriPath = [NSString stringWithFormat:@"%@/%@",prePath,@"uri.pcm"];
+////    _uriPath = [NSString stringWithFormat:@"%@/%@",prePath,@"uri.caf"];
+//    _uriPath = [NSString stringWithFormat:@"%@/%@",prePath,@"uri.wav"];
+
+
     //pcm播放器初始化
     _audioPlayer = [[PcmPlayer alloc] init];
     
@@ -141,6 +154,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
     [self setExclusiveTouchForButtons:self.view];
     
     [self initCLLocationManger];
+    
 
 }
 -(void)viewWillAppear:(BOOL)animated {
@@ -151,9 +165,9 @@ typedef NS_OPTIONS(NSInteger, Status) {
     
 //    self.backgroundView.frame =self.view.bounds;
 //    
-//    self.startBtn.bounds =CGRectMake(0, 0, 100, 100);
-//    self.startBtn.center =CGPointMake(SCREEN_WIDTH *0.5, 120 *kAppScale);
-//    
+    self.testBtn.bounds =CGRectMake(0, 0, 100, 100);
+    self.testBtn.center =CGPointMake(SCREEN_WIDTH *0.5, 120 *kAppScale);
+//
 //    CGFloat voiceBtnWidth =300 *kAppScale ;
 //    self.voiceBtn.bounds =CGRectMake(0, 0, voiceBtnWidth, voiceBtnWidth *412/578.0);
 //    self.voiceBtn.center =CGPointMake(SCREEN_WIDTH *0.5, SCREEN_HEIGHT -180);
@@ -175,6 +189,8 @@ typedef NS_OPTIONS(NSInteger, Status) {
 //    [self initRecognizer];//初始化识别对象
 //    
 //    [self initSynthesizer];
+    
+    self.testBtn.backgroundColor =[UIColor blueColor];
 
 
 }
@@ -424,7 +440,10 @@ typedef NS_OPTIONS(NSInteger, Status) {
         _iflyRecognizerView.delegate = self;
         [_iflyRecognizerView setParameter: @"iat" forKey: [IFlySpeechConstant IFLY_DOMAIN]];
         //asr_audio_path保存录音文件名，如不再需要，设置value为nil表示取消，默认目录是documents
-        [_iflyRecognizerView setParameter:@"asrview.pcm " forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
+        
+//        [_iflyRecognizerView setParameter:@"asrview.pcm " forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
+//        [_iflyRecognizerView setParameter:_uriPath forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
+
 
     }
 }
@@ -482,11 +501,11 @@ typedef NS_OPTIONS(NSInteger, Status) {
     NSString* str= self.textFeild.text;
     
     
-    [_iFlySpeechSynthesizer synthesize:str toUri:_uriPath];
+//    [_iFlySpeechSynthesizer synthesize:str toUri:_uriPath];
     if (_iFlySpeechSynthesizer.isSpeaking) {
         _state = Playing;
     }
-    self.voiceModel.audio =_uriPath;
+//    self.voiceModel.audio =_uriPath;
 
 }
 -(void)reUploadToService {
@@ -501,7 +520,10 @@ typedef NS_OPTIONS(NSInteger, Status) {
     [model.paramDic setObject:@(1) forKey:@"contentType"];
     [model.paramDic setObject:@(2) forKey:@"regionid"];
     [model.paramDic setObject:self.voiceModel.text forKey:@"text"];
-    [model.paramDic setObject:self.voiceModel.audio forKey:@"audio"];
+//    self.voiceModel.audio
+   NSData *audioData = [NSData dataWithContentsOfFile:_uriPath];
+
+    [model.paramDic setObject:audioData forKey:@"audio"];
     
     // 位置信息有关
     [model.paramDic setObject:self.voiceModel.detailAddress forKey:@"location"];
@@ -524,7 +546,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
                 DDLog(@"%@",result.error);
             }
         }else {
-            [DisplayHelper displaySuccessAlert:@"上传服务端成功,但是服务端没有返回数据哦!"];
+//            [DisplayHelper displaySuccessAlert:@"上传服务端成功,但是服务端没有返回数据哦!"];
 
         }
         
@@ -533,16 +555,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
     [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:model];
 
 }
-- (void)playUriAudio
-{
-    TTSConfig *instance = [TTSConfig sharedInstance];
-    DDLog(@"uri合成完毕，即将开始播放");
-    NSError *error = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
-    _audioPlayer = [[PcmPlayer alloc] initWithFilePath:_uriPath sampleRate:[instance.sampleRate integerValue]];
-    [_audioPlayer play];
-    
-}
+
 /**
  设置UIButton的ExclusiveTouch属性
  ****/
@@ -559,6 +572,88 @@ typedef NS_OPTIONS(NSInteger, Status) {
         }
     }
 }
+
+#pragma mark - 自己写的录音功能
+
+
+/**
+ *  语音文件存储路径
+ *
+ *  @return 路径
+ */
+- (NSString *)recordPath {
+    NSString *filePath = [DocumentPath stringByAppendingPathComponent:@"SoundFile"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        NSError *error = nil;
+        [[NSFileManager defaultManager] createDirectoryAtPath:filePath withIntermediateDirectories:NO attributes:nil error:&error];
+        if (error) {
+            NSLog(@"%@", error);
+        }
+    }
+    return filePath;
+    
+}
+
+/**
+ *  开始录音
+ */
+- (void)startRecordVoice{
+    __block BOOL isAllow = 0;
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    if ([audioSession respondsToSelector:@selector(requestRecordPermission:)]) {
+        [audioSession performSelector:@selector(requestRecordPermission:) withObject:^(BOOL granted) {
+            if (granted) {
+                isAllow = 1;
+            } else {
+                isAllow = 0;
+            }
+        }];
+    }
+    if (isAllow) {
+        //		//停止播放
+        [[LGAudioPlayer sharePlayer] stopAudioPlayer];
+        //		//开始录音
+        
+        [[LGSoundRecorder shareInstance] startSoundRecord:self.view recordPath:[self recordPath]];
+    } else {
+        
+    }
+}
+
+/**
+ *  录音结束
+ */
+- (void)confirmRecordVoice {
+    if ([[LGSoundRecorder shareInstance] soundRecordTime] == 0) {
+        [self cancelRecordVoice];
+        return;//60s自动发送后，松开手走这里
+    }
+    if ([[LGSoundRecorder shareInstance] soundRecordTime] < 1.0f) {
+        
+        return;
+    }
+    
+    [self sendSound];
+    [[LGSoundRecorder shareInstance] stopSoundRecord:self.view];
+    
+    //2. 上传到我的后台
+    [self reUploadToService];
+    
+    
+}
+
+- (void)sendSound {
+    _uriPath= [[LGSoundRecorder shareInstance] soundFilePath];
+    
+}
+
+/**
+ *  取消录音
+ */
+- (void)cancelRecordVoice {
+    [[LGSoundRecorder shareInstance] soundRecordFailed:self.view];
+}
+
 
 #pragma mark - 继承父类
 -(CMNavType)getNavType {
@@ -583,7 +678,12 @@ typedef NS_OPTIONS(NSInteger, Status) {
     
     //保存录音文件，保存在sdk工作路径中，如未设置工作路径，则默认保存在library/cache下
     [_iflyRecognizerView setParameter:@"asr.pcm" forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
+//    [_iflyRecognizerView setParameter:_uriPath forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
+    [self startRecordVoice];
+
      [_iflyRecognizerView start];
+    
+    
 
 }
 // Uri 语音合成
@@ -603,7 +703,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
     NSString* str= self.textFeild.text;
     
     
-    [_iFlySpeechSynthesizer synthesize:str toUri:_uriPath];
+//    [_iFlySpeechSynthesizer synthesize:str toUri:_uriPath];
     if (_iFlySpeechSynthesizer.isSpeaking) {
         _state = Playing;
     }
@@ -614,6 +714,36 @@ typedef NS_OPTIONS(NSInteger, Status) {
     DDLog(@"停止说话");
 }
 
+-(void)playPathClick:(UIButton *)button {
+    //    [[LGAudioPlayer sharePlayer]playTestWithPath:_uriPath];
+    
+    //    [[LGAudioPlayer sharePlayer] playAudioWithURLString:_uriPath atIndex:0];
+    
+#warning 测试
+    CMHttpRequestModel *requestModel =[[CMHttpRequestModel alloc]init];
+    requestModel.localHost =@"http://192.168.3.186:80/";
+    requestModel.appendUrl =@"nmt/Info/Sound";
+    //    requestModel.type =CMHttpType_GET;
+    
+    
+    NSString *dataStr =  [self voiceToBase64:_uriPath];
+    [requestModel.paramDic setValue:dataStr forKey:@"audio"];
+    WS(ws);
+    requestModel.callback =^(CMHttpResponseModel * result, NSError *error){
+        if (result.state ==CMReponseCodeState_Success) {
+            
+            DDLog(@"成功了");
+            
+        }else {
+            
+        }
+    };
+    
+    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:requestModel];
+    
+    
+    
+}
 #pragma mark - CLLocationManagerDelegate
 
 /** 定位服务状态改变时调用*/
@@ -896,12 +1026,14 @@ typedef NS_OPTIONS(NSInteger, Status) {
 //        [self.allDataSource addObject:voiceItem];
 //        [self.tableView reloadData];
         
+//        [self confirmRecordVoice];
+//        [self startRecordVoice];
+
         //开始自己的业务：
         
         //1.uri合成但不播放
         [self startUriSyntheticVoice];
-        //2. 上传到我的后台
-        [self reUploadToService];
+        
         
         
     }
@@ -923,6 +1055,8 @@ typedef NS_OPTIONS(NSInteger, Status) {
  */
 - (void)onError: (IFlySpeechError *) error {
     DDLog(@"识别失败%@",error);
+    
+    [self confirmRecordVoice];
 }
 
 #pragma mark - UITableViewDelegate
@@ -988,6 +1122,23 @@ typedef NS_OPTIONS(NSInteger, Status) {
         [_startBtn addTarget:self action:@selector(startSyntheticVoiceClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _startBtn;
+}
+-(NSString *)voiceToBase64:(NSString *)voiceUrl {
+    
+    NSData *audioData = [NSData dataWithContentsOfFile:voiceUrl];
+
+    return [audioData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+}
+
+-(UIButton *)testBtn {
+    if (!_testBtn) {
+        _testBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+        _testBtn.backgroundColor =[UIColor redColor];
+        [_testBtn setTitle:@"播放试试" forState:UIControlStateNormal];
+      
+        [_testBtn addTarget:self action:@selector(playPathClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _testBtn;
 }
 
 -(UIImageView *)backgroundView {

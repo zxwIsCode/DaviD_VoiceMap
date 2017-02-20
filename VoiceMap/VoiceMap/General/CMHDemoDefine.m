@@ -8,7 +8,7 @@
 
 
 // 语音
-NSString *const kReUploadVoiceAndLocation = @"/admin.php/Publish/put_data";//上传我当前说的话和位置
+NSString *const kReUploadVoiceAndLocation = @"/admin.php/Publish/put_data/";//上传我当前说的话和位置
 NSString *const kMainGetVoiceList = @"/index.php/Index/ajax_getData/msg/2"; // 获得所有的会话列表
 
 // 红包

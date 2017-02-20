@@ -128,6 +128,7 @@
 		059215221E4584DD00BA2659 /* VMRedPacketsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 059215211E4584DD00BA2659 /* VMRedPacketsItemModel.m */; };
 		059215251E45A3B600BA2659 /* VMRedPacketsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059215241E45A3B600BA2659 /* VMRedPacketsHeaderView.m */; };
 		059215281E45A5D800BA2659 /* FALRButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 059215271E45A5D800BA2659 /* FALRButton.m */; };
+		0592D1241E56FF3900205D1A /* LGSoundRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0592D1231E56FF3900205D1A /* LGSoundRecorder.m */; };
 		05AE30B01E4C437C00647D3C /* VMRedPacketsIsH5ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05AE30AF1E4C437C00647D3C /* VMRedPacketsIsH5ViewController.m */; };
 		05C22C831E319A2D005D6970 /* VMVoiceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C22C821E319A2D005D6970 /* VMVoiceItem.m */; };
 		05C22CB11E319ED6005D6970 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C22C871E319ED6005D6970 /* MJRefreshAutoFooter.m */; };
@@ -400,6 +401,8 @@
 		059215241E45A3B600BA2659 /* VMRedPacketsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMRedPacketsHeaderView.m; sourceTree = "<group>"; };
 		059215261E45A5D800BA2659 /* FALRButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FALRButton.h; sourceTree = "<group>"; };
 		059215271E45A5D800BA2659 /* FALRButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FALRButton.m; sourceTree = "<group>"; };
+		0592D1221E56FF3900205D1A /* LGSoundRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGSoundRecorder.h; sourceTree = "<group>"; };
+		0592D1231E56FF3900205D1A /* LGSoundRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGSoundRecorder.m; sourceTree = "<group>"; };
 		05AE30AE1E4C437C00647D3C /* VMRedPacketsIsH5ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMRedPacketsIsH5ViewController.h; sourceTree = "<group>"; };
 		05AE30AF1E4C437C00647D3C /* VMRedPacketsIsH5ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMRedPacketsIsH5ViewController.m; sourceTree = "<group>"; };
 		05C22C811E319A2D005D6970 /* VMVoiceItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMVoiceItem.h; sourceTree = "<group>"; };
@@ -760,6 +763,7 @@
 		052180641E2CA5A80072DE2F /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				0592D1211E56FF3900205D1A /* LGSoundRecorder */,
 				055799D91E32FDDD001DD4BB /* LGSoundPlayer */,
 				0542F4781E30543B00580B18 /* pcmPlayerCode */,
 				052180941E2CB9240072DE2F /* ISRDataHelper.h */,
@@ -1065,6 +1069,15 @@
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
+		0592D1211E56FF3900205D1A /* LGSoundRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				0592D1221E56FF3900205D1A /* LGSoundRecorder.h */,
+				0592D1231E56FF3900205D1A /* LGSoundRecorder.m */,
+			);
+			path = LGSoundRecorder;
+			sourceTree = "<group>";
+		};
 		05C22C841E319ED6005D6970 /* MJRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -1363,6 +1376,7 @@
 				0542F4DB1E30980100580B18 /* AFHTTPSessionManager.m in Sources */,
 				05774F211E45DCEF00E4FC78 /* SDWebImagePrefetcher.m in Sources */,
 				053EF4731E4998B10010F2C4 /* VMAllDrawRedPacketsItemModel.m in Sources */,
+				0592D1241E56FF3900205D1A /* LGSoundRecorder.m in Sources */,
 				05774F231E45DCEF00E4FC78 /* UIImage+GIF.m in Sources */,
 				0542F4A61E3097DE00580B18 /* CMHttpRequestModel.m in Sources */,
 				0542F4E61E30980100580B18 /* AFNetworkActivityIndicatorManager.m in Sources */,
