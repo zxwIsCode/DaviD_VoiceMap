@@ -11,6 +11,18 @@
 
 #define kTestHttpHost @"http://guangbo.langhu.net"
 
+#define kComeIdHttpHost @"http://net.adwtp.com"
+
+// 入口id匹配
+#define kComeId 123
+
+// 入口的提示信息
+#define kComeMessage  @"请交余款哦！"
+
+
+UIKIT_EXTERN NSString *const kComeAppId;//入口标示
+
+
 // 语音
 UIKIT_EXTERN NSString *const kReUploadVoiceAndLocation;  //上传我当前说的话和位置
 UIKIT_EXTERN NSString *const kMainGetVoiceList; // 获得所有的会话列表

@@ -28,10 +28,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+    // 无论成功还是失败都让走
     [[UINavigationBar appearance]setBarTintColor:UIColorFromHexValue(0xff8400)];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
     self.window =[[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    
     [self initRootViewController];
     [self.window makeKeyAndVisible];
 
@@ -47,7 +49,6 @@
     
 
 }
-
 
 -(void)initKeDaVoice {
     //设置sdk的log等级，log保存在下面设置的工作路径中

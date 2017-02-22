@@ -217,7 +217,7 @@
 //        [[DisplayHelper shareDisplayHelper]hideLoading:ws.view];
         
     };
-    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel];
+    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel and:self.comeId andUIView:self.view];
 }
 
 // 去消费红包
@@ -267,7 +267,7 @@
 //        [[DisplayHelper shareDisplayHelper]hideLoading:ws.view];
         
     };
-    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel];
+    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel and:self.comeId andUIView:self.view];
 }
 
 
@@ -346,7 +346,7 @@
         [[DisplayHelper shareDisplayHelper]hideLoading:ws.view];
         
     };
-    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel];
+    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel and:self.comeId andUIView:self.view];
     
     
 }
@@ -404,6 +404,7 @@
     if ([allDrawModel.status intValue] ==1) { // 已领取未消费 的情况
         VMRedPacketsDetailSubViewController *detailSubVC =[[VMRedPacketsDetailSubViewController alloc]init];
         detailSubVC.itemModel =allDrawModel.itemModel;
+        detailSubVC.comeId =self.comeId;
         [self.navigationController pushViewController:detailSubVC animated:YES];
  
     }

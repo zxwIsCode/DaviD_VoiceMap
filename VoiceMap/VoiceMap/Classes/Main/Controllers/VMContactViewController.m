@@ -59,6 +59,7 @@
 {
     self.segmentView.currentIndex = idx;
     self.voiceVC.pageCount =idx;
+    self.redPacketsVC.comeId =self.voiceVC.comeId;
     
 }
 

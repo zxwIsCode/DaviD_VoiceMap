@@ -20,6 +20,10 @@ typedef NS_ENUM(NSInteger, CMNavType) {
     NSNotificationCenter *defaultCenter;
 }
 
+// 进入的权限
+@property (nonatomic,assign)NSInteger comeId;
+
+
 //@property(nonatomic,assign)CMNavType navType;
 
 -(CMNavType)getNavType;

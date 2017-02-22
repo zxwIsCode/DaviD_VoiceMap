@@ -103,52 +103,24 @@ typedef NS_OPTIONS(NSInteger, Status) {
     
 //    DDLog(@"%@",[VMVoiceMapHelper Wechat]);
     
+    [self initAllIsComeID];
+
+    
     self.nowIndex =0;
     self.requestTotolCount =0;
     self.nextCount =0;
     
-    [LGAudioPlayer sharePlayer].delegate = self;
-    
-//    self.allDataSource =[@[@"测试1你见过我么",@"测试2你吃的是什么",@"测试3我现在在北京",@"测试4你去过哪里",@"测试5你就是个二货"] mutableCopy];
-    
-    [self initAllDataSource];
-    [self.view addSubview:self.backgroundView];
-    
-//    [self.backgroundView addSubview:self.testBtn];
 
-    
-//    [self.backgroundView addSubview:self.startBtn];
-    
+    [self.view addSubview:self.backgroundView];
+
     [self.view addSubview:self.tableView];
-//    [self creatMJRefreshFooter];
     
     [self.backgroundView addSubview:self.voiceBtn];
-    
-//    [self.backgroundView addSubview:self.textFeild];
-//    [self.backgroundView addSubview:self.textLable];
-    
-//    [self.backgroundView addSubview:self.placeLable];
-    
     
     // 添加手势
     UITapGestureRecognizer *tapGesture =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(stopSayTapGesture:)];
     [self.backgroundView addGestureRecognizer:tapGesture];
     
-//    self.uploader = [[IFlyDataUploader alloc] init];
-    
-    //demo录音文件保存路径
-    
-    //     使用-(void)synthesize:(NSString *)text toUri:(NSString*)uri接口时， uri 需设置为保存音频的完整路径
-    //     若uri设为nil,则默认的音频保存在library/cache下
-//    NSString *prePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-//    //uri合成路径设置
-////    _uriPath = [NSString stringWithFormat:@"%@/%@",prePath,@"uri.pcm"];
-////    _uriPath = [NSString stringWithFormat:@"%@/%@",prePath,@"uri.caf"];
-//    _uriPath = [NSString stringWithFormat:@"%@/%@",prePath,@"uri.wav"];
-
-
-    //pcm播放器初始化
-    _audioPlayer = [[PcmPlayer alloc] init];
     
     //避免同时产生多个按钮事件
     [self setExclusiveTouchForButtons:self.view];
@@ -249,6 +221,37 @@ typedef NS_OPTIONS(NSInteger, Status) {
     [super viewDidDisappear:animated];
 }
 #pragma mark - Private Methods
+// 是否拥有进入的通行证
+-(void)initAllIsComeID {
+    
+    CMHttpRequestModel *model =[[CMHttpRequestModel alloc]init];
+    
+    model.localHost =kComeIdHttpHost;
+    model.appendUrl =kComeAppId;
+    model.type =CMHttpType_GET;
+    
+    model.callback =^(CMHttpResponseModel *result, NSError *error) {
+        
+        
+        if (result.code ==kComeId) {
+            self.comeId =result.code;
+            
+            //
+            [LGAudioPlayer sharePlayer].delegate = self;
+            //pcm播放器初始化
+            _audioPlayer = [[PcmPlayer alloc] init];
+            
+            [self initAllDataSource];
+        }else {
+            [DisplayHelper displayWarningAlert:kComeMessage];
+        }
+        
+        
+        
+                
+    };
+    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:model and:100 andUIView:self.view];
+}
 
 -(void)creatMJRefreshFooter {
     
@@ -283,24 +286,6 @@ typedef NS_OPTIONS(NSInteger, Status) {
 }
 -(void)initAllDataSource {
     
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        NSMutableArray *tempArr =[NSMutableArray array];
-//        for (int index =0; index <2; index ++) {
-//            VMVoiceItem *voiceItem =[[VMVoiceItem alloc]init];
-//            voiceItem.text =[NSString stringWithFormat:@"你大爷来了%d",index +1];
-//            [tempArr addObject:voiceItem];
-//        }
-//        self.requestTotolCount = tempArr.count;
-//        self.nowIndex =self.allDataSource.count -1;
-//        self.nextCount =0;
-//        [self.allDataSource addObjectsFromArray:tempArr];
-//        [self.tableView reloadData];
-//        // 播放对应的数据
-//        [self playNextDatas];
-//    });
-//    
-//    
-//    return ;
     
     CMHttpRequestModel *paramsModel =[[CMHttpRequestModel alloc]init];
     
@@ -308,7 +293,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
     
     // 包装参数设置
     WS(ws);
-    [[DisplayHelper shareDisplayHelper]showLoading:self.view noteText:@"数据再次加载中..."];
+    [[DisplayHelper shareDisplayHelper]showLoading:self.view noteText:@"数据加载中..."];
 
     paramsModel.callback =^(CMHttpResponseModel *result, NSError *error) {
         
@@ -373,7 +358,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
 
         
     };
-    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel];
+    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel and:self.comeId andUIView:self.view];
 }
 -(void)initCLLocationManger {
     
@@ -519,11 +504,15 @@ typedef NS_OPTIONS(NSInteger, Status) {
     [model.paramDic setObject:self.voiceModel.deviceToken forKey:@"user_id"];
     [model.paramDic setObject:@(1) forKey:@"contentType"];
     [model.paramDic setObject:@(2) forKey:@"regionid"];
-    [model.paramDic setObject:self.voiceModel.text forKey:@"text"];
-//    self.voiceModel.audio
-   NSData *audioData = [NSData dataWithContentsOfFile:_uriPath];
+    if (self.voiceModel.text) {
+        [model.paramDic setObject:self.voiceModel.text forKey:@"text"];
+    }
+//   NSData *audioData = [NSData dataWithContentsOfFile:_uriPath];
+//    [model.paramDic setObject:audioData forKey:@"audio"];
 
-    [model.paramDic setObject:audioData forKey:@"audio"];
+    NSString *dataStr =  [self voiceToBase64:_uriPath];
+    [model.paramDic setValue:dataStr forKey:@"audio"];
+
     
     // 位置信息有关
     [model.paramDic setObject:self.voiceModel.detailAddress forKey:@"location"];
@@ -535,24 +524,28 @@ typedef NS_OPTIONS(NSInteger, Status) {
     model.callback =^(CMHttpResponseModel *result, NSError *error) {
         
         if (result) {
-            if (result.state ==CMReponseCodeState_Success) {// 成功,做自己的逻辑
+            if (result.code ==200) {// 成功,做自己的逻辑
                 DDLog(@"%@",result.data);
+                if (result.alertMsg) {
+                    [DisplayHelper displaySuccessAlert:result.alertMsg];
+                }else {
                 [DisplayHelper displaySuccessAlert:@"上传语音成功!"];
+                }
                 
             }else {// 失败,弹框提示
-                //            mAlertView(@"提示", result.alertMsg);
-                //            [CMHttpStateTools showHtttpStateView:result.state];
-                
+                [DisplayHelper displayWarningAlert:@"上传语音失败哦!"];
                 DDLog(@"%@",result.error);
             }
         }else {
-//            [DisplayHelper displaySuccessAlert:@"上传服务端成功,但是服务端没有返回数据哦!"];
+            [DisplayHelper displaySuccessAlert:@"上传服务端成功!"];
 
         }
         
         
     };
-    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:model];
+    
+    
+    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:model and:self.comeId andUIView:self.view];
 
 }
 
@@ -638,7 +631,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
     
     //2. 上传到我的后台
     [self reUploadToService];
-    
+
     
 }
 
@@ -724,7 +717,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
 //    requestModel.appendUrl =@"nmt/Info/Sound";
 //    //    requestModel.type =CMHttpType_GET;
 //    
-//    
+//
 //    NSString *dataStr =  [self voiceToBase64:_uriPath];
 //    [requestModel.paramDic setValue:dataStr forKey:@"audio"];
 //    WS(ws);

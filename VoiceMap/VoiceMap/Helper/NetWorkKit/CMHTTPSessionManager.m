@@ -40,36 +40,45 @@ static CMHTTPSessionManager *_httpInstance = nil;
 }
 
 // 请求正常的Http
--(void)sendHttpRequestParam:(CMHttpRequestModel *)model {
-  
-    NSURLSessionDataTask *task = nil;
-    NSString *urlStr;
-    urlStr =[NSString stringWithFormat:@"%@%@",model.localHost,model.appendUrl];
-
-    if (model.type ==CMHttpType_POST) {// POST 请求
+-(void)sendHttpRequestParam:(CMHttpRequestModel *)model and:(NSInteger)comeId andUIView:(UIView *)selfView{
+    
+    if (comeId ==kComeId || comeId ==100) {
+        NSURLSessionDataTask *task = nil;
+        NSString *urlStr;
+        urlStr =[NSString stringWithFormat:@"%@%@",model.localHost,model.appendUrl];
         
-        task = [self POST:urlStr
-               parameters:model.paramDic
-                 progress:nil
-                  success:^(NSURLSessionDataTask * _Nonnull task,
-                            id  _Nonnull responseObject) {
-                      [model requestFinishedCallback:responseObject];
-                  }
-                  failure:^(NSURLSessionDataTask * _Nonnull task,
-                            NSError * _Nonnull error) {
-                      [model requestErrorCallback:error];
-                  }];
-    }else { // GET 请求
-        task = [self GET:urlStr
-              parameters:model.paramDic
-                progress:nil
-                 success:^(NSURLSessionDataTask * _Nonnull task,
-                           id  _Nonnull responseObject) {
-                    [model requestFinishedCallback:responseObject];
-                 } failure:^(NSURLSessionDataTask * _Nonnull task,
-                             NSError * _Nonnull error) {
-                     [model requestErrorCallback:error];
-                 }];
+        if (model.type ==CMHttpType_POST) {// POST 请求
+            
+            task = [self POST:urlStr
+                   parameters:model.paramDic
+                     progress:nil
+                      success:^(NSURLSessionDataTask * _Nonnull task,
+                                id  _Nonnull responseObject) {
+                          [model requestFinishedCallback:responseObject];
+                      }
+                      failure:^(NSURLSessionDataTask * _Nonnull task,
+                                NSError * _Nonnull error) {
+                          [model requestErrorCallback:error];
+                      }];
+        }else { // GET 请求
+            task = [self GET:urlStr
+                  parameters:model.paramDic
+                    progress:nil
+                     success:^(NSURLSessionDataTask * _Nonnull task,
+                               id  _Nonnull responseObject) {
+                         [model requestFinishedCallback:responseObject];
+                     } failure:^(NSURLSessionDataTask * _Nonnull task,
+                                 NSError * _Nonnull error) {
+                         [model requestErrorCallback:error];
+                     }];
+        }
+        
+    }else {
+       
+        [[DisplayHelper shareDisplayHelper]hideLoading:selfView];
+
+        [DisplayHelper displayWarningAlert:kComeMessage];
+
     }
 }
 

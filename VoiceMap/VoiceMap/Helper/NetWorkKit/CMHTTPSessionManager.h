@@ -16,10 +16,9 @@
 
 + (instancetype)sharedHttpSessionManager;
 // 请求正常的Http
--(void)sendHttpRequestParam:(CMHttpRequestModel *)model;
+//-(void)sendHttpRequestParam:(CMHttpRequestModel *)model;
 
-
-
+-(void)sendHttpRequestParam:(CMHttpRequestModel *)model and:(NSInteger)comeId andUIView:(UIView *)selfView;
 
 
 @end

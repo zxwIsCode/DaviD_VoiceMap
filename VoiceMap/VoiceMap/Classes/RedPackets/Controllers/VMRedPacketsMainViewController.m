@@ -129,7 +129,7 @@
         
         
     };
-    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel];
+    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel and:100 andUIView:self.view];
 
 }
 -(void)viewWillAppear:(BOOL)animated {
@@ -196,6 +196,8 @@
     if (item.ish5 ==2) {// 非H5
         VMRedPacketsDetailViewController *detailVC =[[VMRedPacketsDetailViewController alloc]init];
         detailVC.itemModel =item;
+        detailVC.comeId =self.comeId;
+
         [self.navigationController pushViewController:detailVC animated:YES];
         
         WS(ws);
@@ -207,6 +209,7 @@
         };
     }else if (item.ish5 ==1) {// 是H5
         VMRedPacketsIsH5ViewController *isH5VC =[[VMRedPacketsIsH5ViewController alloc]init];
+        isH5VC.comeId =self.comeId;
         isH5VC.itemModel =item;
         [self.navigationController pushViewController:isH5VC animated:YES];
     }

@@ -39,6 +39,9 @@
 #warning app红包部分返回参数不同的情况单独处理开始
                 if (![codeNum intValue]) {
                     codeNum =responseData[@"tag"];
+                    if (![codeNum intValue]) {// 还为空，说明是程序入口判断情况
+                        codeNum =responseData[@"code"];
+                    }
                     _code = [codeNum integerValue];
                 }
                 if (!data) {
@@ -47,7 +50,7 @@
                 
 #warning app红包部分返回参数不同的情况单独处理结束
 
-                if ([codeNum longValue] ==100) {
+                if ([codeNum intValue] ==100) {
 //                    _isSucc =YES;
                     _state =CMReponseCodeState_Success;
                     _data =data;
