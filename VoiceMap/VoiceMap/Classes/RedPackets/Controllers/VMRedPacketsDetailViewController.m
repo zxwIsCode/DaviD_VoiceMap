@@ -346,7 +346,7 @@
         [[DisplayHelper shareDisplayHelper]hideLoading:ws.view];
         
     };
-    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel and:self.comeId andUIView:self.view];
+    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel and:100 andUIView:self.view];
     
     
 }
