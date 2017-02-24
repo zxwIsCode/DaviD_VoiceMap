@@ -56,7 +56,7 @@
     
     //打开输出在console的log开关
     [IFlySetting showLogcat:YES];
-#warning 上线就把log开关关了
+//#warning 上线就把log开关关了
 //    [IFlySetting showLogcat:NO];
 
     
@@ -74,7 +74,7 @@
 #pragma mark - Private Methods
 - (void)initRootViewController
 {
-#warning 更改rootVC
+//#warning 更改rootVC
 //    self.window.rootViewController =[[CMMainTabBarViewController alloc]init];
     
     VMContactViewController *rootVC =[[VMContactViewController alloc]init];

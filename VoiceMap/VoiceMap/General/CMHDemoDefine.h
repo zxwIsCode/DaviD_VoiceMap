@@ -19,6 +19,9 @@
 // 入口的提示信息
 #define kComeMessage  @"请交余款哦！"
 
+// 全局定义不同的应用
+#define kRegionid  2
+
 
 UIKIT_EXTERN NSString *const kComeAppId;//入口标示
 

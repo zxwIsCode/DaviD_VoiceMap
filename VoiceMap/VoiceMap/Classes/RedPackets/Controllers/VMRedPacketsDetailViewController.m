@@ -174,7 +174,7 @@
 
     [paramsModel.paramDic setObject:uuidStr forKey:@"userid"];
     [paramsModel .paramDic setObject:@(self.itemModel.mId) forKey:@"id"];
-    [paramsModel .paramDic setObject:@(2) forKey:@"regionid"];
+    [paramsModel .paramDic setObject:@(kRegionid) forKey:@"regionid"];
     
     // 包装参数设置
     WS(ws);
@@ -228,7 +228,7 @@
     
     [paramsModel.paramDic setObject:uuidStr forKey:@"userid"];
     [paramsModel .paramDic setObject:@(self.itemModel.mId) forKey:@"advid"];
-    [paramsModel .paramDic setObject:@(2) forKey:@"regionid"];
+    [paramsModel .paramDic setObject:@(kRegionid) forKey:@"regionid"];
     
     // 包装参数设置
     WS(ws);

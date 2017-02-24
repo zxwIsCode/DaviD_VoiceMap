@@ -36,7 +36,6 @@
         
         
         // 设置frame
-        CGFloat superViewX =10 *kAppScale;
 
         self.textViewLable =[[UILabel alloc]init];
         self.textViewLable.numberOfLines =0;

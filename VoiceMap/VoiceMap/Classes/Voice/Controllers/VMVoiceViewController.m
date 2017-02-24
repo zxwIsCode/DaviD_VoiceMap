@@ -482,9 +482,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
     }
     
     _iFlySpeechSynthesizer.delegate = self;
-    
-    NSString* str= self.textFeild.text;
-    
+        
     
 //    [_iFlySpeechSynthesizer synthesize:str toUri:_uriPath];
     if (_iFlySpeechSynthesizer.isSpeaking) {
@@ -503,7 +501,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
     DDLog(@"uuid =%@",self.voiceModel.deviceToken);
     [model.paramDic setObject:self.voiceModel.deviceToken forKey:@"user_id"];
     [model.paramDic setObject:@(1) forKey:@"contentType"];
-    [model.paramDic setObject:@(2) forKey:@"regionid"];
+    [model.paramDic setObject:@(kRegionid) forKey:@"regionid"];
     if (self.voiceModel.text) {
         [model.paramDic setObject:self.voiceModel.text forKey:@"text"];
     }
@@ -658,7 +656,48 @@ typedef NS_OPTIONS(NSInteger, Status) {
 #pragma mark - Action Methods
 // 开始获得语音
 -(void)startSayMeClick:(UIButton *)button {
+    
     button.selected =!button.selected;
+
+    // 是否授权语音
+    
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+    switch (authStatus) {
+        case AVAuthorizationStatusNotDetermined: {
+            DDLog(@"用户还未决定授权");
+            [self initKeDaMicoPhoneSuccess];
+            
+            break;
+        }
+        case AVAuthorizationStatusRestricted: {
+            DDLog(@"访问受限");
+            break;
+        }
+        case AVAuthorizationStatusDenied: {
+            
+            NSString *appName = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleDisplayName"];
+            if (!appName) appName = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleName"];
+            NSString *message = [NSString stringWithFormat:@"请在%@的\"设置-隐私-麦克风\"选项中，\r允许%@访问你的麦克风。",[UIDevice currentDevice].model,appName];
+            [DisplayHelper displayWarningAlert:message];
+            
+            break;
+        }
+        case AVAuthorizationStatusAuthorized: {
+            DDLog(@"获得麦克风授权");
+            
+            [self initKeDaMicoPhoneSuccess];
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+    
+}
+
+-(void)initKeDaMicoPhoneSuccess {
     
     if (!_iflyRecognizerView) {
         [self initRecognizer];
@@ -671,13 +710,10 @@ typedef NS_OPTIONS(NSInteger, Status) {
     
     //保存录音文件，保存在sdk工作路径中，如未设置工作路径，则默认保存在library/cache下
     [_iflyRecognizerView setParameter:@"asr.pcm" forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
-//    [_iflyRecognizerView setParameter:_uriPath forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
+    //    [_iflyRecognizerView setParameter:_uriPath forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
     [self startRecordVoice];
-
-     [_iflyRecognizerView start];
     
-    
-
+    [_iflyRecognizerView start];
 }
 // Uri 语音合成
 -(void)startSyntheticVoiceClick:(UIButton *)button {
@@ -692,9 +728,7 @@ typedef NS_OPTIONS(NSInteger, Status) {
     }
     
     _iFlySpeechSynthesizer.delegate = self;
-    
-    NSString* str= self.textFeild.text;
-    
+        
     
 //    [_iFlySpeechSynthesizer synthesize:str toUri:_uriPath];
     if (_iFlySpeechSynthesizer.isSpeaking) {
@@ -736,11 +770,11 @@ typedef NS_OPTIONS(NSInteger, Status) {
     
     
 }
+
 #pragma mark - CLLocationManagerDelegate
 
 /** 定位服务状态改变时调用*/
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status{
-    
     switch (status) {
         case kCLAuthorizationStatusNotDetermined: {
             DDLog(@"用户还未决定授权");
@@ -756,12 +790,18 @@ typedef NS_OPTIONS(NSInteger, Status) {
         }
         case kCLAuthorizationStatusDenied: {
             
+            NSString *appName = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleDisplayName"];
+            if (!appName) appName = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleName"];
+            NSString *message = [NSString stringWithFormat:@"请在%@的\"设置-隐私-定位服务\"选项中，\r允许%@访问你的位置。",[UIDevice currentDevice].model,appName];
+            [DisplayHelper displayWarningAlert:message];
+            
             if ([CLLocationManager locationServicesEnabled]) {
                 DDLog(@"定位服务开启,被拒绝");
             }
             else{
                 DDLog(@"定位服务关闭,不可用");
             }
+            
             break;
         }
         case kCLAuthorizationStatusAuthorizedAlways: {
