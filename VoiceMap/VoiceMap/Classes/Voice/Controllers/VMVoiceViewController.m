@@ -780,7 +780,8 @@ typedef NS_OPTIONS(NSInteger, Status) {
             DDLog(@"用户还未决定授权");
             if ([manager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
                 
-                [manager requestAlwaysAuthorization];
+//                [manager requestAlwaysAuthorization];
+                [manager  requestWhenInUseAuthorization];
             }
             break;
         }
